@@ -25,8 +25,10 @@ public class AluguelModel {
     @JoinColumn(name = "moto_id", nullable = false)
     private MotosModel moto;
 
+    @Column(name = "inicio", nullable = false)
     private LocalDateTime inicio;
-
+    
+    @Column(name = "fim", nullable = false)
     private LocalDateTime fim;
 
     @Enumerated(EnumType.STRING)
