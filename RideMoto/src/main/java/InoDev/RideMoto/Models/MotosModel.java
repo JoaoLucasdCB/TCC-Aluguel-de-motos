@@ -2,8 +2,6 @@ package InoDev.RideMoto.Models;
 
 import java.time.LocalDate;
 
-
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -14,24 +12,34 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter@Setter
-@Table(name = "motos", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "placa")
-})
+@Getter
+@Setter
+@NoArgsConstructor
+
+@Table(name = "motos")
+
 public class MotosModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    
     @Column(nullable = false, unique = true)
-    private String placa;
+    private String marca;
 
     @Column(nullable = false)
     private String modelo;
+
+    @Column(nullable = false)
+    private String cilindrada;
+
+    @Column(nullable = false, unique = true)
+    private String placa;
 
     @Column(nullable = false)
     private Integer ano;
@@ -45,7 +53,6 @@ public class MotosModel {
 
     @Column(name = "criado_em", nullable = false)
     private LocalDate criadoEm;
-
 
      public enum StatusMoto {
         DISPONIVEL, RESERVADA, INDISPONIVEL

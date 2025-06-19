@@ -1,10 +1,17 @@
 package InoDev.RideMoto.Models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 import java.time.LocalDate;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 @Table(name = "usuarios")
 
 public class UsuarioModel {
@@ -38,77 +45,4 @@ public class UsuarioModel {
     public enum StatusUsuario {
         ATIVO, SUSPENSO, PENDENTE
     }
-
-
-public Long getId() {
-    return id;
-}
-
-public void setId(Long id) {
-    this.id = id;
-}
-
-public String getNome() {
-    return nome;
-}
-
-public void setNome(String nome) {
-    this.nome = nome;
-}
-
-public String getEmail() {
-    return email;
-}
-
-public void setEmail(String email) {
-    this.email = email;
-}
-
-public String getSenhaHash() {
-    return senhaHash;
-}
-
-public void setSenhaHash(String senhaHash) {
-    this.senhaHash = senhaHash;
-}
-
-public String getTelefone() {
-    return telefone;
-}
-
-public void setTelefone(String telefone) {
-    this.telefone = telefone;
-}
-
-public String getCnhNumero() {
-    return cnhNumero;
-}
-
-public void setCnhNumero(String cnhNumero) {
-    this.cnhNumero = cnhNumero;
-}
-
-public LocalDate getCnhValidade() {
-    return cnhValidade;
-}
-
-public void setCnhValidade(LocalDate cnhValidade) {
-    this.cnhValidade = cnhValidade;
-}
-
-public StatusUsuario getStatus() {
-    return status;
-}
-
-public void setStatus(StatusUsuario status) {
-    this.status = status;
-}
-
-public LocalDateTime getCriadoEm() {
-    return criadoEm;
-}
-
-public void setCriadoEm(LocalDateTime criadoEm) {
-    this.criadoEm = criadoEm;
-}
 }
