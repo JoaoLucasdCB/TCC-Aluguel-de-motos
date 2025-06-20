@@ -1,6 +1,10 @@
 package InoDev.RideMoto.Models;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,6 +13,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.Getter;
@@ -28,33 +34,45 @@ public class MotosModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    
-    @Column(nullable = false, unique = true)
+    @Column(name = "nome", nullable = false)
+    private String nome;
+
+    @Column(name = "marca", nullable = false)
     private String marca;
 
-    @Column(nullable = false)
+    @Column(name = "modelo", nullable = false)
     private String modelo;
 
-    @Column(nullable = false)
+    @Column(name = "cilindrada", nullable = false)
     private String cilindrada;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "placa", nullable = false, unique = true)
     private String placa;
-
-    @Column(nullable = false)
-    private Integer ano;
-
-    @Column(nullable = false)
-    private Integer quilometragem;
-
+    
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "status", nullable = false)
     private StatusMoto status;
 
-    @Column(name = "criado_em", nullable = false)
-    private LocalDate criadoEm;
+    @Column(name = "data_fabricacao", nullable = false)
+    private Integer ano;
+    
+    @Column(name = "quilometragem", nullable = true)
+    private Integer quilometragem;
 
-     public enum StatusMoto {
-        DISPONIVEL, RESERVADA, INDISPONIVEL
+    @Column(name = "imagem", nullable = true)
+    private String imagem;
+
+    @ManyToMany(mappedBy = "motos")
+    @JsonBackReference
+    private Set<PlanosModel> planos;
+
+    @OneToMany(mappedBy = "moto")
+    private List<ReservasModel> reservas;
+
+    @OneToMany(mappedBy = "moto")
+    private List<AluguelModel> alugueis;
+
+    public enum StatusMoto {
+        DISPONIVEL, RESERVADA, ALUGADA, MANUTENCAO
     }
 }

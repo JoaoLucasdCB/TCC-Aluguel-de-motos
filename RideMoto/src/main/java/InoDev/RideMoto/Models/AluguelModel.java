@@ -14,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,12 +25,23 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Table(name = "aluguel")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
-
 public class AluguelModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @OneToOne
+    @JoinColumn(name = "reserva_id", referencedColumnName = "id", nullable = false, unique = true)
+    private ReservasModel reserva;
+
+    @Column(name = "data_inicio", nullable = false)
+    private LocalDateTime inicio;
+
+    @Column(name = "data_fim", nullable = false)
+    private LocalDateTime fim;
+
+    @Column(name = "valor_total")
+    private BigDecimal valorTotal;
 
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
@@ -39,26 +51,10 @@ public class AluguelModel {
     @JoinColumn(name = "moto_id", nullable = false)
     private MotosModel moto;
 
-    @Column(name = "data_inicio", nullable = false)
-    private LocalDateTime inicio;
-    
-    @Column(name = "data_fim", nullable = false)
-    private LocalDateTime fim;
-
     @Enumerated(EnumType.STRING)
     private StatusAluguel status;
-
-    @Column(name = "valor_total")
-    private BigDecimal valorTotal;
 
     public enum StatusAluguel {
         EM_ANDAMENTO, ATIVO, ENCERRADO, ATRASADO
     }
 }
-
-
-//id_reserva: referência à reserva correspondente
-
-
-
-

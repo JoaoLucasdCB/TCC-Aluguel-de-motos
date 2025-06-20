@@ -54,7 +54,6 @@ public class MotosController {
         moto.setAno(motoAtualizada.getAno());
         moto.setQuilometragem(motoAtualizada.getQuilometragem());
         moto.setStatus(motoAtualizada.getStatus());
-        moto.setCriadoEm(motoAtualizada.getCriadoEm());
 
         MotosModel atualizada = motosService.salvar(moto);
         return ResponseEntity.ok(atualizada);
