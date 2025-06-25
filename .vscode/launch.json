@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "RideMotoApplication",
+            "request": "launch",
+            "mainClass": "InoDev.RideMoto.RideMotoApplication",
+            "projectName": ""
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-RideMotoApplication<RideMoto>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "InoDev.RideMoto.RideMotoApplication",
+            "projectName": "RideMoto",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
