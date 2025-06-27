@@ -7,20 +7,16 @@
     <link rel="stylesheet" href="../css/cadastro.css">
 </head>
 <body>
-    <header>
-        <div class="logo">
-            <span class="icon">i&gt;</span>
-        </div>
-        <nav>
-            <a href="#">Aluguel</a>
-            <a href="#">Sobre Nós</a>
-            <a href="#">Motos</a>
-            <a href="#">Suporte</a>
-        </nav>
-        <div class="login-btn">
-            <button onclick="window.location.href='login.html'">Faça login / Cadastre-se</button>
-        </div>
-    </header>
+    <nav class="navbar">
+        <div class="logo">i&gt;</div>
+        <ul class="nav-links">
+            <li><a href="aluguel.html">Aluguel</a></li>
+            <li><a href="sobre.html">Sobre Nós</a></li>
+            <li><a href="motos.html">Motos</a></li>
+            <li><a href="suporte.html">Suporte</a></li>
+        </ul>
+        <button class="login-btn" onclick="window.location.href='login.html'">Faça login</button>
+    </nav>
     <main>
         <section class="left">
             <div class="logo-moto">
@@ -42,7 +38,8 @@
                 <input type="email" id="email" name="email" required>
                 <label for="senha">Senha</label>
                 <input type="password" id="senha" name="senha" required>
-                <button type="submit" class="cadastro-action">Já é cliente? Faça Login</button>
+                <button type="submit" class="cadastro-action">Cadastrar</button>
+                <a href="login.html" style="margin-top:12px; text-align:center; color:#7b2ff2; text-decoration:underline; display:block; font-size:0.98rem;">Já tem cadastro? Clique aqui para fazer login</a>
             </form>
         </section>
     </main>

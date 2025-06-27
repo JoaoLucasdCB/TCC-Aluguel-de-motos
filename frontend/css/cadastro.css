@@ -1,56 +1,68 @@
-/* Copiado de login.css para manter o padrão visual */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Montserrat', sans-serif;
-    background: linear-gradient(120deg, #7b2ff2 0%, #f357a8 100%);
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(180deg, #2d085c 0%, #a12b8c 100%);
     min-height: 100vh;
 }
 
-header {
+.navbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 40px;
-    background: rgba(40, 0, 60, 0.4);
+    background: linear-gradient(90deg, #2d085c 0%, #a12b8c 100%);
+    padding: 16px 32px;
+    border-bottom: 3px solid #00cfff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
-.logo .icon {
-    color: #fff;
+.logo {
+    color: #b266ff;
     font-size: 2rem;
     font-weight: bold;
 }
-nav a {
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 32px;
+    margin: 0;
+    padding: 0;
+}
+.nav-links li a {
     color: #fff;
     text-decoration: none;
-    margin: 0 18px;
-    font-weight: 600;
     font-size: 1.1rem;
     transition: color 0.2s;
 }
-nav a:hover {
-    color: #ff4b8b;
+.nav-links li a:hover {
+    color: #00cfff;
 }
-.login-btn button {
+.login-btn {
     background: #fff;
-    color: #6a11cb;
+    color: #7b2ff2;
     border: none;
     border-radius: 20px;
-    padding: 8px 22px;
+    padding: 8px 18px;
     font-weight: 600;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
     transition: background 0.2s, color 0.2s;
+    box-shadow: 0 2px 8px rgba(123,47,242,0.08);
 }
-.login-btn button:hover {
-    background: #ff4b8b;
+.login-btn:hover {
+    background: #f357a8;
     color: #fff;
 }
 main {
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     height: calc(100vh - 80px);
+    padding: 0 40px;
 }
 .left {
     flex: 1;
@@ -59,90 +71,120 @@ main {
     align-items: center;
     justify-content: center;
     color: #fff;
+    min-width: 350px;
 }
 .logo-moto img {
-    width: 90px;
+    width: 110px;
     margin-bottom: 10px;
 }
-.ride {
-    color: #6a11cb;
+h1 {
+    font-size: 2.8rem;
+    margin: 0;
     font-weight: 700;
 }
+.ride {
+    color: #7b2ff2;
+}
 .moto {
-    color: #ff4b8b;
-    font-weight: 700;
+    color: #f357a8;
+}
+h2 {
+    font-size: 1.3rem;
+    font-weight: 400;
+    margin: 10px 0 0 0;
+    color: #fff;
+}
+.left p {
+    margin-top: 8px;
+    color: #e0cfff;
+    font-size: 1rem;
 }
 .divider {
     width: 2px;
     height: 350px;
-    background: rgba(255,255,255,0.15);
-    margin: 0 40px;
+    background: linear-gradient(180deg, #7b2ff2 0%, #f357a8 100%);
+    margin: 0 60px;
+    border-radius: 2px;
 }
 .right {
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
+    min-width: 350px;
 }
+
+/* Formulário de cadastro (padronizado ao login) */
 #cadastroForm {
     background: rgba(255,255,255,0.05);
-    border: 2px solid #a259ff;
+    border: 2px solid #a97ffb;
     border-radius: 18px;
-    padding: 36px 32px 28px 32px;
+    padding: 0px 20px 0px 20px;
     display: flex;
     flex-direction: column;
     min-width: 320px;
-    color: #fff;
-    box-shadow: 0 4px 32px 0 rgba(0,0,0,0.08);
+    max-width: 350px;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0 4px 32px 0 rgba(123,47,242,0.08);
 }
 #cadastroForm h3 {
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 500;
     margin-bottom: 18px;
-    font-weight: 600;
-    font-size: 1.1rem;
     text-align: center;
 }
 #cadastroForm label {
+    color: #fff;
+    font-size: 1rem;
+    margin-bottom: 4px;
     margin-top: 10px;
-    margin-bottom: 2px;
-    font-size: 0.98rem;
 }
 #cadastroForm input {
-    padding: 8px 10px;
+    padding: 8px 12px;
     border-radius: 8px;
     border: none;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
     font-size: 1rem;
     outline: none;
+    background: #fff;
 }
 .cadastro-action {
-    margin-top: 16px;
-    background: linear-gradient(90deg, #ff4b8b 0%, #6a11cb 100%);
+    margin-top: 18px;
+    background: linear-gradient(90deg, #7b2ff2 0%, #f357a8 100%);
     color: #fff;
     border: none;
     border-radius: 20px;
     padding: 10px 0;
-    font-weight: 700;
     font-size: 1rem;
+    font-weight: 600;
     cursor: pointer;
     transition: background 0.2s;
 }
 .cadastro-action:hover {
-    background: #6a11cb;
+    background: linear-gradient(90deg, #f357a8 0%, #7b2ff2 100%);
 }
+
+/* Responsividade */
 @media (max-width: 900px) {
     main {
         flex-direction: column;
-        height: auto;
+        padding: 0 10px;
     }
     .divider {
         display: none;
     }
     .left, .right {
+        min-width: unset;
         width: 100%;
-        margin: 0;
     }
     .right {
         margin-top: 30px;
-        margin-bottom: 30px;
+    }
+    #cadastroForm {
+        width: 100%;
+        min-width: unset;
+        max-width: unset;
     }
 }

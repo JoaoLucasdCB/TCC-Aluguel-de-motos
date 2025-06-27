@@ -2,42 +2,41 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Arial, sans-serif;
-    background: linear-gradient(120deg, #7b2ff2 0%, #f357a8 100%);
+    background: linear-gradient(180deg, #2d085c 0%, #a12b8c 100%);
     min-height: 100vh;
 }
 
-header {
+.navbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 40px;
-    background: rgba(50, 0, 80, 0.2);
+    background: linear-gradient(90deg, #2d085c 0%, #a12b8c 100%);
+    padding: 16px 32px;
+    border-bottom: 3px solid #00cfff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 .logo {
-    display: flex;
-    align-items: center;
-}
-.icon {
-    font-size: 2.2rem;
-    color: #fff;
+    color: #b266ff;
+    font-size: 2rem;
     font-weight: bold;
-    letter-spacing: 2px;
 }
-nav {
+.nav-links {
+    list-style: none;
     display: flex;
-    gap: 40px;
+    gap: 32px;
+    margin: 0;
+    padding: 0;
 }
-nav a {
+.nav-links li a {
     color: #fff;
     text-decoration: none;
     font-size: 1.1rem;
-    font-weight: 500;
     transition: color 0.2s;
 }
-nav a:hover {
-    color: #f357a8;
+.nav-links li a:hover {
+    color: #00cfff;
 }
-.login-btn button {
+.login-btn {
     background: #fff;
     color: #7b2ff2;
     border: none;
@@ -50,8 +49,9 @@ nav a:hover {
     gap: 8px;
     font-size: 0.95rem;
     transition: background 0.2s, color 0.2s;
+    box-shadow: 0 2px 8px rgba(123,47,242,0.08);
 }
-.login-btn button:hover {
+.login-btn:hover {
     background: #f357a8;
     color: #fff;
 }
