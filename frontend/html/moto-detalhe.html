@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes da Moto - RideMoto</title>
+    <link rel="stylesheet" href="../css/motos.css">
+    <link rel="stylesheet" href="../css/moto-detalhe.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">i&gt;</div>
+        <ul class="nav-links">
+            <li><a href="aluguel.html">Aluguel</a></li>
+            <li><a href="sobre.html">Sobre Nós</a></li>
+            <li><a href="motos.html" class="active">Motos</a></li>
+            <li><a href="suporte.html">Suporte</a></li>
+        </ul>
+        <button class="login-btn" onclick="window.location.href='login.html'">Faça login</button>
+    </nav>
+    <main>
+        <div class="moto-detail-container">
+            <div class="moto-detail-img">
+                <img id="motoImg" src="../img/moto-default.png" alt="Moto" />
+            </div>
+            <div class="moto-detail-info">
+                <h2 id="motoNome">Nome da Moto</h2>
+                <div class="moto-gallery" id="motoGallery">
+                    <!-- Fotos extras da moto -->
+                </div>
+                <ul class="specs" id="motoSpecs">
+                    <li><strong>Marca:</strong> <span id="motoMarca">Marca</span></li>
+                    <li><strong>Modelo:</strong> <span id="motoModelo">Modelo</span></li>
+                    <li><strong>Ano:</strong> <span id="motoAno">Ano</span></li>
+                    <li><strong>Cilindrada:</strong> <span id="motoCilindrada">Cilindrada</span></li>
+                    <li><strong>Cor:</strong> <span id="motoCor">Cor</span></li>
+                    <li><strong>Combustível:</strong> <span id="motoCombustivel">Combustível</span></li>
+                    <li><strong>Peso:</strong> <span id="motoPeso">-</span></li>
+                    <li><strong>Altura do Assento:</strong> <span id="motoAltura">-</span></li>
+                    <li><strong>Capacidade do Tanque:</strong> <span id="motoTanque">-</span></li>
+                </ul>
+                <div class="price">R$ <span id="motoPreco">0,00</span> / dia</div>
+                <button class="back-btn" onclick="window.location.href='motos.html'">Voltar para lista</button>
+            </div>
+        </div>
+        <!-- CSS removido do final, já está no <style> do <head> -->
+    </main>
+    <script src="../javascript/moto-detalhe.js"></script>
+</body>
+</html>

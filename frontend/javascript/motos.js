@@ -34,7 +34,11 @@ function renderMotos() {
         const card = document.createElement('div');
         card.className = 'moto-card';
         card.tabIndex = 0;
-        card.onclick = () => selectMoto(idx);
+        // Redireciona para a página de detalhes ao clicar
+        card.onclick = () => {
+            // Aqui você pode passar o id real da moto do banco, se disponível
+            window.location.href = `moto-detalhe.html?id=${idx+1}`;
+        };
         card.innerHTML = `
             <div class="moto-img">${moto.imagem ? `<img src="${moto.imagem}" alt="${moto.modelo}">` : 'Imagem'}</div>
             <div class="moto-info">
@@ -49,11 +53,9 @@ function renderMotos() {
 
 let selectedMoto = null;
 function selectMoto(idx) {
+    // Função não é mais usada para seleção visual, pois agora redireciona direto
+    // Mantida para compatibilidade, mas pode ser removida se não for mais usada
     selectedMoto = idx;
-    document.querySelectorAll('.moto-card').forEach((el, i) => {
-        el.classList.toggle('selected', i === idx);
-    });
-    alert(`Selecionada: ${motos[idx].modelo}`);
 }
 
 document.getElementById('anterior').onclick = () => {

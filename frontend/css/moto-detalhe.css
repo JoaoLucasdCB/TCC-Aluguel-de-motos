@@ -1,0 +1,97 @@
+.moto-detail-container {
+    max-width: 900px;
+    margin: 40px auto 0 auto;
+    background: rgba(41,41,41,0.35);
+    border-radius: 18px;
+    box-shadow: 0 4px 24px 0 rgba(0,0,0,0.10);
+    display: flex;
+    flex-direction: row;
+    gap: 0;
+    overflow: hidden;
+}
+.moto-detail-img {
+    flex: 1 1 320px;
+    background: #222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 320px;
+}
+.moto-detail-img img {
+    max-width: 90%;
+    max-height: 260px;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,0.15);
+}
+.moto-detail-info {
+    flex: 2 1 400px;
+    padding: 36px 32px;
+    background: transparent;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.moto-detail-info h2 {
+    font-size: 2.1rem;
+    margin-bottom: 10px;
+}
+.moto-detail-info .specs {
+    margin: 18px 0 0 0;
+    padding: 0;
+    list-style: none;
+}
+.moto-detail-info .specs li {
+    font-size: 1.08rem;
+    margin-bottom: 7px;
+    color: #e0e0e0;
+}
+.moto-detail-info .price {
+    font-size: 1.3rem;
+    color: #ff6600;
+    margin: 18px 0 0 0;
+    font-weight: bold;
+}
+.moto-detail-info .back-btn {
+    margin-top: 28px;
+    background: #ff6600;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 0;
+    font-size: 1.1rem;
+    cursor: pointer;
+    width: 180px;
+    transition: background 0.2s;
+}
+.moto-detail-info .back-btn:hover {
+    background: #e65c00;
+}
+.moto-gallery {
+    display: flex;
+    gap: 12px;
+    margin: 18px 0 18px 0;
+    flex-wrap: wrap;
+}
+.moto-gallery img {
+    width: 90px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 7px;
+    border: 2px solid #333;
+    background: #181818;
+    cursor: pointer;
+    transition: border 0.2s, transform 0.2s;
+}
+.moto-gallery img:hover {
+    border: 2px solid #ff6600;
+    transform: scale(1.07);
+}
+@media (max-width: 900px) {
+    .moto-detail-container {
+        flex-direction: column;
+    }
+    .moto-detail-img {
+        min-height: 180px;
+    }
+}
