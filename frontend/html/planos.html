@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Motos - RideMoto</title>
+    <title>Planos - RideMoto</title>
     <link rel="stylesheet" href="../css/motos.css">
+    <link rel="stylesheet" href="../css/planos.css">
 </head>
 <body>
     <nav class="navbar">
@@ -13,22 +14,17 @@
             <li><a href="aluguel.html">Aluguel</a></li>
             <li><a href="sobre.html">Sobre Nós</a></li>
             <li><a href="motos.html">Motos</a></li>
-            <li><a href="planos.html">Planos</a></li>
+            <li><a href="planos.html" class="active">Planos</a></li>
             <li><a href="suporte.html">Suporte</a></li>
         </ul>
         <button class="login-btn" onclick="window.location.href='login.html'">Faça login</button>
     </nav>
     <main>
-        <div class="moto-list-container">
-            <div class="moto-list" id="motoList">
-                <!-- Motos serão inseridas via JS -->
-            </div>
-        </div>
-        <div class="pagination">
-            <button id="anterior">Anterior</button>
-            <button id="proximo">Próximo</button>
+        <h1 class="planos-title">Escolha um Plano para Alugar sua Moto</h1>
+        <div class="planos-list" id="planosList">
+            <!-- Planos inseridos via JS -->
         </div>
     </main>
-    <script src="../javascript/motos.js"></script>
+    <script src="../javascript/planos.js"></script>
 </body>
 </html>

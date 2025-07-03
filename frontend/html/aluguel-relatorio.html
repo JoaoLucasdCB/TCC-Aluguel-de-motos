@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Motos - RideMoto</title>
-    <link rel="stylesheet" href="../css/motos.css">
+    <title>RideMoto - Relatório do Aluguel</title>
+    <link rel="stylesheet" href="../css/aluguel-relatorio.css">
 </head>
 <body>
     <nav class="navbar">
@@ -18,17 +18,13 @@
         </ul>
         <button class="login-btn" onclick="window.location.href='login.html'">Faça login</button>
     </nav>
-    <main>
-        <div class="moto-list-container">
-            <div class="moto-list" id="motoList">
-                <!-- Motos serão inseridas via JS -->
-            </div>
-        </div>
-        <div class="pagination">
-            <button id="anterior">Anterior</button>
-            <button id="proximo">Próximo</button>
-        </div>
+    <main class="relatorio-main">
+        <section class="relatorio-info">
+            <h1>Relatório do Aluguel</h1>
+            <div id="relatorioDados"></div>
+            <button class="voltar-btn" onclick="window.location.href='aluguel.html'">Novo Aluguel</button>
+        </section>
     </main>
-    <script src="../javascript/motos.js"></script>
+    <script src="../javascript/aluguel-relatorio.js"></script>
 </body>
 </html>

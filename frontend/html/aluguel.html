@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RideMoto - Aluguel</title>
+    <link rel="stylesheet" href="../css/aluguel.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">i&gt;</div>
+        <ul class="nav-links">
+            <li><a href="aluguel.html" class="active">Aluguel</a></li>
+            <li><a href="sobre.html">Sobre Nós</a></li>
+            <li><a href="motos.html">Motos</a></li>
+            <li><a href="planos.html">Planos</a></li>
+            <li><a href="suporte.html">Suporte</a></li>
+        </ul>
+        <button class="login-btn" onclick="window.location.href='login.html'">Faça login</button>
+    </nav>
+    <main class="aluguel-main">
+        <section class="aluguel-info">
+            <h1>Aluguel de Moto</h1>
+            <form id="aluguelForm">
+                <div class="form-group">
+                    <label for="moto">Moto</label>
+                    <select id="moto" name="moto" required>
+                        <option value="">Selecione a moto</option>
+                        <!-- Opções dinâmicas -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="plano">Plano</label>
+                    <select id="plano" name="plano" required>
+                        <option value="">Selecione o plano</option>
+                        <!-- Opções dinâmicas -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="inicio">Data e Hora de Início</label>
+                    <input type="datetime-local" id="inicio" name="inicio" required>
+                </div>
+                <div class="form-group">
+                    <label for="fim">Data e Hora de Fim</label>
+                    <input type="datetime-local" id="fim" name="fim" required>
+                </div>
+                <div class="form-group">
+                    <label for="valorTotal">Valor Total</label>
+                    <input type="text" id="valorTotal" name="valorTotal" readonly>
+                </div>
+                <button type="submit" class="alugar-btn">Alugar</button>
+            </form>
+        </section>
+        <section class="aluguel-detalhes">
+            <h2>Detalhes Selecionados</h2>
+            <div id="detalhesMoto"></div>
+            <div id="detalhesPlano"></div>
+        </section>
+    </main>
+    <script src="../javascript/aluguel.js"></script>
+</body>
+</html>

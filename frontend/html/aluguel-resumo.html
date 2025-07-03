@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RideMoto - Resumo do Aluguel</title>
+    <link rel="stylesheet" href="../css/aluguel-resumo.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">i&gt;</div>
+        <ul class="nav-links">
+            <li><a href="aluguel.html">Aluguel</a></li>
+            <li><a href="sobre.html">Sobre Nós</a></li>
+            <li><a href="motos.html">Motos</a></li>
+            <li><a href="planos.html">Planos</a></li>
+            <li><a href="suporte.html">Suporte</a></li>
+        </ul>
+        <button class="login-btn" onclick="window.location.href='login.html'">Faça login</button>
+    </nav>
+    <main class="resumo-main">
+        <section class="resumo-info">
+            <h1>Resumo do Aluguel</h1>
+            <div id="resumoDados"></div>
+            <form id="dadosExtrasForm">
+                <h2>Dados adicionais</h2>
+                <div class="form-group">
+                    <label for="cnh">CNH</label>
+                    <input type="text" id="cnh" name="cnh" required placeholder="Número da CNH">
+                </div>
+                <div class="form-group">
+                    <label for="identidade">Identidade</label>
+                    <input type="text" id="identidade" name="identidade" required placeholder="RG ou Identidade">
+                </div>
+                <div class="form-group">
+                    <label for="telefone">Telefone</label>
+                    <input type="tel" id="telefone" name="telefone" required placeholder="(99) 99999-9999">
+                </div>
+                <button type="submit" class="confirmar-btn">Confirmar Aluguel</button>
+            </form>
+        </section>
+    </main>
+    <script src="../javascript/aluguel-resumo.js"></script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+main {
+    max-width: 1000px;
+    margin: 40px auto 0 auto;
+    padding: 0 16px;
+}
+.planos-title {
+    color: #fff;
+    font-size: 2.2rem;
+    margin-bottom: 24px;
+    text-align: center;
+}
+.planos-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    justify-content: center;
+}
+.plano-card {
+    background: rgba(41,41,41,0.35);
+    border-radius: 16px;
+    box-shadow: 0 4px 24px 0 rgba(0,0,0,0.10);
+    padding: 32px 28px;
+    min-width: 260px;
+    max-width: 320px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: box-shadow 0.2s, border 0.2s, transform 0.2s;
+    border: 2px solid transparent;
+}
+.plano-card:hover {
+    box-shadow: 0 8px 32px 0 rgba(255,102,0,0.15);
+    border: 2px solid #ff6600;
+    transform: scale(1.03);
+}
+.plano-nome {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #ff6600;
+}
+.plano-descricao {
+    font-size: 1.05rem;
+    margin-bottom: 16px;
+    color: #e0e0e0;
+    text-align: center;
+}
+.plano-preco {
+    font-size: 1.2rem;
+    color: #fff;
+    margin-bottom: 8px;
+}
+.plano-beneficios {
+    list-style: disc inside;
+    color: #ccc;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    padding-left: 0;
+    text-align: left;
+}
+@media (max-width: 900px) {
+    .planos-list {
+        flex-direction: column;
+        align-items: center;
+    }
+}
