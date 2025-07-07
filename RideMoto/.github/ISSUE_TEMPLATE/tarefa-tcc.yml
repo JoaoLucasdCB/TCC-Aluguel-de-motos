@@ -1,0 +1,25 @@
+name: 🧠 TCC – Tarefa ou Anotação
+description: Use este template para registrar tarefas, ideias, anotações ou pendências do TCC
+title: "[TCC] "
+labels: [tcc]
+body:
+  - type: input
+    id: autor
+    attributes:
+      label: Responsável
+      placeholder: Quem vai fazer isso?
+  - type: textarea
+    id: detalhes
+    attributes:
+      label: Descrição
+      placeholder: Detalhe a anotação ou tarefa
+    validations:
+      required: true
+  - type: dropdown
+    id: status
+    attributes:
+      label: Status
+      options:
+        - Pendente
+        - Em andamento
+        - Concluído
