@@ -1,0 +1,68 @@
+/* cadastrar-moto.css - Estilos específicos para a tela de cadastro de moto do admin */
+.admin-main {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 48px auto 0 auto;
+    max-width: 600px;
+    padding: 32px 16px;
+    background: rgba(255,255,255,0.0);
+    border-radius: 24px;
+    box-shadow: 0 4px 24px rgba(123,47,242,0.10);
+}
+.admin-form {
+    width: 100%;
+    background: linear-gradient(90deg, #2d085c 0%, #a12b8c 100%);
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(123,47,242,0.07);
+    padding: 32px 28px;
+    color: #fff;
+}
+.admin-form h1 {
+    color: #7b2ff2;
+    margin-bottom: 18px;
+    font-size: 2rem;
+    letter-spacing: 1px;
+}
+.admin-form label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+.admin-form input, .admin-form select {
+    width: 100%;
+    padding: 10px 8px;
+    margin-bottom: 18px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: #f7f7fa;
+    color: #444;
+}
+.admin-form input:focus, .admin-form select:focus {
+    outline: 2px solid #7b2ff2;
+}
+.admin-form button {
+    width: 100%;
+    background: linear-gradient(90deg, #7b2ff2 60%, #f357a8 100%);
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 12px 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 12px;
+    transition: background 0.2s;
+}
+.admin-form button:hover {
+    background: linear-gradient(90deg, #f357a8 60%, #7b2ff2 100%);
+}
+@media (max-width: 700px) {
+    .admin-main {
+        padding: 12px 2px;
+    }
+    .admin-form {
+        padding: 16px 4px;
+    }
+}

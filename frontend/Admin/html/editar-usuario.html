@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Usuário - Admin</title>
+    <link rel="stylesheet" href="../../Publico/css/aluguel-relatorio.css">
+    <link rel="stylesheet" href="../css/editar-usuario.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo"><img src="../../Publico/html/img/logo.png" alt="RideMoto" style="height:40px;vertical-align:middle;"> Admin</div>
+        <ul class="nav-links">
+            <li><a href="cadastrar-moto.html">Cadastrar Moto</a></li>
+            <li><a href="usuarios-admin.html">Usuários</a></li>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Sair</a></li>
+        </ul>
+    </nav>
+    <main class="editar-usuario-main">
+        <form class="editar-usuario-form" id="formEditarUsuario">
+            <h1>Editar Usuário</h1>
+            <input type="hidden" id="usuarioId" name="usuarioId">
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome" required>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+            <label for="telefone">Telefone</label>
+            <input type="text" id="telefone" name="telefone" required>
+            <button type="submit">Salvar Alterações</button>
+            <button type="button" onclick="window.location.href='usuarios-admin.html'" style="background:#ccc;color:#333;margin-top:10px;">Cancelar</button>
+        </form>
+    </main>
+    <script src="../javascript/editar-usuario.js"></script>
+</body>
+</html>
