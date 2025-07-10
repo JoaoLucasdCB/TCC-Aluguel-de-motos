@@ -28,16 +28,34 @@ const motos = [
 
 const motoList = document.getElementById('motoList');
 
-function renderMotos() {
+async function fetchMotosAPI() {
+    try {
+        const response = await fetch('http://localhost:8080/api/motos');
+        if (!response.ok) throw new Error('Erro ao buscar motos');
+        const motosAPI = await response.json();
+        // Adapta os dados do backend para o formato esperado pelo render
+        return motosAPI.map(moto => ({
+            id: moto.id,
+            modelo: moto.modelo,
+            descricao: `${moto.marca} | ${moto.cilindrada}cc | ${moto.ano}`,
+            valor: moto.valorDiaria ? `R$ ${moto.valorDiaria}/dia` : '',
+            imagem: moto.imagem || '',
+        }));
+    } catch (err) {
+        alert('Erro ao carregar motos do sistema: ' + err.message);
+        return [];
+    }
+}
+
+async function renderMotos() {
     motoList.innerHTML = '';
+    const motos = await fetchMotosAPI();
     motos.forEach((moto, idx) => {
         const card = document.createElement('div');
         card.className = 'moto-card';
         card.tabIndex = 0;
-        // Redireciona para a página de detalhes ao clicar
         card.onclick = () => {
-            // Aqui você pode passar o id real da moto do banco, se disponível
-            window.location.href = `moto-detalhe.html?id=${idx+1}`;
+            window.location.href = `moto-detalhe.html?id=${moto.id}`;
         };
         card.innerHTML = `
             <div class="moto-img">${moto.imagem ? `<img src="${moto.imagem}" alt="${moto.modelo}">` : 'Imagem'}</div>

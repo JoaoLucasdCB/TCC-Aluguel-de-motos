@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Planos - RideMoto</title>
-    <link rel="stylesheet" href="../css/motos.css">
+    <link rel="stylesheet" href="../css/aluguel.css">
     <link rel="stylesheet" href="../css/planos.css">
+    <link rel="stylesheet" href="../css/perfil-menu.css">
 </head>
 <body>
     <nav class="navbar">
@@ -17,7 +18,8 @@
             <li><a href="planos.html" class="active">Planos</a></li>
             <li><a href="suporte.html">Suporte</a></li>
         </ul>
-        <button class="login-btn" onclick="window.location.href='login.html'">Faça login</button>
+        <button class="login-btn" id="loginBtn" onclick="window.location.href='login.html'">Faça login</button>
+        <div class="perfil-area" id="perfilArea"></div>
     </nav>
     <main>
         <h1 class="planos-title">Escolha um Plano para Alugar sua Moto</h1>
@@ -26,5 +28,44 @@
         </div>
     </main>
     <script src="../javascript/planos.js"></script>
+    <script>
+    // Exibe nome do usuário e menu hamburguer se estiver logado
+    document.addEventListener('DOMContentLoaded', function() {
+        const nomeUsuario = localStorage.getItem('nomeUsuario');
+        const tipoUsuario = localStorage.getItem('tipoUsuario');
+        const loginBtn = document.getElementById('loginBtn');
+        const perfilArea = document.getElementById('perfilArea');
+        if (nomeUsuario) {
+            if (loginBtn) loginBtn.style.display = 'none';
+            perfilArea.innerHTML = `
+                <button id="perfilMenuBtn">${nomeUsuario} &#x25BC;</button>
+                <ul id="perfilDropdown">
+                    <li><a href="reservas.html">Minhas Reservas</a></li>
+                    <li><a href="planos.html">Planos Assinados</a></li>
+                    ${tipoUsuario && tipoUsuario.toLowerCase() === 'admin' ? '<li><a href="../../Admin/html/cadastrar-moto.html">Admin</a></li>' : ''}
+                    <li><a href="login.html" style="color:#c00;">Sair</a></li>
+                </ul>
+            `;
+            const btn = document.getElementById('perfilMenuBtn');
+            const dropdown = document.getElementById('perfilDropdown');
+            let timeout;
+            btn.addEventListener('click', () => {
+                dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+            });
+            btn.addEventListener('blur', () => {
+                timeout = setTimeout(() => dropdown.style.display = 'none', 200);
+            });
+            btn.addEventListener('focus', () => {
+                clearTimeout(timeout);
+            });
+            dropdown.addEventListener('mouseenter', () => {
+                clearTimeout(timeout);
+            });
+            dropdown.addEventListener('mouseleave', () => {
+                dropdown.style.display = 'none';
+            });
+        }
+    });
+    </script>
 </body>
 </html>

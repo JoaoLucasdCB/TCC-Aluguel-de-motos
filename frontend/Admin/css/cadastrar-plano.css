@@ -1,0 +1,19 @@
+/* cadastrar-plano.css - Estilo igual ao de cadastrar moto */
+@import url('cadastrar-moto.css');
+
+.admin-form textarea {
+    width: 100%;
+    padding: 10px 8px;
+    margin-bottom: 18px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: #f7f7fa;
+    color: #444;
+    resize: vertical;
+    min-height: 60px;
+    max-height: 200px;
+}
+.admin-form textarea:focus {
+    outline: 2px solid #7b2ff2;
+}

@@ -1,19 +1,20 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RideMoto - Relatório do Aluguel</title>
+    <title>Cadastrar Novo Plano - Admin</title>
     <link rel="stylesheet" href="../css/aluguel-relatorio.css">
+    <link rel="stylesheet" href="../css/cadastrar-moto.css">
 </head>
 <body>
     <nav class="navbar">
         <div class="logo">i&gt;</div>
         <ul class="nav-links">
             <li><a href="cadastrar-moto.html">Cadastrar Moto</a></li>
-            <li><a href="cadastrar-plano.html">Cadastrar Plano</a></li>
+            <li><a href="#" class="active">Cadastrar Plano</a></li>
             <li><a href="usuarios-admin.html">Usuários</a></li>
-            <li><a href="aluguel-relatorio.html" class="active">Relatórios</a></li>
+            <li><a href="aluguel-relatorio.html">Relatórios</a></li>
             <li><a href="#">Dashboard</a></li>
             <li class="perfil-menu-li">
                 <button class="perfil-menu-btn" id="perfilMenuBtn" style="display: flex; align-items: center; gap: 4px; background: none; border: none; color: #fff; cursor: pointer; font: inherit;">
@@ -27,14 +28,22 @@
             </li>
         </ul>
     </nav>
-    <main class="relatorio-main">
-        <section class="relatorio-info">
-            <h1>Relatório do Aluguel</h1>
-            <div id="relatorioDados"></div>
-            <button class="voltar-btn" onclick="window.location.href='../../Publico/html/aluguel.html'">Novo Aluguel</button>
-        </section>
+    <main class="admin-main">
+        <form class="admin-form" id="formCadastroPlano">
+            <h1>Cadastrar Novo Plano</h1>
+            <label for="nomePlano">Nome do Plano</label>
+            <input type="text" id="nomePlano" name="nomePlano" required>
+
+            <label for="duracao">Duração (dias)</label>
+            <input type="number" id="duracao" name="duracao" min="1" required>
+
+            <label for="beneficios">Benefícios</label>
+            <input type="text" id="beneficios" name="beneficios" required placeholder="Descreva os benefícios do plano...">
+
+            <button type="submit" id="cadastrarPlanoBtn">Cadastrar Plano</button>
+        </form>
     </main>
-    <script src="../javascript/aluguel-relatorio.js"></script>
+    <script src="../javascript/cadastrar-plano.js"></script>
     <script>
     // Protege páginas admin: só admin pode acessar
     document.addEventListener('DOMContentLoaded', function() {
@@ -43,6 +52,7 @@
             window.location.href = '../../Publico/html/login.html';
         }
     });
+
     // Dropdown perfil
     const perfilBtn = document.getElementById('perfilMenuBtn');
     const perfilDropdown = document.getElementById('perfilDropdown');
@@ -53,17 +63,14 @@
             perfilDropdown.style.display = 'block';
         });
         perfilBtn.addEventListener('mouseleave', () => {
-            perfilTimeout = setTimeout(() => {
-                perfilDropdown.style.display = 'none';
-            }, 300);
+            perfilTimeout = setTimeout(() => perfilDropdown.style.display = 'none', 200);
         });
         perfilDropdown.addEventListener('mouseenter', () => {
             clearTimeout(perfilTimeout);
+            perfilDropdown.style.display = 'block';
         });
         perfilDropdown.addEventListener('mouseleave', () => {
-            perfilTimeout = setTimeout(() => {
-                perfilDropdown.style.display = 'none';
-            }, 300);
+            perfilTimeout = setTimeout(() => perfilDropdown.style.display = 'none', 200);
         });
     }
     </script>

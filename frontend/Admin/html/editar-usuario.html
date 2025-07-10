@@ -12,6 +12,7 @@
         <div class="logo"><img src="../img/logo.png" alt="RideMoto" style="height:40px;vertical-align:middle;"> Admin</div>
         <ul class="nav-links">
             <li><a href="cadastrar-moto.html">Cadastrar Moto</a></li>
+            <li><a href="cadastrar-plano.html">Cadastrar Plano</a></li>
             <li><a href="usuarios-admin.html">Usuários</a></li>
             <li><a href="#">Dashboard</a></li>
             <li><a href="#">Sair</a></li>
@@ -40,5 +41,14 @@
         </form>
     </main>
     <script src="../javascript/editar-usuario.js"></script>
+    <script>
+        // Protege páginas admin: só admin pode acessar
+        document.addEventListener('DOMContentLoaded', function() {
+            const tipoUsuario = localStorage.getItem('tipoUsuario');
+            if (!tipoUsuario || tipoUsuario.toLowerCase() !== 'admin') {
+                window.location.href = '../../Publico/html/login.html';
+            }
+        });
+    </script>
 </body>
 </html>

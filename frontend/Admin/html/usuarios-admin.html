@@ -12,6 +12,7 @@
         <div class="logo">i&gt;</div>
         <ul class="nav-links">
             <li><a href="cadastrar-moto.html">Cadastrar Moto</a></li>
+            <li><a href="cadastrar-plano.html">Cadastrar Plano</a></li>
             <li><a href="#" class="active">Usuários</a></li>
             <li><a href="aluguel-relatorio.html">Relatórios</a></li>
             <li><a href="#">Dashboard</a></li>
@@ -37,7 +38,6 @@
                         <th>Nome</th>
                         <th>Email</th>
                         <th>Telefone</th>
-                        <th>Tipo</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -49,6 +49,13 @@
     </main>
     <script src="../javascript/usuarios-admin.js"></script>
     <script>
+    // Protege páginas admin: só admin pode acessar
+    document.addEventListener('DOMContentLoaded', function() {
+        const tipoUsuario = localStorage.getItem('tipoUsuario');
+        if (!tipoUsuario || tipoUsuario.toLowerCase() !== 'admin') {
+            window.location.href = '../../Publico/html/login.html';
+        }
+    });
     // Dropdown perfil
     const perfilBtn = document.getElementById('perfilMenuBtn');
     const perfilDropdown = document.getElementById('perfilDropdown');

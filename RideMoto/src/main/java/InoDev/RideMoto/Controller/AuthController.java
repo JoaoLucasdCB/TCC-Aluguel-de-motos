@@ -25,6 +25,7 @@ public class AuthController {
                     response.put("token", "fake-jwt-token");
                     response.put("nome", usuario.getNome());
                     response.put("email", usuario.getEmail());
+                    response.put("tipoUsuario", usuario.getTipoUsuario());
                     return ResponseEntity.ok(response);
                 })
                 .orElseGet(() -> {

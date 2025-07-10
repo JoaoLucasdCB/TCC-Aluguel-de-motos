@@ -37,14 +37,22 @@ const planos = [
     }
 ];
 
-function renderPlanoDetalhe() {
+async function renderPlanoDetalhe() {
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
-    const plano = planos.find(p => p.id == id) || planos[0];
-    document.getElementById('planoDetailNome').textContent = plano.nome;
-    document.getElementById('planoDetailDescricao').textContent = plano.descricao;
-    document.getElementById('planoDetailPreco').textContent = plano.preco;
-    document.getElementById('planoDetailBeneficios').innerHTML = plano.beneficios.map(b => `<li>${b}</li>`).join('');
+    try {
+        const response = await fetch(`http://localhost:8080/planos/${id}`);
+        if (!response.ok) throw new Error('Plano não encontrado');
+        const plano = await response.json();
+        document.getElementById('planoDetailNome').textContent = plano.nomePlano;
+        document.getElementById('planoDetailDescricao').textContent = `Duração: ${plano.duracao} dias`;
+        document.getElementById('planoDetailPreco').style.display = 'none'; // Esconde campo preço se não existir
+        document.getElementById('planoDetailBeneficios').innerHTML = plano.beneficios
+            ? plano.beneficios.split('\n').map(b => `<li>${b}</li>`).join('')
+            : '<li>Sem benefícios cadastrados</li>';
+    } catch (err) {
+        document.querySelector('.plano-detail-container').innerHTML = '<p>Plano não encontrado.</p>';
+    }
 }
 
 document.addEventListener('DOMContentLoaded', renderPlanoDetalhe);

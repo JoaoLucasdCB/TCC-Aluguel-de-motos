@@ -17,8 +17,13 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
         .then(data => {
             if (data.token) {
                 localStorage.setItem('token', data.token);
-                // Caminho relativo para funcionar em qualquer ambiente local
-                window.location.href = '../../Admin/html/cadastrar-moto.html';
+                localStorage.setItem('tipoUsuario', data.tipoUsuario);
+                localStorage.setItem('nomeUsuario', data.nome);
+                if (data.tipoUsuario && data.tipoUsuario.toLowerCase() === 'admin') {
+                    window.location.href = '../../Admin/html/cadastrar-moto.html';
+                } else {
+                    window.location.href = 'motos.html';
+                }
             } else {
                 alert('Email ou senha inválidos.');
             }

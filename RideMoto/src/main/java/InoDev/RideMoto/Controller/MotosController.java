@@ -1,5 +1,6 @@
 package InoDev.RideMoto.Controller;
 
+import InoDev.RideMoto.DTO.MotosInputDTO;
 import InoDev.RideMoto.Models.MotosModel;
 import InoDev.RideMoto.Service.MotosService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,13 +36,23 @@ public class MotosController {
     }
 
     @PostMapping
-    public ResponseEntity<MotosModel> cadastrarMoto(@RequestBody MotosModel moto) {
+    public ResponseEntity<MotosModel> cadastrarMoto(@RequestBody MotosInputDTO dto) {
+        MotosModel moto = new MotosModel();
+        moto.setNome(dto.getNome());
+        moto.setMarca(dto.getMarca());
+        moto.setModelo(dto.getModelo());
+        moto.setCilindrada(dto.getCilindrada());
+        moto.setPlaca(dto.getPlaca());
+        moto.setStatus(dto.getStatus());
+        moto.setAno(dto.getAno());
+        moto.setQuilometragem(dto.getQuilometragem());
+        moto.setImagem(dto.getImagem());
         MotosModel novaMoto = motosService.salvar(moto);
         return ResponseEntity.ok(novaMoto);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<MotosModel> atualizarMoto(@PathVariable Long id, @RequestBody MotosModel motoAtualizada) {
+    @PutMapping(value = "/{id}", consumes = {"application/json", "application/json;charset=UTF-8"})
+    public ResponseEntity<MotosModel> atualizarMoto(@PathVariable Long id, @RequestBody MotosInputDTO dto) {
         Optional<MotosModel> existente = motosService.buscarPorId(id);
 
         if (existente.isEmpty()) {
@@ -49,11 +60,15 @@ public class MotosController {
         }
 
         MotosModel moto = existente.get();
-        moto.setPlaca(motoAtualizada.getPlaca());
-        moto.setModelo(motoAtualizada.getModelo());
-        moto.setAno(motoAtualizada.getAno());
-        moto.setQuilometragem(motoAtualizada.getQuilometragem());
-        moto.setStatus(motoAtualizada.getStatus());
+        moto.setNome(dto.getNome());
+        moto.setMarca(dto.getMarca());
+        moto.setModelo(dto.getModelo());
+        moto.setCilindrada(dto.getCilindrada());
+        moto.setPlaca(dto.getPlaca());
+        moto.setStatus(dto.getStatus());
+        moto.setAno(dto.getAno());
+        moto.setQuilometragem(dto.getQuilometragem());
+        moto.setImagem(dto.getImagem());
 
         MotosModel atualizada = motosService.salvar(moto);
         return ResponseEntity.ok(atualizada);
@@ -69,5 +84,10 @@ public class MotosController {
 
         motosService.deletar(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/teste")
+    public ResponseEntity<String> teste(@RequestBody java.util.Map<String, Object> body) {
+        return ResponseEntity.ok("OK");
     }
 }
