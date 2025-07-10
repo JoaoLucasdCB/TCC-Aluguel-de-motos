@@ -58,6 +58,31 @@
 .editar-usuario-form button[type="submit"]:hover {
     background: linear-gradient(90deg, #f357a8 60%, #7b2ff2 100%);
 }
+.editar-usuario-form select#tipoUsuario {
+    width: 100%;
+    padding: 10px 8px;
+    margin-bottom: 18px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: #fff;
+    color: #444;
+    font-weight: 400;
+    box-shadow: 0 1px 4px rgba(123,47,242,0.08);
+    outline: none;
+    border: 1.5px solid #e0e0e0;
+    transition: border 0.2s;
+}
+.editar-usuario-form select#tipoUsuario:focus {
+    border-color: #7b2ff2;
+    background: #fff;
+    color: #222;
+}
+.editar-usuario-form select#tipoUsuario option {
+    color: #444;
+    background: #fff;
+    font-weight: 400;
+}
 @media (max-width: 700px) {
     .editar-usuario-main {
         padding: 12px 2px;

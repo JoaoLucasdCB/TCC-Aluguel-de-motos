@@ -1,30 +1,53 @@
-// editar-usuario.js - Lógica para editar usuário (mock)
+// editar-usuario.js - Lógica para editar usuário via API
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Recupera dados do usuário do localStorage (mock)
-    const usuario = JSON.parse(localStorage.getItem('usuarioParaEditar'));
-    if (usuario) {
-        document.getElementById('usuarioId').value = usuario.id;
-        document.getElementById('nome').value = usuario.nome;
-        document.getElementById('email').value = usuario.email;
-        document.getElementById('telefone').value = usuario.telefone;
+const API_URL = 'http://localhost:8080/usuarios'; // ajuste se necessário
+
+function getIdFromQuery() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('id');
+}
+
+document.addEventListener('DOMContentLoaded', async function() {
+    const usuarioId = getIdFromQuery();
+    if (!usuarioId) {
+        alert('ID do usuário não informado!');
+        window.location.href = 'usuarios-admin.html';
+        return;
+    }
+    try {
+        const response = await fetch(`${API_URL}/${usuarioId}`);
+        if (!response.ok) throw new Error('Erro ao buscar usuário');
+        const usuario = await response.json();
+        document.getElementById('usuarioId').value = usuario.id || '';
+        document.getElementById('nome').value = usuario.nome || '';
+        document.getElementById('cpf').value = usuario.cpf || '';
+        document.getElementById('email').value = usuario.email || '';
+        document.getElementById('telefone').value = usuario.telefone || '';
+        document.getElementById('tipoUsuario').value = usuario.tipoUsuario || '';
+    } catch (err) {
+        alert('Erro ao carregar usuário: ' + err.message);
+        window.location.href = 'usuarios-admin.html';
     }
 
-    document.getElementById('formEditarUsuario').addEventListener('submit', function(e) {
+    document.getElementById('formEditarUsuario').addEventListener('submit', async function(e) {
         e.preventDefault();
-        // Atualiza dados no localStorage (mock)
-        const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
-        const idx = usuarios.findIndex(u => u.id === usuario.id);
-        if (idx !== -1) {
-            usuarios[idx] = {
-                id: usuario.id,
-                nome: document.getElementById('nome').value,
-                email: document.getElementById('email').value,
-                telefone: document.getElementById('telefone').value
-            };
-            localStorage.setItem('usuarios', JSON.stringify(usuarios));
+        const usuarioAtualizado = {};
+        if(document.getElementById('nome').value) usuarioAtualizado.nome = document.getElementById('nome').value;
+        if(document.getElementById('cpf').value) usuarioAtualizado.cpf = document.getElementById('cpf').value;
+        if(document.getElementById('email').value) usuarioAtualizado.email = document.getElementById('email').value;
+        if(document.getElementById('telefone').value) usuarioAtualizado.telefone = document.getElementById('telefone').value;
+        if(document.getElementById('tipoUsuario').value) usuarioAtualizado.tipoUsuario = document.getElementById('tipoUsuario').value;
+        try {
+            const response = await fetch(`${API_URL}/${usuarioId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(usuarioAtualizado)
+            });
+            if (!response.ok) throw new Error('Erro ao atualizar usuário');
+            alert('Usuário atualizado com sucesso!');
+            window.location.href = 'usuarios-admin.html';
+        } catch (err) {
+            alert('Erro ao atualizar usuário: ' + err.message);
         }
-        alert('Usuário atualizado! (Mock)');
-        window.location.href = 'usuarios-admin.html';
     });
 });

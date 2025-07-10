@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Usuários Cadastrados - Admin</title>
-    <link rel="stylesheet" href="../../Publico/css/aluguel-relatorio.css">
+    <link rel="stylesheet" href="../css/aluguel-relatorio.css">
     <link rel="stylesheet" href="../css/usuarios-admin.css">
 </head>
 <body>
@@ -13,7 +13,7 @@
         <ul class="nav-links">
             <li><a href="cadastrar-moto.html">Cadastrar Moto</a></li>
             <li><a href="#" class="active">Usuários</a></li>
-            <li><a href="../../Publico/html/aluguel-relatorio.html">Relatórios</a></li>
+            <li><a href="aluguel-relatorio.html">Relatórios</a></li>
             <li><a href="#">Dashboard</a></li>
             <li class="perfil-menu-li">
                 <button class="perfil-menu-btn" id="perfilMenuBtn" style="display: flex; align-items: center; gap: 4px; background: none; border: none; color: #fff; cursor: pointer; font: inherit;">
@@ -37,6 +37,7 @@
                         <th>Nome</th>
                         <th>Email</th>
                         <th>Telefone</th>
+                        <th>Tipo</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -58,14 +59,17 @@
             perfilDropdown.style.display = 'block';
         });
         perfilBtn.addEventListener('mouseleave', () => {
-            perfilTimeout = setTimeout(() => perfilDropdown.style.display = 'none', 200);
+            perfilTimeout = setTimeout(() => {
+                perfilDropdown.style.display = 'none';
+            }, 300);
         });
         perfilDropdown.addEventListener('mouseenter', () => {
             clearTimeout(perfilTimeout);
-            perfilDropdown.style.display = 'block';
         });
         perfilDropdown.addEventListener('mouseleave', () => {
-            perfilTimeout = setTimeout(() => perfilDropdown.style.display = 'none', 200);
+            perfilTimeout = setTimeout(() => {
+                perfilDropdown.style.display = 'none';
+            }, 300);
         });
     }
     </script>

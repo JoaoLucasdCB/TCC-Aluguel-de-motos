@@ -40,18 +40,15 @@ public class UsuarioController {
     public ResponseEntity<UsuarioDTO> atualizar(@PathVariable Long id, @RequestBody UsuarioInputDTO novoUsuario) {
         return service.buscarPorId(id)
                 .map(usuario -> {
-                    usuario.setNome(novoUsuario.getNome());
-                    usuario.setEmail(novoUsuario.getEmail());
-                    usuario.setSenha(novoUsuario.getSenha());
-                    usuario.setTelefone(novoUsuario.getTelefone());
-                    usuario.setCnhNumero(novoUsuario.getCnhNumero());
-                    // Conversão de String para LocalDate se necessário
-                    if (novoUsuario.getCnhValidade() != null) {
-                        usuario.setCnhValidade(java.time.LocalDate.parse(novoUsuario.getCnhValidade()));
-                    }
-                    usuario.setStatus(novoUsuario.getStatus());
-                    usuario.setCpf(novoUsuario.getCpf());
-                    usuario.setTipoUsuario(novoUsuario.getTipoUsuario());
+                    if (novoUsuario.getNome() != null && !novoUsuario.getNome().isEmpty()) usuario.setNome(novoUsuario.getNome());
+                    if (novoUsuario.getEmail() != null && !novoUsuario.getEmail().isEmpty()) usuario.setEmail(novoUsuario.getEmail());
+                    if (novoUsuario.getSenha() != null && !novoUsuario.getSenha().isEmpty()) usuario.setSenha(novoUsuario.getSenha());
+                    if (novoUsuario.getTelefone() != null && !novoUsuario.getTelefone().isEmpty()) usuario.setTelefone(novoUsuario.getTelefone());
+                    if (novoUsuario.getCnhNumero() != null && !novoUsuario.getCnhNumero().isEmpty()) usuario.setCnhNumero(novoUsuario.getCnhNumero());
+                    if (novoUsuario.getCnhValidade() != null && !novoUsuario.getCnhValidade().isEmpty()) usuario.setCnhValidade(java.time.LocalDate.parse(novoUsuario.getCnhValidade()));
+                    if (novoUsuario.getStatus() != null && !novoUsuario.getStatus().isEmpty()) usuario.setStatus(novoUsuario.getStatus());
+                    if (novoUsuario.getCpf() != null && !novoUsuario.getCpf().isEmpty()) usuario.setCpf(novoUsuario.getCpf());
+                    if (novoUsuario.getTipoUsuario() != null && !novoUsuario.getTipoUsuario().isEmpty()) usuario.setTipoUsuario(novoUsuario.getTipoUsuario());
                     return ResponseEntity.ok(toDTO(service.salvar(usuario)));
                 })
                 .orElse(ResponseEntity.notFound().build());

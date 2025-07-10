@@ -1,50 +1,48 @@
-// usuarios-admin.js - Lógica para listar, editar e excluir usuários (mock com localStorage)
+// usuarios-admin.js - Lógica para listar, editar e excluir usuários via API
 
-// Inicializa mock no localStorage se não existir
-if (!localStorage.getItem('usuarios')) {
-    const usuariosMock = [
-        { id: 1, nome: 'João Silva', email: 'joao@email.com', telefone: '(11) 99999-1111' },
-        { id: 2, nome: 'Maria Souza', email: 'maria@email.com', telefone: '(21) 98888-2222' },
-        { id: 3, nome: 'Carlos Lima', email: 'carlos@email.com', telefone: '(31) 97777-3333' }
-    ];
-    localStorage.setItem('usuarios', JSON.stringify(usuariosMock));
-}
+const API_URL = 'http://localhost:8080/usuarios'; // ajuste se necessário
 
-function renderUsuarios() {
-    const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
-    const tbody = document.getElementById('usuariosTableBody');
-    tbody.innerHTML = '';
-    usuarios.forEach((usuario) => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td>${usuario.id}</td>
-            <td><span class="nome">${usuario.nome}</span></td>
-            <td><span class="email">${usuario.email}</span></td>
-            <td><span class="telefone">${usuario.telefone}</span></td>
-            <td>
-                <button onclick="editarUsuario(${usuario.id})">Editar</button>
-                <button onclick="excluirUsuario(${usuario.id})">Excluir</button>
-            </td>
-        `;
-        tbody.appendChild(tr);
-    });
-}
-
-window.editarUsuario = function(id) {
-    const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
-    const usuario = usuarios.find(u => u.id === id);
-    if (usuario) {
-        localStorage.setItem('usuarioParaEditar', JSON.stringify(usuario));
-        window.location.href = 'editar-usuario.html';
+async function renderUsuarios() {
+    try {
+        const response = await fetch(API_URL);
+        if (!response.ok) throw new Error('Erro ao buscar usuários');
+        const usuarios = await response.json();
+        const tbody = document.getElementById('usuariosTableBody');
+        tbody.innerHTML = '';
+        usuarios.forEach((usuario) => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${usuario.id}</td>
+                <td><span class="nome">${usuario.nome}</span></td>
+                <td><span class="email">${usuario.email}</span></td>
+                <td><span class="telefone">${usuario.telefone || ''}</span></td>
+                <td><span class="tipo-usuario">${usuario.tipoUsuario ? (usuario.tipoUsuario.charAt(0).toUpperCase() + usuario.tipoUsuario.slice(1)) : ''}</span></td>
+                <td>
+                    <button onclick="editarUsuario(${usuario.id})">Editar</button>
+                    <button onclick="excluirUsuario(${usuario.id})">Excluir</button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    } catch (err) {
+        alert('Erro ao carregar usuários: ' + err.message);
     }
 }
 
-window.excluirUsuario = function(id) {
+window.editarUsuario = function(id) {
+    // Redireciona para a tela de edição, passando o id por query string
+    window.location.href = `editar-usuario.html?id=${id}`;
+}
+
+window.excluirUsuario = async function(id) {
     if (confirm('Tem certeza que deseja excluir este usuário?')) {
-        let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
-        usuarios = usuarios.filter(u => u.id !== id);
-        localStorage.setItem('usuarios', JSON.stringify(usuarios));
-        renderUsuarios();
+        try {
+            const response = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+            if (!response.ok) throw new Error('Erro ao excluir usuário');
+            renderUsuarios();
+        } catch (err) {
+            alert('Erro ao excluir usuário: ' + err.message);
+        }
     }
 }
 
