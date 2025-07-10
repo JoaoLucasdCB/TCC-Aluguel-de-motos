@@ -60,9 +60,10 @@ body {
 main {
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: calc(100vh - 80px);
-    padding: 0 40px;
+    align-items: flex-start;
+    min-height: calc(100vh - 80px);
+    padding: 40px 0 40px 0;
+    overflow-y: auto;
 }
 .left {
     flex: 1;
@@ -72,15 +73,21 @@ main {
     justify-content: center;
     color: #fff;
     min-width: 350px;
+    text-align: center;
+    padding-top: 30px;
 }
 .logo-moto img {
-    width: 110px;
-    margin-bottom: 10px;
+    width: 120px;
+    margin-bottom: 18px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 h1 {
     font-size: 2.8rem;
-    margin: 0;
+    margin: 0 auto 0 auto;
     font-weight: 700;
+    text-align: center;
 }
 .ride {
     color: #7b2ff2;
@@ -93,25 +100,30 @@ h2 {
     font-weight: 400;
     margin: 10px 0 0 0;
     color: #fff;
+    text-align: center;
 }
 .left p {
     margin-top: 8px;
     color: #e0cfff;
     font-size: 1rem;
+    text-align: center;
 }
 .divider {
     width: 2px;
-    height: 350px;
+    height: 80vh;
+    min-height: 350px;
     background: linear-gradient(180deg, #7b2ff2 0%, #f357a8 100%);
     margin: 0 60px;
     border-radius: 2px;
+    transition: height 0.2s;
 }
 .right {
     flex: 1;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     min-width: 350px;
+    height: 100%;
 }
 
 /* Formulário de cadastro (padronizado ao login) */
@@ -119,7 +131,7 @@ h2 {
     background: rgba(255,255,255,0.05);
     border: 2px solid #a97ffb;
     border-radius: 18px;
-    padding: 0px 20px 0px 20px;
+    padding: 38px 36px 32px 36px;
     display: flex;
     flex-direction: column;
     min-width: 320px;
@@ -127,6 +139,9 @@ h2 {
     width: 100%;
     box-sizing: border-box;
     box-shadow: 0 4px 32px 0 rgba(123,47,242,0.08);
+    margin-bottom: 40px;
+    margin-top: 20px;
+    /* Removido overflow interno e limite de altura para evitar barra de rolagem no form */
 }
 #cadastroForm h3 {
     color: #fff;
@@ -149,6 +164,17 @@ h2 {
     font-size: 1rem;
     outline: none;
     background: #fff;
+}
+#cadastroForm select {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: none;
+    margin-bottom: 8px;
+    font-size: 1rem;
+    outline: none;
+    background: #fff;
+    color: #333;
+}
 }
 .cadastro-action {
     margin-top: 18px;

@@ -27,7 +27,7 @@
             <h2>Aluguel de Motos</h2>
             <p>Ache aqui sua melhor opção.</p>
         </section>
-        <div class="divider"></div>
+        <div class="divider" id="divider-dynamic"></div>
         <section class="right">
             <form id="cadastroForm">
                 <h3>Bem vindo ao RideMoto!<br>Faça seu Cadastro:</h3>
@@ -39,6 +39,24 @@
                 <input type="email" id="email" name="email" required>
                 <label for="senha">Senha</label>
                 <input type="password" id="senha" name="senha" required>
+                <label for="telefone">Telefone</label>
+                <input type="text" id="telefone" name="telefone" placeholder="(00) 00000-0000">
+                <label for="cnhNumero">Número da CNH</label>
+                <input type="text" id="cnhNumero" name="cnhNumero" placeholder="CNH">
+                <label for="cnhValidade">Validade da CNH</label>
+                <input type="date" id="cnhValidade" name="cnhValidade">
+                <label for="tipoUsuario">Tipo de Usuário</label>
+                <select id="tipoUsuario" name="tipoUsuario">
+                    <option value="">Selecione</option>
+                    <option value="cliente">Cliente</option>
+                    <option value="admin">Admin</option>
+                </select>
+                <label for="status">Status</label>
+                <select id="status" name="status">
+                    <option value="">Selecione</option>
+                    <option value="ativo">Ativo</option>
+                    <option value="inativo">Inativo</option>
+                </select>
                 <button type="submit" class="cadastro-action">Cadastrar</button>
                 <a href="login.html" style="margin-top:12px; text-align:center; color:#7b2ff2; text-decoration:underline; display:block; font-size:0.98rem;">Já tem cadastro? Clique aqui para fazer login</a>
             </form>
