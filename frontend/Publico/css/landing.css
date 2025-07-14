@@ -4,48 +4,57 @@ body {
     background: linear-gradient(180deg, #2d085c 0%, #a12b8c 100%);
     color: #fff;
 }
-header {
-    background: #111;
-    color: #00d14e;
+
+.navbar {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 18px 40px;
+    justify-content: space-between;
+    background: linear-gradient(90deg, #2d085c 0%, #a12b8c 100%);
+    padding: 16px 32px;
+    border-bottom: 3px solid #00cfff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 .logo {
-    font-size: 2.2rem;
+    font-size: 2rem;
+    color: #b266ff;
     font-weight: bold;
-    letter-spacing: 2px;
 }
-nav ul {
-    list-style: none;
+.nav-links {
+     list-style: none;
     display: flex;
     gap: 32px;
     margin: 0;
     padding: 0;
 }
-nav a {
+.nav-links li a {
     color: #fff;
     text-decoration: none;
-    font-weight: 500;
+    font-size: 1.1rem;
     transition: color 0.2s;
 }
-nav a:hover, .login-btn {
-    color: #00d14e;
+.nav-links li a.active, .nav-links li a:hover {
+    color: #00cfff;
 }
 .login-btn {
-    background: #00d14e;
-    color: #111;
-    padding: 8px 18px;
+   background: #fff;
+    color: #7b2ff2;
+    border: none;
     border-radius: 20px;
-    font-weight: bold;
-    margin-left: 10px;
+    padding: 8px 18px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
     transition: background 0.2s, color 0.2s;
+    box-shadow: 0 2px 8px rgba(123,47,242,0.08);
 }
 .login-btn:hover {
-    background: #fff;
-    color: #00d14e;
+     background: #f357a8;
+    color: #fff;
 }
+
 .hero {
     display: flex;
     flex-wrap: wrap;
@@ -68,11 +77,11 @@ nav a:hover, .login-btn {
     color: #e0e0e0;
 }
 .cta-btn {
-    background: linear-gradient(90deg, #00cfff 0%, #f357a8 100%);
-    color: #fff;
-    padding: 16px 36px;
+    background: linear-gradient(90deg, #ffffff 0%, #ffffff 100%);
+    color: #f357a8;
+    padding: 8px 28px;
     border-radius: 30px;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: bold;
     text-decoration: none;
     box-shadow: 0 4px 16px #7b2ff233;

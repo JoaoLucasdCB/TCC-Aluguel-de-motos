@@ -33,42 +33,6 @@
         </div>
     </main>
     <script src="../javascript/motos.js"></script>
-    <script>
-    // Exibe nome do usuário e menu hamburguer se estiver logado
-    document.addEventListener('DOMContentLoaded', function() {
-        const nomeUsuario = localStorage.getItem('nomeUsuario');
-        const tipoUsuario = localStorage.getItem('tipoUsuario');
-        const loginBtn = document.getElementById('loginBtn');
-        const perfilArea = document.getElementById('perfilArea');
-        if (nomeUsuario) {
-            if (loginBtn) loginBtn.style.display = 'none';
-            perfilArea.innerHTML = `
-                <button id="perfilMenuBtn">${nomeUsuario} &#x25BC;</button>
-                <ul id="perfilDropdown">
-                    <li><a href="reservas.html">Minhas Reservas</a></li>
-                    <li><a href="planos.html">Planos Assinados</a></li>
-                    ${tipoUsuario && tipoUsuario.toLowerCase() === 'admin' ? '<li><a href="../../Admin/html/cadastrar-moto.html">Admin</a></li>' : ''}
-                    <li><a href="login.html" style="color:#c00;">Sair</a></li>
-                </ul>
-            `;
-            const btn = document.getElementById('perfilMenuBtn');
-            const dropdown = document.getElementById('perfilDropdown');
-            let timeout;
-            btn.addEventListener('click', () => {
-                dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-            });
-            btn.addEventListener('blur', () => {
-                timeout = setTimeout(() => dropdown.style.display = 'none', 200);
-            });
-            dropdown.addEventListener('mouseenter', () => clearTimeout(timeout));
-            dropdown.addEventListener('mouseleave', () => {
-                timeout = setTimeout(() => dropdown.style.display = 'none', 200);
-            });
-        } else {
-            if (loginBtn) loginBtn.style.display = 'inline-block';
-            perfilArea.innerHTML = '';
-        }
-    });
-    </script>
+    
 </body>
 </html>
