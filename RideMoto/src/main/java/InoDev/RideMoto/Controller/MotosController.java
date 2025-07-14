@@ -18,15 +18,16 @@ public class MotosController {
     private MotosService motosService;
 
     @GetMapping
-    public ResponseEntity<List<MotosModel>> listarTodas() {
+    public ResponseEntity<List<InoDev.RideMoto.DTO.MotosDTO>> listarTodas() {
         List<MotosModel> motos = motosService.listarTodas();
-        return ResponseEntity.ok(motos);
+        List<InoDev.RideMoto.DTO.MotosDTO> motosDTO = motos.stream().map(InoDev.RideMoto.DTO.MotosDTO::new).toList();
+        return ResponseEntity.ok(motosDTO);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MotosModel> buscarPorId(@PathVariable Long id) {
+    public ResponseEntity<InoDev.RideMoto.DTO.MotosDTO> buscarPorId(@PathVariable Long id) {
         Optional<MotosModel> moto = motosService.buscarPorId(id);
-        return moto.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        return moto.map(m -> ResponseEntity.ok(new InoDev.RideMoto.DTO.MotosDTO(m))).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping("/placa/{placa}")
