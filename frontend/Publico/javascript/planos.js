@@ -1,11 +1,6 @@
 async function fetchAndRenderPlanos() {
     try {
-        const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:8080/planos', {
-            headers: {
-                'Authorization': 'Bearer ' + token
-            }
-        });
+        const response = await fetch('http://localhost:8080/planos');
         if (!response.ok) throw new Error('Erro ao buscar planos');
         const planos = await response.json();
         const planosList = document.getElementById('planosList');

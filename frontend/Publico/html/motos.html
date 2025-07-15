@@ -15,6 +15,7 @@
         <div class="perfil-container">
             <div id="usuarioLogado" class="perfil-btn" style="display:none;"></div>
             <div id="perfilDropdown" class="perfil-dropdown" style="display:none;">
+                <button id="relatorioBtn" style="display:none;">Central</button>
                 <button id="logoutBtn">Sair</button>
             </div>
         </div>
@@ -23,7 +24,6 @@
             <li><a href="sobre.html">Sobre Nós</a></li>
             <li><a href="motos.html" class="active">Motos</a></li>
             <li><a href="planos.html">Planos</a></li>
-            <li><a href="suporte.html">Suporte</a></li>
         </ul>
     </nav>
     <main>
@@ -38,6 +38,19 @@
         </div>
     </main>
     <script src="../javascript/motos.js"></script>
+    <script>
+    // Exibe botão de relatório para admin
+    document.addEventListener('DOMContentLoaded', function() {
+        const relatorioBtn = document.getElementById('relatorioBtn');
+        const tipoUsuario = localStorage.getItem('tipoUsuario');
+        if (tipoUsuario && tipoUsuario.toUpperCase() === 'ADMIN') {
+            relatorioBtn.style.display = 'block';
+            relatorioBtn.onclick = function() {
+                window.location.href = '../../Admin/html/aluguel-relatorio.html';
+            };
+        }
+    });
+    </script>
     
 </body>
 </html>

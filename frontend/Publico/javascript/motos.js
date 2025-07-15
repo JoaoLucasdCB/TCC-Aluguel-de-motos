@@ -30,12 +30,7 @@ const motoList = document.getElementById('motoList');
 
 async function fetchMotosAPI() {
     try {
-        const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:8080/api/motos', {
-            headers: {
-                'Authorization': 'Bearer ' + token
-            }
-        });
+        const response = await fetch('http://localhost:8080/api/motos');
         if (!response.ok) throw new Error('Erro ao buscar motos');
         const motosAPI = await response.json();
         // Adapta os dados do backend para o formato esperado pelo render

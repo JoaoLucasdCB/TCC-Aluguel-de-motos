@@ -24,6 +24,9 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.POST, "/login").permitAll()
                 .requestMatchers("/login", "/usuarios", "/usuarios/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/reservas", "/reservas/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/motos", "/api/motos/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/planos", "/planos/**").permitAll()
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);

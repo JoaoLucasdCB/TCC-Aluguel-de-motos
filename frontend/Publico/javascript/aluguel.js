@@ -168,10 +168,12 @@ document.addEventListener('DOMContentLoaded', function() {
             dataFim: fimInput.value, // campo para o backend
             status: "PENDENTE"
         };
+        const token = localStorage.getItem('token');
         fetch('http://localhost:8080/reservas', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
             },
             body: JSON.stringify(reservaInput)
         })

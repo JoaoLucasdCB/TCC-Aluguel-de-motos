@@ -13,17 +13,20 @@ document.addEventListener('DOMContentLoaded', function() {
             usuarioIcon.style.display = 'inline-block';
             if (perfilDropdown) {
                 perfilDropdown.style.display = 'none';
+                let hideTimeout;
                 usuarioIcon.onmouseenter = () => {
+                    clearTimeout(hideTimeout);
                     perfilDropdown.style.display = 'block';
                 };
                 usuarioIcon.onmouseleave = () => {
-                    setTimeout(() => { perfilDropdown.style.display = 'none'; }, 200);
+                    hideTimeout = setTimeout(() => { perfilDropdown.style.display = 'none'; }, 400);
                 };
                 perfilDropdown.onmouseenter = () => {
+                    clearTimeout(hideTimeout);
                     perfilDropdown.style.display = 'block';
                 };
                 perfilDropdown.onmouseleave = () => {
-                    perfilDropdown.style.display = 'none';
+                    hideTimeout = setTimeout(() => { perfilDropdown.style.display = 'none'; }, 400);
                 };
             }
             if (logoutBtn) {
