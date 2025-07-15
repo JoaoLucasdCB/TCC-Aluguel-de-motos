@@ -4,15 +4,6 @@ main {
     padding: 0 16px;
 }
 
-.navbar {
-     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: linear-gradient(90deg, #2d085c 0%, #a12b8c 100%);
-    padding: 16px 32px;
-    border-bottom: 3px solid #00cfff;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-}
 .logo {
     font-size: 2rem;
     color: #b266ff;
@@ -34,21 +25,7 @@ main {
 .nav-links li a.active, .nav-links li a:hover {
     color: #00cfff;
 }
-.login-btn {
-   background: #fff;
-    color: #7b2ff2;
-    border: none;
-    border-radius: 20px;
-    padding: 8px 18px;
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.95rem;
-    transition: background 0.2s, color 0.2s;
-    box-shadow: 0 2px 8px rgba(123,47,242,0.08);
-}
+
 .login-btn:hover {
      background: #f357a8;
     color: #fff;

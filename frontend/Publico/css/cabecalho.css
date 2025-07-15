@@ -3,23 +3,36 @@
 .navbar {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     background: linear-gradient(90deg, #2d085c 0%, #a12b8c 100%);
-    padding: 16px 32px;
+    padding: 10px 30px;
     border-bottom: 3px solid #00cfff;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    color: #fff;
+    position: relative;
+    height: 70px;
 }
 .logo {
     font-size: 2rem;
     color: #b266ff;
     font-weight: bold;
+    position: absolute;
+    left: 30px;
+    top: 50%;
+    transform: translateY(-50%);
 }
 .nav-links {
-     list-style: none;
+    list-style: none;
     display: flex;
     gap: 32px;
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: max-content;
 }
 .nav-links li a {
     color: #fff;
@@ -47,5 +60,57 @@
 }
 .login-btn:hover {
      background: #f357a8;
+    color: #fff;
+}
+.perfil-container {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+}
+.perfil-btn {
+   background: #fff;
+    color: #7b2ff2;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 18px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    transition: background 0.2s, color 0.2s;
+    box-shadow: 0 2px 8px rgba(123,47,242,0.08);
+}
+.perfil-btn:hover {
+    background: #d13b8a;
+}
+.perfil-dropdown {
+    position: absolute;
+    top: 110%;
+    right: 0;
+    background: #fff;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border-radius: 8px;
+    min-width: 120px;
+    z-index: 10;
+    padding: 8px 0;
+}
+.perfil-dropdown button {
+    background: none;
+    border: none;
+    color: #f357a8;
+    font-weight: bold;
+    width: 100%;
+    padding: 8px 0;
+    cursor: pointer;
+    border-radius: 0;
+}
+.perfil-dropdown button:hover {
+    background: #f357a8;
     color: #fff;
 }

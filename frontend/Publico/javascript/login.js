@@ -29,7 +29,7 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
                 if (data.tipoUsuario && data.tipoUsuario.toLowerCase() === 'admin') {
                     window.location.href = '../../Admin/html/cadastrar-moto.html';
                 } else {
-                    window.location.href = 'reservas.html';
+                    window.location.href = 'aluguel.html';
                 }
             } else {
                 alert('Email ou senha inválidos.');

@@ -24,10 +24,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     function carregarTodasMotos() {
+        const token = localStorage.getItem('token');
         const apiUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
             ? 'http://localhost:8080/api/motos/disponiveis'
             : '/api/motos/disponiveis';
-        fetch(apiUrl)
+        fetch(apiUrl, {
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 motos = data;
@@ -59,7 +64,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const apiUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
             ? 'http://localhost:8080/api/motos/disponiveis'
             : '/api/motos/disponiveis';
-        fetch(`${apiUrl}?inicio=${encodeURIComponent(inicio)}&fim=${encodeURIComponent(fim)}`)
+        const token = localStorage.getItem('token');
+        fetch(`${apiUrl}?inicio=${encodeURIComponent(inicio)}&fim=${encodeURIComponent(fim)}`, {
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 motos = data;
@@ -106,7 +116,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Buscar planos do backend
-    fetch('http://localhost:8080/planos')
+    const token = localStorage.getItem('token');
+    fetch('http://localhost:8080/planos', {
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    })
         .then(res => res.json())
         .then(data => {
             planos = data;

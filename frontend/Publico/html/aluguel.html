@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RideMoto - Aluguel</title>
     <link rel="stylesheet" href="../css/aluguel.css">
+    <link rel="stylesheet" href="../css/cabecalho.css">
+    <script src="../javascript/usuario-logado.js"></script>
+    
 </head>
 <body>
     <nav class="navbar">
@@ -16,7 +19,12 @@
             <li><a href="planos.html">Planos</a></li>
             <li><a href="suporte.html">Suporte</a></li>
         </ul>
-        <button class="login-btn" onclick="window.location.href='login.html'">Faça login</button>
+        <div class="perfil-container">
+            <div id="usuarioLogado" class="perfil-btn" style="display:none;"></div>
+            <div id="perfilDropdown" class="perfil-dropdown" style="display:none;">
+                <button id="logoutBtn">Sair</button>
+            </div>
+        </div>
     </nav>
     <main class="aluguel-main">
         <section class="aluguel-info">
