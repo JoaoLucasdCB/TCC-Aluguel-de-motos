@@ -26,7 +26,7 @@
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="margin-left:2px;vertical-align:middle;"><path d="M7 10l5 5 5-5" stroke="#fff" stroke-width="2" fill="none"/></svg>
                 </button>
                 <ul class="perfil-dropdown" id="perfilDropdown" style="display:none; position:absolute; right:0; background:#fff; color:#444; min-width:120px; box-shadow:0 2px 8px rgba(0,0,0,0.12); border-radius:8px; margin-top:8px; z-index:100; list-style:none; padding:8px 0;">
-                    <li><a href="../../Publico/html/login.html" style="display:block; padding:6px 12px; color:#444; text-decoration:none; font-weight:500; font-size:0.97rem;">Sair</a></li>
+                    <li><a href="#" onclick="logoutAdmin()" style="display:block; padding:6px 12px; color:#444; text-decoration:none; font-weight:500; font-size:0.97rem;">Sair</a></li>
                 </ul>
             </li>
         </ul>
@@ -85,6 +85,7 @@
         </div>
     </main>
     <script src="../javascript/cadastrar-moto.js"></script>
+    <script src="../javascript/logout.js"></script>
     <script>
     // Protege páginas admin: só admin pode acessar
     document.addEventListener('DOMContentLoaded', function() {
