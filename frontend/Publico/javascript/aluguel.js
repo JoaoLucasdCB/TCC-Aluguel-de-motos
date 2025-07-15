@@ -148,10 +148,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const reservaInput = {
             motoId: motoSelect.value,
             planoId: planoSelect.value,
-            usuarioId: 1, // Troque pelo ID do usuário logado
+            usuarioId: 4, // ID do Bernardo
             dataInicio: inicioInput.value,
-            dataFim: fimInput.value,
-            status: "ATIVA"
+            dataFim: fimInput.value, // campo para o backend
+            status: "PENDENTE"
         };
         fetch('http://localhost:8080/reservas', {
             method: 'POST',

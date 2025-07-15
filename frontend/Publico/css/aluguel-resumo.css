@@ -1,3 +1,73 @@
+/* Espaçamento entre linhas do resumo */
+#resumoDados {
+    line-height: 2.3;
+    margin-bottom: 38px;
+    font-size: 1.18rem;
+    background: #f7f7fa;
+    border-radius: 14px;
+    padding: 28px 22px 24px 22px;
+    color: #3a2d4d;
+    box-shadow: 0 2px 12px rgba(123,47,242,0.07);
+    border: 1.5px solid #e0e0e0;
+}
+
+/* Espaçamento entre grupos do formulário */
+
+/* Espaçamento entre grupos do formulário */
+#dadosExtrasForm .form-group {
+    margin-bottom: 26px;
+}
+
+#dadosExtrasForm label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #7b2ff2;
+    letter-spacing: 0.5px;
+}
+
+#dadosExtrasForm input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 1.5px solid #e0e0e0;
+    font-size: 1.08rem;
+    background: #f7f7fa;
+    color: #333;
+    outline: none;
+    transition: border 0.2s;
+    box-shadow: 0 1px 4px rgba(123,47,242,0.04);
+}
+#dadosExtrasForm input:focus {
+    border: 1.5px solid #f357a8;
+    background: #fff;
+}
+
+#dadosExtrasForm h2 {
+    margin-bottom: 22px;
+    margin-top: 0;
+    color: #f357a8;
+    font-size: 1.25rem;
+    letter-spacing: 0.5px;
+}
+
+#dadosExtrasForm .confirmar-btn {
+    margin-top: 14px;
+    padding: 12px 0;
+    font-size: 1.13rem;
+    border-radius: 20px;
+    background: linear-gradient(90deg, #7b2ff2 60%, #f357a8 100%);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    font-weight: 600;
+    transition: background 0.2s;
+    box-shadow: 0 2px 8px rgba(123,47,242,0.08);
+}
+#dadosExtrasForm .confirmar-btn:hover {
+    background: linear-gradient(90deg, #f357a8 60%, #7b2ff2 100%);
+}
 /* aluguel-resumo.css - Segue o padrão visual do projeto */
 body {
     margin: 0;

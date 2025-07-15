@@ -11,14 +11,35 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
 
-    resumoDados.innerHTML = `
-        <b>Moto:</b> ${aluguel.moto.nome} (${aluguel.moto.placa})<br>
-        <b>Plano:</b> ${aluguel.plano.nome} - ${aluguel.plano.descricao}<br>
-        <b>Início:</b> ${new Date(aluguel.inicio).toLocaleString('pt-BR')}<br>
-        <b>Fim:</b> ${new Date(aluguel.fim).toLocaleString('pt-BR')}<br>
-        <b>Valor Total:</b> ${aluguel.valorTotal}
-    `;
 
+    resumoDados.innerHTML = `
+        <b>Moto:</b> ${aluguel.motoNome || '-'} (${aluguel.motoPlaca || '-'})<br>
+        <b>Marca:</b> ${aluguel.motoMarca || '-'}<br>
+        <b>Modelo:</b> ${aluguel.motoModelo || '-'}<br>
+        <b>Cilindrada:</b> ${aluguel.motoCilindrada || '-'}<br>
+        <b>Plano:</b> ${aluguel.nomePlano || '-'}<br>
+        <b>Duração:</b> ${aluguel.planoDuracao || '-'} dias<br>
+        <b>Benefícios:</b> ${aluguel.planoBeneficios || '-'}<br>
+        <b>Usuário:</b> ${aluguel.usuarioNome || '-'}<br>
+        <b>Início:</b> ${aluguel.dataInicio ? new Date(aluguel.dataInicio).toLocaleString('pt-BR') : '-'}<br>
+        <b>Fim:</b> ${(() => {
+            const campos = [aluguel.data_fim, aluguel.dataFim, aluguel.fim, aluguel.dataFimReserva];
+            for (const campo of campos) {
+                if (campo) {
+                    // Se vier como objeto Date ou string ISO
+                    const dt = new Date(campo);
+                    if (!isNaN(dt.getTime())) {
+                        return dt.toLocaleString('pt-BR');
+                    } else if (typeof campo === 'string' && /^\d{4}-\d{2}-\d{2}/.test(campo)) {
+                        return campo.split('T')[0].split('-').reverse().join('/');
+                    } else {
+                        return campo;
+                    }
+                }
+            }
+            return '-';
+        })()}<br>
+    `;
     document.getElementById('dadosExtrasForm').addEventListener('submit', function(e) {
         e.preventDefault();
         // Coleta dados extras
@@ -33,6 +54,6 @@ document.addEventListener('DOMContentLoaded', function() {
             telefone
         };
         sessionStorage.setItem('aluguelCompleto', JSON.stringify(aluguelCompleto));
-        window.location.href = 'aluguel-relatorio.html';
+        window.location.href = 'landing.html';
     });
 });

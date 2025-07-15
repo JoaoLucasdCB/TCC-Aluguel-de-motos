@@ -53,6 +53,9 @@ public class ReservasModel {
     @Column(name = "status", nullable = false)
     private StatusReserva status;
 
+    @Column(name = "data_fim", nullable = false)
+    private LocalDate dataFim;
+
     @OneToOne(mappedBy = "reserva")
     private AluguelModel aluguel;
 

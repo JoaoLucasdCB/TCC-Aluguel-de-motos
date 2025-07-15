@@ -12,6 +12,10 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController {
+    @PostMapping(value = "/teste-cadastro", consumes = {"application/json", "application/json;charset=UTF-8"})
+    public InoDev.RideMoto.Models.UsuarioModel cadastrarUsuarioTeste(@RequestBody InoDev.RideMoto.Models.UsuarioModel usuario) {
+        return service.salvar(usuario);
+    }
     private final UsuarioService service;
 
     public UsuarioController(UsuarioService service) {

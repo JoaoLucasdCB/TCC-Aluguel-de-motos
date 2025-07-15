@@ -13,6 +13,12 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/motos")
 public class MotosController {
+    @GetMapping("/disponiveis")
+    public ResponseEntity<java.util.List<InoDev.RideMoto.DTO.MotosDTO>> listarDisponiveis() {
+        List<MotosModel> motos = motosService.listarDisponiveis();
+        List<InoDev.RideMoto.DTO.MotosDTO> motosDTO = motos.stream().map(InoDev.RideMoto.DTO.MotosDTO::new).toList();
+        return ResponseEntity.ok(motosDTO);
+    }
 
     @Autowired
     private MotosService motosService;

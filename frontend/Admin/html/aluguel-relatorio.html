@@ -67,5 +67,37 @@
         });
     }
     </script>
+    <script>
+    // Buscar reservas do backend e exibir no relatório
+    document.addEventListener('DOMContentLoaded', function() {
+        // Endpoint correto conforme backend
+        fetch('http://localhost:8080/reservas')
+            .then(response => response.json())
+            .then(reservas => {
+                const relatorioDiv = document.getElementById('relatorioDados');
+                if (!reservas || reservas.length === 0) {
+                    relatorioDiv.innerHTML = '<p>Nenhuma reserva encontrada.</p>';
+                    return;
+                }
+                let html = '<table style="width:100%;border-collapse:collapse;margin-top:16px;">';
+                html += '<tr style="background:#f357a8;color:#fff;"><th>Moto</th><th>Usuário</th><th>Início</th><th>Fim</th><th>Status</th></tr>';
+                reservas.forEach(r => {
+                    html += `<tr style="border-bottom:1px solid #eee;">
+                        <td>${r.motoNome || '-'}</td>
+                        <td>${r.usuarioNome || '-'}</td>
+                        <td>${r.dataInicio ? new Date(r.dataInicio).toLocaleString('pt-BR') : '-'}</td>
+                        <td>${r.data_fim ? new Date(r.data_fim).toLocaleString('pt-BR') : '-'}</td>
+                        <td>${r.status || '-'}</td>
+                    </tr>`;
+                });
+                html += '</table>';
+                relatorioDiv.innerHTML = html;
+            })
+            .catch(err => {
+                document.getElementById('relatorioDados').innerHTML = '<p style="color:red">Erro ao buscar reservas.</p>';
+                console.error('Erro ao buscar reservas:', err);
+            });
+    });
+    </script>
 </body>
 </html>
