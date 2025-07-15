@@ -11,12 +11,13 @@ document.getElementById('formCadastroPlano').addEventListener('submit', async fu
         alert('Preencha todos os campos obrigatórios!');
         return;
     }
-    console.log('Enviando JSON para cadastro de plano:', JSON.stringify(plano));
     try {
+        const token = localStorage.getItem('token');
         const response = await fetch('http://localhost:8080/planos', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
             },
             body: JSON.stringify(plano)
         });

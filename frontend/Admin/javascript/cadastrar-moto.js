@@ -23,10 +23,12 @@ document.getElementById('formCadastroMoto').addEventListener('submit', async fun
     }
     console.log('Enviando JSON para cadastro:', JSON.stringify(moto));
     try {
+        const token = localStorage.getItem('token');
         const response = await fetch('http://localhost:8080/api/motos', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
             },
             body: JSON.stringify(moto)
         });
@@ -76,7 +78,12 @@ btnBuscarPlaca.addEventListener('click', async function() {
         return;
     }
     try {
-        const response = await fetch(`http://localhost:8080/api/motos/placa/${placa}`);
+        const token = localStorage.getItem('token');
+        const response = await fetch(`http://localhost:8080/api/motos/placa/${placa}`, {
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        });
         if (!response.ok) throw new Error('Moto não encontrada com essa placa');
         const moto = await response.json();
         document.getElementById('nome').value = moto.nome || '';
@@ -115,9 +122,13 @@ confirmarAlteracaoBtn.addEventListener('click', async function() {
     };
     console.log('Enviando JSON para edição:', JSON.stringify(motoEditada));
     try {
+        const token = localStorage.getItem('token');
         const putResponse = await fetch(`http://localhost:8080/api/motos/${idMotoEditando}`, {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
             body: JSON.stringify(motoEditada)
         });
         if (!putResponse.ok) throw new Error('Erro ao editar moto');

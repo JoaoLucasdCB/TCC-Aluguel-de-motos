@@ -4,7 +4,12 @@ const API_URL = 'http://localhost:8080/usuarios'; // ajuste se necessário
 
 async function renderUsuarios() {
     try {
-        const response = await fetch(API_URL);
+        const token = localStorage.getItem('token');
+        const response = await fetch(API_URL, {
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        });
         if (!response.ok) throw new Error('Erro ao buscar usuários');
         const usuarios = await response.json();
         const tbody = document.getElementById('usuariosTableBody');
@@ -37,7 +42,13 @@ window.editarUsuario = function(id) {
 window.excluirUsuario = async function(id) {
     if (confirm('Tem certeza que deseja excluir este usuário?')) {
         try {
-            const response = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${API_URL}/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            });
             if (!response.ok) throw new Error('Erro ao excluir usuário');
             renderUsuarios();
         } catch (err) {

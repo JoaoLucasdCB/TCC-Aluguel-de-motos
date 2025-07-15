@@ -15,7 +15,12 @@ document.addEventListener('DOMContentLoaded', async function() {
         return;
     }
     try {
-        const response = await fetch(`${API_URL}/${usuarioId}`);
+        const token = localStorage.getItem('token');
+        const response = await fetch(`${API_URL}/${usuarioId}`, {
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        });
         if (!response.ok) throw new Error('Erro ao buscar usuário');
         const usuario = await response.json();
         document.getElementById('usuarioId').value = usuario.id || '';
@@ -38,9 +43,13 @@ document.addEventListener('DOMContentLoaded', async function() {
         if(document.getElementById('telefone').value) usuarioAtualizado.telefone = document.getElementById('telefone').value;
         if(document.getElementById('tipoUsuario').value) usuarioAtualizado.tipoUsuario = document.getElementById('tipoUsuario').value;
         try {
+            const token = localStorage.getItem('token');
             const response = await fetch(`${API_URL}/${usuarioId}`, {
                 method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                },
                 body: JSON.stringify(usuarioAtualizado)
             });
             if (!response.ok) throw new Error('Erro ao atualizar usuário');

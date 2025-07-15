@@ -164,11 +164,13 @@ document.addEventListener('DOMContentLoaded', function() {
             if (res.ok) {
                 const reserva = await res.json();
                 sessionStorage.setItem('aluguel', JSON.stringify(reserva));
+                atualizarMotosPorData();
                 window.location.href = 'aluguel-resumo.html';
             } else if (res.status === 409) {
                 const msg = await res.text();
                 avisoDatas.textContent = msg || 'Moto já reservada para o período selecionado.';
                 avisoDatas.style.display = 'block';
+                atualizarMotosPorData();
             } else {
                 avisoDatas.textContent = 'Erro ao realizar reserva. Tente novamente.';
                 avisoDatas.style.display = 'block';

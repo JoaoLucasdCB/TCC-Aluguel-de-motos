@@ -13,7 +13,14 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
             },
             body: JSON.stringify({ email, senha })
         })
-        .then(response => response.json())
+        .then(async response => {
+            if (!response.ok) {
+                const msg = await response.text();
+                alert(msg || 'Email ou senha inválidos.');
+                throw new Error(msg || 'Email ou senha inválidos.');
+            }
+            return response.json();
+        })
         .then(data => {
             if (data.token) {
                 localStorage.setItem('token', data.token);
@@ -22,14 +29,13 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
                 if (data.tipoUsuario && data.tipoUsuario.toLowerCase() === 'admin') {
                     window.location.href = '../../Admin/html/cadastrar-moto.html';
                 } else {
-                    window.location.href = 'motos.html';
+                    window.location.href = 'reservas.html';
                 }
             } else {
                 alert('Email ou senha inválidos.');
             }
         })
         .catch(error => {
-            alert('Erro de conexão com o servidor.');
             console.error(error);
         });
     } else {
