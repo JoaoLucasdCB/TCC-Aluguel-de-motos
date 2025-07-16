@@ -19,15 +19,16 @@ document.addEventListener('DOMContentLoaded', function () {
             return '<div class="sem-reservas">Nenhuma reserva encontrada.</div>';
         }
         let tabela = '<table class="reservas-tabela">';
-        tabela += '<thead><tr><th>Moto</th><th>Plano</th><th>Data Início</th><th>Data Fim</th><th>Status</th></tr></thead><tbody>';
+        tabela += '<thead><tr><th>Moto</th><th>Usuário</th><th>Data de Retirada</th><th>Status</th></tr></thead><tbody>';
         reservas.forEach(reserva => {
-            tabela += `<tr>
-                <td>${reserva.motoNome || reserva.moto_nome || ''}</td>
-                <td>${reserva.nomePlano || reserva.planoNome || ''}</td>
-                <td>${reserva.dataInicio || ''}</td>
-                <td>${reserva.data_fim || reserva.dataFim || ''}</td>
-                <td>${reserva.status || ''}</td>
-            </tr>`;
+            tabela += `
+                <tr>
+                    <td>${reserva.motoNome || reserva.moto_nome || ''}</td>
+                    <td>${reserva.usuarioNome || reserva.usuario_nome || ''}</td>
+                    <td>${reserva.dataRetirada ? new Date(reserva.dataRetirada).toLocaleString('pt-BR') : '-'}</td>
+                    <td>${reserva.status || ''}</td>
+                </tr>
+            `;
         });
         tabela += '</tbody></table>';
         return tabela;
