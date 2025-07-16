@@ -1,8 +1,9 @@
+
 package InoDev.RideMoto.DTO;
 
 public class ReservaDTO {
     private Long id;
-    private String dataInicio;
+    private String dataRetirada;
     private String status;
     private String nomePlano;
     private String nomeUsuario;
@@ -23,9 +24,6 @@ public class ReservaDTO {
     // Usuário
     private Long usuarioId;
     private String usuarioNome;
-
-    // Data de fim do aluguel
-    private String data_fim;
 
     public Long getMotoId() { return motoId; }
     public void setMotoId(Long motoId) { this.motoId = motoId; }
@@ -52,14 +50,12 @@ public class ReservaDTO {
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
-    public String getDataInicio() { return dataInicio; }
-    public void setDataInicio(String dataInicio) { this.dataInicio = dataInicio; }
+    public String getDataRetirada() { return dataRetirada; }
+    public void setDataRetirada(String dataRetirada) { this.dataRetirada = dataRetirada; }
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
     public String getNomePlano() { return nomePlano; }
     public void setNomePlano(String nomePlano) { this.nomePlano = nomePlano; }
     public String getNomeUsuario() { return nomeUsuario; }
     public void setNomeUsuario(String nomeUsuario) { this.nomeUsuario = nomeUsuario; }
-    public String getData_fim() { return data_fim; }
-    public void setData_fim(String data_fim) { this.data_fim = data_fim; }
 }

@@ -5,8 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const planoSelect = document.getElementById('plano');
     const detalhesMoto = document.getElementById('detalhesMoto');
     const detalhesPlano = document.getElementById('detalhesPlano');
-    const inicioInput = document.getElementById('inicio');
-    const fimInput = document.getElementById('fim');
+    const retiradaInput = document.getElementById('retirada');
     let avisoDatas = document.createElement('div');
     avisoDatas.id = 'avisoDatas';
     avisoDatas.style = 'color:#f357a8; margin-bottom:8px; font-size:0.98rem;';
@@ -16,8 +15,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const yyyy = hoje.getFullYear();
     const mm = String(hoje.getMonth() + 1).padStart(2, '0');
     const dd = String(hoje.getDate()).padStart(2, '0');
-    const minDate = `${yyyy}-${mm}-${dd}T00:00`;
-    inicioInput.setAttribute('min', minDate);
+    const minDate = `${yyyy}-${mm}-${dd}`;
+    retiradaInput.setAttribute('min', minDate);
 
     let motos = [];
     let planos = [];
@@ -55,9 +54,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function atualizarMotosPorData() {
-        const inicio = inicioInput.value;
-        const fim = fimInput.value;
-        if (!inicio || !fim) {
+        const retirada = retiradaInput.value;
+        if (!retirada) {
             carregarTodasMotos();
             return;
         }
@@ -65,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
             ? 'http://localhost:8080/api/motos/disponiveis'
             : '/api/motos/disponiveis';
         const token = localStorage.getItem('token');
-        fetch(`${apiUrl}?inicio=${encodeURIComponent(inicio)}&fim=${encodeURIComponent(fim)}`, {
+        fetch(`${apiUrl}?retirada=${encodeURIComponent(retirada)}`, {
             headers: {
                 'Authorization': 'Bearer ' + token
             }
@@ -75,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 motos = data;
                 motoSelect.innerHTML = '<option value="">Selecione a moto</option>';
                 if (motos.length === 0) {
-                    avisoDatas.textContent = 'Nenhuma moto disponível para o período selecionado.';
+                    avisoDatas.textContent = 'Nenhuma moto disponível para a data selecionada.';
                     avisoDatas.style.display = 'block';
                     motoSelect.disabled = true;
                 } else {
@@ -94,11 +92,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Carrega todas as motos ao abrir
     carregarTodasMotos();
 
-    // Desabilita o select de motos até as datas serem preenchidas
+    // Desabilita o select de motos até a data de retirada ser preenchida
     function toggleMotoSelect() {
-        if (!inicioInput.value || !fimInput.value) {
+        if (!retiradaInput.value) {
             motoSelect.disabled = true;
-            avisoDatas.textContent = 'Selecione a data de início e fim para escolher uma moto.';
+            avisoDatas.textContent = 'Selecione a data de retirada para escolher uma moto.';
             avisoDatas.style.display = 'block';
         } else {
             motoSelect.disabled = false;
@@ -106,11 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     toggleMotoSelect();
-    inicioInput.addEventListener('change', function() {
-        atualizarMotosPorData();
-        toggleMotoSelect();
-    });
-    fimInput.addEventListener('change', function() {
+    retiradaInput.addEventListener('change', function() {
         atualizarMotosPorData();
         toggleMotoSelect();
     });
@@ -165,8 +159,7 @@ document.addEventListener('DOMContentLoaded', function() {
             motoId: motoSelect.value,
             planoId: planoSelect.value,
             usuarioId: usuarioId,
-            dataInicio: inicioInput.value,
-            dataFim: fimInput.value, // campo para o backend
+            dataRetirada: retiradaInput.value, // novo campo para o backend
             status: "PENDENTE"
         };
         const token = localStorage.getItem('token');
@@ -189,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.location.href = 'aluguel-resumo.html';
             } else if (res.status === 409) {
                 const msg = await res.text();
-                avisoDatas.textContent = msg || 'Moto já reservada para o período selecionado.';
+                avisoDatas.textContent = msg || 'Moto já reservada para a data selecionada.';
                 avisoDatas.style.display = 'block';
                 atualizarMotosPorData();
             } else {
