@@ -44,6 +44,7 @@ public class AuthController {
                     response.put("nome", usuario.getNome());
                     response.put("email", usuario.getEmail());
                     response.put("tipoUsuario", usuario.getTipoUsuario());
+                    response.put("id", String.valueOf(usuario.getId()));
                     return ResponseEntity.ok(response);
                 })
                 .orElseGet(() -> {

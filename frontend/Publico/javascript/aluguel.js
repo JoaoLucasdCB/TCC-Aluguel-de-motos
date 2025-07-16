@@ -160,21 +160,25 @@ document.addEventListener('DOMContentLoaded', function() {
     // Submissão do formulário
     document.getElementById('aluguelForm').addEventListener('submit', function(e) {
         e.preventDefault();
+        const usuarioId = Number(localStorage.getItem('usuarioId'));
         const reservaInput = {
             motoId: motoSelect.value,
             planoId: planoSelect.value,
-            usuarioId: 4, // ID do Bernardo
+            usuarioId: usuarioId,
             dataInicio: inicioInput.value,
             dataFim: fimInput.value, // campo para o backend
             status: "PENDENTE"
         };
         const token = localStorage.getItem('token');
+        console.log('Token JWT:', token);
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        };
+        console.log('Headers enviados:', headers);
         fetch('http://localhost:8080/reservas', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + token
-            },
+            headers: headers,
             body: JSON.stringify(reservaInput)
         })
         .then(async res => {

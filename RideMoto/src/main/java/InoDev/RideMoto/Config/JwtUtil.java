@@ -27,7 +27,7 @@ public class JwtUtil {
         return claimsResolver.apply(claims);
     }
 
-    private Claims extractAllClaims(String token) {
+    public Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(SECRET_KEY)
                 .build()
@@ -37,7 +37,8 @@ public class JwtUtil {
 
     public String generateToken(String username, String tipoUsuario, String nome) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("tipoUsuario", tipoUsuario);
+        // Sempre salva o tipoUsuario em maiúsculo para garantir compatibilidade com roles do Spring
+        claims.put("tipoUsuario", tipoUsuario != null ? tipoUsuario.toUpperCase() : null);
         claims.put("nome", nome);
         return createToken(claims, username);
     }

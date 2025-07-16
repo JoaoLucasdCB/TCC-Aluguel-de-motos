@@ -2,6 +2,9 @@ package InoDev.RideMoto.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -35,10 +38,16 @@ public class ReservasController {
         return service.buscarPorId(id).map(this::toDTO);
     }
 
+    @PreAuthorize("hasRole('CLIENTE')")
     @PostMapping
-    public ReservaDTO salvar(@RequestBody ReservaInputDTO reservaInput) {
+    public ResponseEntity<?> salvar(@RequestBody ReservaInputDTO reservaInput) {
+        var usuarioOpt = usuarioService.buscarPorId(reservaInput.getUsuarioId());
+        if (usuarioOpt.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Usuário não encontrado para o ID informado.");
+        }
         ReservasModel reserva = fromInputDTO(reservaInput);
-        return toDTO(service.salvar(reserva));
+        reserva.setUsuario(usuarioOpt.get());
+        return ResponseEntity.ok(toDTO(service.salvar(reserva)));
     }
 
     @PutMapping("/{id}")

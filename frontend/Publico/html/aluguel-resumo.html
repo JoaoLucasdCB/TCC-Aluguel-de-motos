@@ -4,11 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RideMoto - Resumo do Aluguel</title>
+    <link rel="stylesheet" href="../css/cabecalho.css">
     <link rel="stylesheet" href="../css/aluguel-resumo.css">
     <script src="../javascript/usuario-logado.js"></script>
 </head>
 <body>
     <nav class="navbar">
+        <div class="perfil-container">
+            <div id="usuarioLogado" class="perfil-btn" style="display:none;"></div>
+            <div id="perfilDropdown" class="perfil-dropdown" style="display:none;">
+                <button id="relatorioBtn" style="display:none;">Central</button>
+                <button id="minhasReservasBtn">Minhas Reservas</button>
+                <button id="logoutBtn">Sair</button>
+            </div>
+        </div>
         <div class="logo">i&gt;</div>
         <ul class="nav-links">
             <li><a href="aluguel.html">Aluguel</a></li>
@@ -16,7 +25,7 @@
             <li><a href="motos.html">Motos</a></li>
             <li><a href="planos.html">Planos</a></li>
         </ul>
-        <button class="login-btn" onclick="window.location.href='login.html'">Faça login</button>
+        
     </nav>
     <main class="resumo-main">
         <section class="resumo-info">

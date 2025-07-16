@@ -1,0 +1,100 @@
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(180deg, #2d085c 0%, #a12b8c 100%);
+    margin: 0;
+    padding: 0;
+}
+
+
+.reservas-main {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 48px auto 0 auto;
+    max-width: 700px;
+    padding: 32px 16px;
+    background: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.reservas-info h1 {
+    color: #7b2ff2;
+    margin-bottom: 18px;
+    font-size: 2rem;
+    letter-spacing: 1px;
+    width: 100%;
+    background: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+}
+
+.reservas-info {
+    width: 100%;
+    background: transparent;
+    border-radius: 16px;
+    box-shadow: none;
+    padding: 32px 28px;
+}
+
+#reservasTabelaContainer {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.reservas-tabela {
+    width: 100%;
+    border-collapse: collapse;
+    background: #f7f7fa;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(123,47,242,0.07);
+}
+
+.reservas-tabela th, .reservas-tabela td {
+    padding: 12px 10px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 1.08rem;
+}
+
+.reservas-tabela th {
+    background: #7b2ff2;
+    color: #fff;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.reservas-tabela tr:nth-child(even) {
+    background: #fafafa;
+    border-bottom: none;
+}
+
+.reservas-tabela tr:hover {
+    background: #f357a81a;
+}
+
+.sem-reservas {
+    color: #fff;
+    background: #a12b8c;
+    border-radius: 8px;
+    padding: 18px 12px;
+    text-align: center;
+    font-size: 1.1rem;
+    margin-top: 18px;
+}
+
+@media (max-width: 700px) {
+    .reservas-main {
+        padding: 12px 2px;
+    }
+    .reservas-info {
+        padding: 16px 4px;
+    }
+    .reservas-tabela th, .reservas-tabela td {
+        padding: 8px 4px;
+        font-size: 0.98rem;
+    }
+}

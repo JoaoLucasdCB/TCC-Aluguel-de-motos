@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const usuarioIcon = document.getElementById('usuarioLogado');
     const perfilDropdown = document.getElementById('perfilDropdown');
     const logoutBtn = document.getElementById('logoutBtn');
+    const minhasReservasBtn = document.getElementById('minhasReservasBtn');
     if (usuarioIcon) {
         if (nomeUsuario) {
             usuarioIcon.innerHTML = nomeUsuario + (tipoUsuario ? ` (${tipoUsuario})` : '');
@@ -27,6 +28,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 };
                 perfilDropdown.onmouseleave = () => {
                     hideTimeout = setTimeout(() => { perfilDropdown.style.display = 'none'; }, 400);
+                };
+            }
+            if (minhasReservasBtn) {
+                minhasReservasBtn.onclick = () => {
+                    window.location.href = 'minhas-reservas.html';
                 };
             }
             if (logoutBtn) {

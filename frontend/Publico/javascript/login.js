@@ -26,6 +26,9 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('tipoUsuario', data.tipoUsuario);
                 localStorage.setItem('nomeUsuario', data.nome);
+                if (data.id) {
+                    localStorage.setItem('usuarioId', data.id);
+                }
                 if (data.tipoUsuario && data.tipoUsuario.toLowerCase() === 'admin') {
                     window.location.href = '../../Admin/html/cadastrar-moto.html';
                 } else {
