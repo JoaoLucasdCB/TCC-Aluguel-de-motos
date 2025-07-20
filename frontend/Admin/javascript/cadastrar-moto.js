@@ -1,26 +1,79 @@
 // Protege a página: só acessa se estiver logado
-if (!localStorage.getItem('token')) {
-    window.location.href = '../../Publico/html/login.html';
-}
-// cadastrar-moto.js - Lógica da tela de cadastro de moto do admin
-document.getElementById('formCadastroMoto').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const moto = {
-        nome: document.getElementById('nome').value,
-        marca: document.getElementById('marca').value,
-        modelo: document.getElementById('modelo').value,
-        cilindrada: document.getElementById('cilindrada').value,
-        placa: document.getElementById('placa').value,
-        status: document.getElementById('status').value.toUpperCase(),
-        ano: parseInt(document.getElementById('ano').value),
-        quilometragem: document.getElementById('quilometragem').value ? parseInt(document.getElementById('quilometragem').value) : null,
-        imagem: document.getElementById('imagem').value
-    };
-    // Validação básica
-    if (!moto.nome || !moto.marca || !moto.modelo || !moto.cilindrada || !moto.placa || !moto.status || !moto.ano) {
-        alert('Preencha todos os campos obrigatórios!');
+document.addEventListener('DOMContentLoaded', function() {
+    // Loga o valor do campo nome sempre que for digitado
+    const nomeInput = document.getElementById('nome');
+    if (nomeInput) {
+        nomeInput.addEventListener('input', function() {
+            console.log('[DEBUG] Nome digitado:', this.value);
+        });
+    }
+    if (!localStorage.getItem('token')) {
+        window.location.href = '../../Publico/html/login.html';
         return;
     }
+
+    // cadastrar-moto.js - Lógica da tela de cadastro de moto do admin
+    document.getElementById('formCadastroMoto').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const nome = document.getElementById('nome').value.trim();
+        console.log('[DEBUG] Valor do nome no SUBMIT:', nome);
+    console.log('[DEBUG] Valor do campo nome:', nome);
+    const marca = document.getElementById('marca').value.trim();
+    const modelo = document.getElementById('modelo').value.trim();
+    const cilindrada = document.getElementById('cilindrada').value.trim();
+    const placa = document.getElementById('placa').value.trim();
+    const status = document.getElementById('status').value.trim().toUpperCase();
+    const anoStr = document.getElementById('ano').value;
+    const quilometragemStr = document.getElementById('quilometragem').value;
+    const imagem = document.getElementById('imagem').value.trim();
+
+    // Validação detalhada
+    if (!nome) {
+        alert('Preencha o campo Nome!');
+        return;
+    }
+    if (!marca) {
+        alert('Preencha o campo Marca!');
+        return;
+    }
+    if (!modelo) {
+        alert('Preencha o campo Modelo!');
+        return;
+    }
+    if (!cilindrada) {
+        alert('Preencha o campo Cilindrada!');
+        return;
+    }
+    if (!placa) {
+        alert('Preencha o campo Placa!');
+        return;
+    }
+    if (!status) {
+        alert('Selecione um Status!');
+        return;
+    }
+    if (anoStr === '') {
+        alert('Preencha o campo Ano de Fabricação!');
+        return;
+    }
+    const ano = parseInt(anoStr);
+    if (isNaN(ano) || ano < 1900 || ano > 2100) {
+        alert('Ano de Fabricação deve ser um número entre 1900 e 2100!');
+        return;
+    }
+    const quilometragem = quilometragemStr !== '' ? parseInt(quilometragemStr) : null;
+
+    const moto = {
+        nome,
+        marca,
+        modelo,
+        cilindrada,
+        placa,
+        status,
+        ano,
+        quilometragem,
+        imagem
+    };
     console.log('Enviando JSON para cadastro:', JSON.stringify(moto));
     try {
         const token = localStorage.getItem('token');
@@ -139,7 +192,6 @@ confirmarAlteracaoBtn.addEventListener('click', async function() {
     }
 });
 
-// Opcional: ao cadastrar, reseta para modo cadastro
-cadastrarBtn.addEventListener('click', function() {
-    resetarParaCadastro();
-});
+// Removido: não limpar o formulário ao clicar em cadastrar, só após sucesso
+
+}); // Fim do DOMContentLoaded
