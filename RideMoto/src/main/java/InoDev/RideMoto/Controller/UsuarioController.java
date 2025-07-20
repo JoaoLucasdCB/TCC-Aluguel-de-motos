@@ -12,6 +12,31 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController {
+
+    //     // Endpoint para promover usuário a ADMIN (acessível apenas para ADMIN autenticado)
+    // @PutMapping("/promover-admin/{id}")
+    // public ResponseEntity<UsuarioDTO> promoverParaAdmin(@PathVariable Long id, @RequestHeader("Authorization") String authHeader) {
+    //     // Exemplo simples: extraia o tipo do usuário do token JWT
+    //     // (No seu projeto, ajuste para usar o método correto de autenticação)
+    //     String tipoUsuario = "";
+    //     if (authHeader != null && authHeader.startsWith("Bearer ")) {
+    //         String token = authHeader.substring(7);
+    //         // Aqui você deve usar seu JwtUtil para extrair o tipo do usuário do token
+    //         // Exemplo:
+    //         // tipoUsuario = jwtUtil.getTipoUsuarioFromToken(token);
+    //         // Simulação temporária:
+    //         tipoUsuario = "ADMIN"; // Troque para extração real do token
+    //     }
+    //     if (!"ADMIN".equalsIgnoreCase(tipoUsuario)) {
+    //         return ResponseEntity.status(403).build();
+    //     }
+    //     return service.buscarPorId(id)
+    //             .map(usuario -> {
+    //                 usuario.setTipoUsuario("ADMIN");
+    //                 return ResponseEntity.ok(toDTO(service.salvar(usuario)));
+    //             })
+    //             .orElse(ResponseEntity.notFound().build());
+    // }
     @PostMapping(value = "/teste-cadastro", consumes = {"application/json", "application/json;charset=UTF-8"})
     public InoDev.RideMoto.Models.UsuarioModel cadastrarUsuarioTeste(@RequestBody InoDev.RideMoto.Models.UsuarioModel usuario) {
         return service.salvar(usuario);
@@ -37,6 +62,9 @@ public class UsuarioController {
     @PostMapping
     public UsuarioDTO criar(@RequestBody UsuarioInputDTO usuarioInput) {
         UsuarioModel usuario = fromInputDTO(usuarioInput);
+        // Forçar cadastro apenas de clientes ativos
+        usuario.setTipoUsuario("CLIENTE");
+        usuario.setStatus("ATIVO");
         return toDTO(service.salvar(usuario));
     }
 
