@@ -34,11 +34,7 @@ public class AluguelModel {
     @JoinColumn(name = "reserva_id", referencedColumnName = "id", nullable = false, unique = true)
     private ReservasModel reserva;
 
-    @Column(name = "data_inicio", nullable = false)
-    private LocalDateTime inicio;
-
-    @Column(name = "data_fim", nullable = false)
-    private LocalDateTime fim;
+    // ...existing code...
 
     @Column(name = "valor_total")
     private BigDecimal valorTotal;
