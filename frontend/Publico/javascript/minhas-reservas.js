@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <tr>
                     <td>${reserva.motoNome || reserva.moto_nome || ''}</td>
                     <td>${reserva.usuarioNome || reserva.usuario_nome || ''}</td>
-                    <td>${reserva.dataRetirada ? new Date(reserva.dataRetirada).toLocaleString('pt-BR') : '-'}</td>
+                    <td>${reserva.dataRetirada ? new Date(reserva.dataRetirada).toLocaleDateString('pt-BR') : '-'}</td>
                     <td>${reserva.status || ''}</td>
                 </tr>
             `;
