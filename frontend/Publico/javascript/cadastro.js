@@ -25,18 +25,12 @@ document.getElementById('cadastroForm').addEventListener('submit', function(e) {
     const email = document.getElementById('email').value;
     const senha = document.getElementById('senha').value;
     const cpf = document.getElementById('cpf').value;
-    // Campos extras esperados pelo backend
-    const telefone = document.getElementById('telefone').value;
-    const cnhNumero = document.getElementById('cnhNumero').value;
-    const cnhValidade = document.getElementById('cnhValidade').value;
-    const tipoUsuario = document.getElementById('tipoUsuario').value;
-    const status = document.getElementById('status').value;
     fetch('http://localhost:8080/usuarios', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ nome, email, senha, cpf, telefone, cnhNumero, cnhValidade, tipoUsuario, status })
+        body: JSON.stringify({ nome, email, senha, cpf })
     })
     .then(response => {
         if (response.ok) {
