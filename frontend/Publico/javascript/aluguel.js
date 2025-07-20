@@ -63,6 +63,8 @@ document.addEventListener('DOMContentLoaded', function() {
             ? 'http://localhost:8080/api/motos/disponiveis'
             : '/api/motos/disponiveis';
         const token = localStorage.getItem('token');
+        // Salva a moto selecionada antes de atualizar
+        const motoSelecionada = motoSelect.value;
         fetch(`${apiUrl}?retirada=${encodeURIComponent(retirada)}`, {
             headers: {
                 'Authorization': 'Bearer ' + token
@@ -72,6 +74,16 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 motos = data;
                 motoSelect.innerHTML = '<option value="">Selecione a moto</option>';
+                let selecionadaAindaDisponivel = false;
+                motos.forEach(m => {
+                    const opt = document.createElement('option');
+                    opt.value = m.id;
+                    opt.textContent = `${m.nome} (${m.placa})`;
+                    if (String(m.id) === String(motoSelecionada)) {
+                        selecionadaAindaDisponivel = true;
+                    }
+                    motoSelect.appendChild(opt);
+                });
                 if (motos.length === 0) {
                     avisoDatas.textContent = 'Nenhuma moto disponível para a data selecionada.';
                     avisoDatas.style.display = 'block';
@@ -79,12 +91,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else {
                     avisoDatas.style.display = 'none';
                     motoSelect.disabled = false;
-                    motos.forEach(m => {
-                        const opt = document.createElement('option');
-                        opt.value = m.id;
-                        opt.textContent = `${m.nome} (${m.placa})`;
-                        motoSelect.appendChild(opt);
-                    });
+                    // Se a moto selecionada ainda está disponível, restaura a seleção
+                    if (selecionadaAindaDisponivel) {
+                        motoSelect.value = motoSelecionada;
+                    }
                 }
             });
     }
