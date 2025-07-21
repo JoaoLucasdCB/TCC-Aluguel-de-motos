@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RideMoto - Cadastro</title>
+    <link rel="stylesheet" href="../css/cadastro.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">i&gt;</div>
+        <ul class="nav-links">
+            <li><a href="aluguel.html">Aluguel</a></li>
+            <li><a href="sobre.html">Sobre Nós</a></li>
+            <li><a href="motos.html">Motos</a></li>
+            <li><a href="planos.html">Planos</a></li>
+        </ul>
+        <button class="login-btn" onclick="window.location.href='login.html'">Faça login</button>
+    </nav>
+    <main>
+        <section class="left">
+            <div class="logo-moto">
+                <img src="../img/moto-icon.png" alt="RideMoto" />
+            </div>
+            <h1><span class="ride">Ride</span><span class="moto">Moto</span></h1>
+            <h2>Aluguel de Motos</h2>
+            <p>Ache aqui sua melhor opção.</p>
+        </section>
+        <div class="divider" id="divider-dynamic"></div>
+        <section class="right">
+            <form id="cadastroForm">
+                <h3>Bem vindo ao RideMoto!<br>Faça seu Cadastro:</h3>
+                <label for="nome">Nome</label>
+                <input type="text" id="nome" name="nome" required>
+                <label for="cpf">CPF</label>
+                <input type="text" id="cpf" name="cpf" required maxlength="14" placeholder="000.000.000-00">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" name="senha" required>
+                <!-- Campo de telefone removido conforme nova regra de negócio -->
+                <!-- Campos de CNH removidos conforme nova regra de negócio -->
+                <button type="submit" class="btn-cadastrar">Cadastrar</button>
+                <a href="login.html" style="margin-top:12px; text-align:center; color:#7b2ff2; text-decoration:underline; display:block; font-size:0.98rem;">Já tem cadastro? Clique aqui para fazer login</a>
+            </form>
+        </section>
+    </main>
+    <script src="../javascript/cadastro.js"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+/* aluguel-relatorio.css - Segue o padrão visual do projeto */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(180deg, #2d085c 0%, #a12b8c 100%);
+    min-height: 100vh;
+}
+
+
+.login-btn:hover {
+     background: #f357a8;
+    color: #fff;
+}
+
+.relatorio-main {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 48px auto 0 auto;
+    max-width: 600px;
+    padding: 32px 16px;
+    background: rgba(255,255,255,0.0);
+    border-radius: 24px;
+    box-shadow: 0 4px 24px rgba(123,47,242,0.10);
+}
+
+.relatorio-info {
+    width: 100%;
+    background: linear-gradient(90deg, #2d085c 0%, #a12b8c 100%);
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(123,47,242,0.07);
+    padding: 32px 28px;
+}
+.relatorio-info h1 {
+    color: #7b2ff2;
+    margin-bottom: 18px;
+    font-size: 2rem;
+    letter-spacing: 1px;
+}
+#relatorioDados {
+    background: #f7f7fa;
+    border-radius: 10px;
+    padding: 18px 16px;
+    margin-bottom: 24px;
+    color: #444;
+    font-size: 1.08rem;
+}
+.voltar-btn {
+    width: 100%;
+    background: linear-gradient(90deg, #7b2ff2 60%, #f357a8 100%);
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 12px 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 12px;
+    transition: background 0.2s;
+}
+.voltar-btn:hover {
+    background: linear-gradient(90deg, #f357a8 60%, #7b2ff2 100%);
+}
+
+@media (max-width: 700px) {
+    .relatorio-main {
+        padding: 12px 2px;
+    }
+    .relatorio-info {
+        padding: 16px 4px;
+    }
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RideMoto - Login</title>
+    <link rel="stylesheet" href="../css/cabecalho.css">
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">i&gt;</div>
+        <ul class="nav-links">
+            <li><a href="aluguel.html">Aluguel</a></li>
+            <li><a href="sobre.html">Sobre Nós</a></li>
+            <li><a href="motos.html">Motos</a></li>
+            <li><a href="planos.html">Planos</a></li>
+        </ul>
+        <button class="login-btn" onclick="window.location.href='cadastro.html'">Faça Cadastro</button>
+    </nav>
+    <main>
+        <section class="left">
+            <div class="logo-moto">
+                <img src="../img/moto-icon.png" alt="RideMoto" />
+            </div>
+            <h1><span class="ride">Ride</span><span class="moto">Moto</span></h1>
+            <h2>Aluguel de Motos</h2>
+            <p>Ache aqui sua melhor opção.</p>
+        </section>
+        <div class="divider"></div>
+        <section class="right">
+            <form id="loginForm">
+                <h3>Bem vindo ao RiderMoto!<br>Insira seu Login:</h3>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" name="senha" required>
+                <button type="submit" class="login-action">Login</button>
+                <a href="cadastro.html" style="margin-top:12px; text-align:center; color:#ffffff; text-decoration:underline; display:block; font-size:0.98rem;">Não tem cadastro? Clique aqui para se cadastrar</a>
+            </form>
+        </section>
+    </main>
+    <script src="../javascript/login.js"></script>
+</body>
+</html>

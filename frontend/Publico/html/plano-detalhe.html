@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Plano - RideMoto</title>
+    <link rel="stylesheet" href="../css/cabecalho.css">
+    <link rel="stylesheet" href="../css/motos.css">
+    <link rel="stylesheet" href="../css/plano-detalhe.css">
+    <script src="../javascript/usuario-logado.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">i&gt;</div>
+        <ul class="nav-links">
+            <li><a href="aluguel.html">Aluguel</a></li>
+            <li><a href="sobre.html">Sobre Nós</a></li>
+            <li><a href="motos.html">Motos</a></li>
+            <li><a href="planos.html" class="active">Planos</a></li>
+        </ul>
+        <div class="perfil-container">
+            <div id="usuarioLogado" class="perfil-btn" style="display:none;"></div>
+            <div id="perfilDropdown" class="perfil-dropdown" style="display:none;">
+                <button id="relatorioBtn" style="display:none;">Central</button>
+                <button id="minhasReservasBtn">Minhas Reservas</button>
+                <button id="logoutBtn">Sair</button>
+            </div>
+    </nav>
+    <main>
+        <div class="plano-detail-container">
+            <div class="plano-detail-nome" id="planoDetailNome">Plano</div>
+            <div class="plano-detail-descricao" id="planoDetailDescricao">Descrição</div>
+            <div class="plano-detail-preco" id="planoDetailPreco">Preço</div>
+            <ul class="plano-detail-beneficios" id="planoDetailBeneficios">
+                <!-- Benefícios -->
+            </ul>
+            <button class="plano-detail-btn" onclick="window.location.href='planos.html'">Voltar para planos</button>
+        </div>
+    </main>
+    <script src="../javascript/plano-detalhe.js"></script>
+</body>
+</html>

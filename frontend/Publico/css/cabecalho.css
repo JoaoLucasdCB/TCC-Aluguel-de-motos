@@ -1,0 +1,120 @@
+/* cabecalho.css - Estilos do cabeçalho reutilizáveis para navbar, logo e links */
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(90deg, #2d085c 0%, #a12b8c 100%);
+    padding: 10px 30px;
+    border-bottom: 3px solid #00cfff;
+    color: #fff;
+    position: relative;
+    height: 70px;
+}
+.logo {
+    font-size: 2rem;
+    color: #b266ff;
+    font-weight: bold;
+    position: absolute;
+    left: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 32px;
+    margin: 0 auto;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    position: static;
+    width: max-content;
+}
+.nav-links li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: color 0.2s;
+}
+.nav-links li a.active, .nav-links li a:hover {
+    color: #00cfff;
+}
+/* Alinha o botão de cadastro totalmente à direita na navbar */
+.login-btn {
+    background: #fff;
+    color: #7b2ff2;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 18px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    transition: background 0.2s, color 0.2s;
+    box-shadow: 0 2px 8px rgba(123,47,242,0.08);
+    position: absolute;
+    right: 32px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.login-btn:hover {
+     background: #f357a8;
+    color: #fff;
+}
+.perfil-container {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    padding-right: 24px;
+}
+.perfil-btn {
+   background: #fff;
+    color: #7b2ff2;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 18px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    transition: background 0.2s, color 0.2s;
+    box-shadow: 0 2px 8px rgba(123,47,242,0.08);
+}
+.perfil-btn:hover {
+    background: #d13b8a;
+}
+.perfil-dropdown {
+    position: absolute;
+    top: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border-radius: 8px;
+    min-width: 120px;
+    z-index: 10;
+    padding: 0px 14px 8px ;
+}
+.perfil-dropdown button {
+    background: none;
+    border: none;
+    color: #f357a8;
+    font-weight: bold;
+    width: 100%;
+    padding: 8px 0;
+    cursor: pointer;
+    border-radius: 8px;
+}
+.perfil-dropdown button:hover {
+    background: #f357a8;
+    color: #fff;
+}

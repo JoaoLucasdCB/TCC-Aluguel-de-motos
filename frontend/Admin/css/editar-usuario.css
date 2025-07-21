@@ -1,0 +1,93 @@
+/* editar-usuario.css - Estilos para a tela de edição de usuário do admin */
+.editar-usuario-main {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 48px auto 0 auto;
+    max-width: 600px;
+    padding: 32px 16px;
+    background: rgba(255,255,255,0.0);
+    border-radius: 24px;
+    box-shadow: 0 4px 24px rgba(123,47,242,0.10);
+}
+.editar-usuario-form {
+    width: 100%;
+    background: linear-gradient(90deg, #2d085c 0%, #a12b8c 100%);
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(123,47,242,0.07);
+    padding: 32px 28px;
+    color: #fff;
+}
+.editar-usuario-form h1 {
+    color: #7b2ff2;
+    margin-bottom: 18px;
+    font-size: 2rem;
+    letter-spacing: 1px;
+}
+.editar-usuario-form label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+.editar-usuario-form input {
+    width: 100%;
+    padding: 10px 8px;
+    margin-bottom: 18px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: #f7f7fa;
+    color: #444;
+}
+.editar-usuario-form input:focus {
+    outline: 2px solid #7b2ff2;
+}
+.editar-usuario-form button[type="submit"] {
+    width: 100%;
+    background: linear-gradient(90deg, #7b2ff2 60%, #f357a8 100%);
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 12px 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 12px;
+    transition: background 0.2s;
+}
+.editar-usuario-form button[type="submit"]:hover {
+    background: linear-gradient(90deg, #f357a8 60%, #7b2ff2 100%);
+}
+.editar-usuario-form select#tipoUsuario {
+    width: 100%;
+    padding: 10px 8px;
+    margin-bottom: 18px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.5rem;
+    background: #fff;
+    color: #444;
+    font-weight: 200;
+    box-shadow: 0 1px 4px rgba(123,47,242,0.08);
+    outline: none;
+    border: 1.5px solid #e0e0e0;
+    transition: border 0.2s;
+}
+.editar-usuario-form select#tipoUsuario:focus {
+    border-color: #7b2ff2;
+    background: #fff;
+    color: #222;
+}
+.editar-usuario-form select#tipoUsuario option {
+    color: #444;
+    background: #fff;
+    font-weight: 500;
+}
+@media (max-width: 700px) {
+    .editar-usuario-main {
+        padding: 12px 2px;
+    }
+    .editar-usuario-form {
+        padding: 16px 4px;
+    }
+}

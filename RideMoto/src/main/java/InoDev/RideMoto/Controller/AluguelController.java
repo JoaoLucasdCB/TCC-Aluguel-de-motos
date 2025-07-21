@@ -26,11 +26,7 @@ public class AluguelController {
     @JoinColumn(name = "moto_id", nullable = false)
     private MotosModel moto;
 
-    @Column(nullable = false)
-    private LocalDateTime inicio;
-
-    @Column
-    private LocalDateTime fim;
+    // ...existing code...
 
     @Column(nullable = false)
     private String status;
