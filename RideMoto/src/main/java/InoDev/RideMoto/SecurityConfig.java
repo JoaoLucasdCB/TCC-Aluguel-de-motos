@@ -26,6 +26,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
                 .requestMatchers(HttpMethod.POST, "/login").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/validar-cnh").permitAll()
                 .requestMatchers("/login", "/usuarios", "/usuarios/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/reservas", "/reservas/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/reservas").hasRole("CLIENTE")
