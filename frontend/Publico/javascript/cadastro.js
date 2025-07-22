@@ -1,6 +1,11 @@
-// Permite apenas números, ponto e traço no campo CPF (bloqueia letras)
+// Máscara e validação de CPF: formato 000.000.000-00
 document.getElementById('cpf').addEventListener('input', function(e) {
-    this.value = this.value.replace(/[^0-9.\-]/g, '');
+    let val = this.value.replace(/\D/g, '');
+    if (val.length > 11) val = val.slice(0, 11);
+    if (val.length > 9) val = val.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/, '$1.$2.$3-$4');
+    else if (val.length > 6) val = val.replace(/(\d{3})(\d{3})(\d{1,3})/, '$1.$2.$3');
+    else if (val.length > 3) val = val.replace(/(\d{3})(\d{1,3})/, '$1.$2');
+    this.value = val;
 });
 // Permite apenas letras no campo nome
 document.getElementById('nome').addEventListener('input', function(e) {

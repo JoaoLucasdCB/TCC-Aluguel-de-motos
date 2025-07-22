@@ -1,19 +1,18 @@
 /* Botão moderno para cadastro */
 .btn-cadastrar {
-    background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+margin-top: 18px;
+    background: linear-gradient(90deg, #7b2ff2 0%, #f357a8 100%);
     color: #fff;
     border: none;
-    border-radius: 6px;
-    padding: 12px 0;
-    width: 100%;
+    border-radius: 20px;
+    padding: 10px 0;
     font-size: 1rem;
-    font-weight: bold;
+    font-weight: 600;
     cursor: pointer;
     transition: background 0.2s;
-    margin-top: 18px;
 }
 .btn-cadastrar:hover {
-    background: linear-gradient(90deg, #2575fc 0%, #6a11cb 100%);
+    background: linear-gradient(90deg, #f357a8 0%, #7b2ff2 100%);
 }
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
@@ -192,7 +191,7 @@ h2 {
     background: #fff;
     color: #333;
 }
-}
+
 .cadastro-action {
     margin-top: 18px;
     background: linear-gradient(90deg, #7b2ff2 0%, #f357a8 100%);

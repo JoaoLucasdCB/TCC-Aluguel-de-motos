@@ -165,6 +165,12 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('aluguelForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const usuarioId = Number(localStorage.getItem('usuarioId'));
+        const token = localStorage.getItem('token');
+        if (!token || !usuarioId) {
+            sessionStorage.setItem('loginMessage', 'Faça login para alugar uma moto.');
+            window.location.href = 'login.html';
+            return;
+        }
         const reservaInput = {
             motoId: motoSelect.value,
             planoId: planoSelect.value,
@@ -172,13 +178,10 @@ document.addEventListener('DOMContentLoaded', function() {
             dataRetirada: retiradaInput.value, // novo campo para o backend
             status: "PENDENTE"
         };
-        const token = localStorage.getItem('token');
-        console.log('Token JWT:', token);
         const headers = {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + token
         };
-        console.log('Headers enviados:', headers);
         fetch('http://localhost:8080/reservas', {
             method: 'POST',
             headers: headers,

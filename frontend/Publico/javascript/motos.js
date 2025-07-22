@@ -57,14 +57,40 @@ async function renderMotos() {
         card.onclick = () => {
             window.location.href = `moto-detalhe.html?id=${moto.id}`;
         };
-        card.innerHTML = `
-            <div class="moto-img">${moto.imagem ? `<img src="${moto.imagem}" alt="${moto.modelo}">` : 'Imagem'}</div>
-            <div class="moto-info">
-                <div class="modelo">${moto.modelo}</div>
-                <div class="descricao">${moto.descricao}</div>
-                <div class="valor">${moto.valor}</div>
-            </div>
-        `;
+
+        // Imagem
+        const imgDiv = document.createElement('div');
+        imgDiv.className = 'moto-img';
+        if (moto.imagemUrl) {
+            const img = document.createElement('img');
+            img.src = moto.imagemUrl;
+            img.alt = moto.modelo;
+            imgDiv.appendChild(img);
+        } else {
+            imgDiv.textContent = '🛵';
+        }
+        card.appendChild(imgDiv);
+
+        // Informações
+        const infoDiv = document.createElement('div');
+        infoDiv.className = 'moto-info';
+
+        const modelo = document.createElement('div');
+        modelo.className = 'modelo';
+        modelo.textContent = moto.modelo;
+        infoDiv.appendChild(modelo);
+
+        const descricao = document.createElement('div');
+        descricao.className = 'descricao';
+        descricao.textContent = moto.descricao;
+        infoDiv.appendChild(descricao);
+
+        const valor = document.createElement('div');
+        valor.className = 'valor';
+        valor.textContent = `R$ ${moto.valorHora}/hora`;
+        infoDiv.appendChild(valor);
+
+        card.appendChild(infoDiv);
         motoList.appendChild(card);
     });
 }
