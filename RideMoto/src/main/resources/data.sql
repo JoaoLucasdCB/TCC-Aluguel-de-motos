@@ -3,7 +3,7 @@ VALUES (
   'Administrador',
   'admin@admin.com',
   'admin123',
-  '00000000000',
+  '96999324069',
   'ADMIN',
   'ATIVO'
 );
