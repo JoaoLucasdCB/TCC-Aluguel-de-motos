@@ -45,6 +45,10 @@ public class ReservasController {
         if (usuarioOpt.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Usuário não encontrado para o ID informado.");
         }
+        // Impede múltiplas reservas por usuário
+        if (service.usuarioJaTemReserva(reservaInput.getUsuarioId())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Usuário já possui uma reserva ativa.");
+        }
         ReservasModel reserva = fromInputDTO(reservaInput);
         reserva.setUsuario(usuarioOpt.get());
         return ResponseEntity.ok(toDTO(service.salvar(reserva)));

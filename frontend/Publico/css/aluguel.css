@@ -1,3 +1,17 @@
+/* Garante que o avisoDatas fique visível e destacado */
+#avisoDatas {
+  color: #f357a8;
+  background: #ffffff;
+  border: 1px solid #f357a8;
+  border-radius: 4px;
+  padding: 8px 12px;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  z-index: 1000;
+  display: none;
+}
 /* aluguel.css - Segue o padrão visual do projeto, inspirado em cadastro.css, motos.css e planos.css */
 body {
     margin: 0;

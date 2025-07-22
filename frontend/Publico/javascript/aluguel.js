@@ -194,15 +194,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 const msg = await res.text();
                 avisoDatas.textContent = msg || 'Moto já reservada para a data selecionada.';
                 avisoDatas.style.display = 'block';
-                atualizarMotosPorData();
+                setTimeout(() => { avisoDatas.style.display = 'none'; }, 5000);
             } else {
                 avisoDatas.textContent = 'Erro ao realizar reserva. Tente novamente.';
                 avisoDatas.style.display = 'block';
+                setTimeout(() => { avisoDatas.style.display = 'none'; }, 5000);
             }
         })
         .catch(() => {
             avisoDatas.textContent = 'Erro de conexão com o servidor.';
             avisoDatas.style.display = 'block';
+            setTimeout(() => { avisoDatas.style.display = 'none'; }, 5000);
         });
     });
 });
