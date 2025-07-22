@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(res => {
                     if (res.ok) {
                         alert('Reserva finalizada com sucesso!');
-                        window.location.href = 'landing.html';
+                        window.location.href = 'minhas-reservas.html';
                     } else {
                         alert('Erro ao finalizar reserva.');
                     }

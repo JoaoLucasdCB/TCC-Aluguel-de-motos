@@ -1,6 +1,8 @@
 package InoDev.RideMoto.Controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
+import InoDev.RideMoto.Service.CpfValidator;
 import org.springframework.web.bind.annotation.*;
 import InoDev.RideMoto.Models.UsuarioModel;
 import InoDev.RideMoto.Service.UsuarioService;
@@ -13,30 +15,6 @@ import java.util.stream.Collectors;
 @RequestMapping("/usuarios")
 public class UsuarioController {
 
-    //     // Endpoint para promover usuário a ADMIN (acessível apenas para ADMIN autenticado)
-    // @PutMapping("/promover-admin/{id}")
-    // public ResponseEntity<UsuarioDTO> promoverParaAdmin(@PathVariable Long id, @RequestHeader("Authorization") String authHeader) {
-    //     // Exemplo simples: extraia o tipo do usuário do token JWT
-    //     // (No seu projeto, ajuste para usar o método correto de autenticação)
-    //     String tipoUsuario = "";
-    //     if (authHeader != null && authHeader.startsWith("Bearer ")) {
-    //         String token = authHeader.substring(7);
-    //         // Aqui você deve usar seu JwtUtil para extrair o tipo do usuário do token
-    //         // Exemplo:
-    //         // tipoUsuario = jwtUtil.getTipoUsuarioFromToken(token);
-    //         // Simulação temporária:
-    //         tipoUsuario = "ADMIN"; // Troque para extração real do token
-    //     }
-    //     if (!"ADMIN".equalsIgnoreCase(tipoUsuario)) {
-    //         return ResponseEntity.status(403).build();
-    //     }
-    //     return service.buscarPorId(id)
-    //             .map(usuario -> {
-    //                 usuario.setTipoUsuario("ADMIN");
-    //                 return ResponseEntity.ok(toDTO(service.salvar(usuario)));
-    //             })
-    //             .orElse(ResponseEntity.notFound().build());
-    // }
     @PostMapping(value = "/teste-cadastro", consumes = {"application/json", "application/json;charset=UTF-8"})
     public InoDev.RideMoto.Models.UsuarioModel cadastrarUsuarioTeste(@RequestBody InoDev.RideMoto.Models.UsuarioModel usuario) {
         return service.salvar(usuario);
@@ -60,16 +38,35 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public UsuarioDTO criar(@RequestBody UsuarioInputDTO usuarioInput) {
-        UsuarioModel usuario = fromInputDTO(usuarioInput);
-        // Forçar cadastro apenas de clientes ativos
-        usuario.setTipoUsuario("CLIENTE");
-        usuario.setStatus("ATIVO");
-        return toDTO(service.salvar(usuario));
+    public ResponseEntity<?> criar(@RequestBody UsuarioInputDTO usuarioInput) {
+        String cpfLimpo = usuarioInput.getCpf() != null ? usuarioInput.getCpf().replaceAll("\\D", "") : null;
+        if (cpfLimpo == null || cpfLimpo.length() != 11 || !CpfValidator.isValidCPF(cpfLimpo)) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("CPF inválido. Insira um CPF válido.");
+        }
+        try {
+            UsuarioModel usuario = fromInputDTO(usuarioInput);
+            usuario.setCpf(cpfLimpo); // Garante que salva limpo
+            usuario.setTipoUsuario("CLIENTE");
+            usuario.setStatus("ATIVO");
+            UsuarioDTO dto = toDTO(service.salvar(usuario));
+            return ResponseEntity.ok(dto);
+        } catch (Exception e) {
+            e.printStackTrace();
+            String msg = e.getMessage();
+            if (msg == null || msg.isEmpty()) msg = "Erro desconhecido ao cadastrar usuário.";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro ao cadastrar: " + msg);
+        }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UsuarioDTO> atualizar(@PathVariable Long id, @RequestBody UsuarioInputDTO novoUsuario) {
+    public ResponseEntity<?> atualizar(@PathVariable Long id, @RequestBody UsuarioInputDTO novoUsuario) {
+        if (novoUsuario.getCpf() != null) {
+            String cpfLimpo = novoUsuario.getCpf().replaceAll("\\D", "");
+            if (cpfLimpo.length() != 11 || !CpfValidator.isValidCPF(cpfLimpo)) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("CPF inválido. Insira um CPF válido.");
+            }
+            novoUsuario.setCpf(cpfLimpo); // Garante que salva limpo
+        }
         return service.buscarPorId(id)
                 .map(usuario -> {
                     if (novoUsuario.getNome() != null && !novoUsuario.getNome().isEmpty()) usuario.setNome(novoUsuario.getNome());
@@ -79,7 +76,7 @@ public class UsuarioController {
                     if (novoUsuario.getCnhNumero() != null && !novoUsuario.getCnhNumero().isEmpty()) usuario.setCnhNumero(novoUsuario.getCnhNumero());
                     if (novoUsuario.getCnhValidade() != null && !novoUsuario.getCnhValidade().isEmpty()) usuario.setCnhValidade(java.time.LocalDate.parse(novoUsuario.getCnhValidade()));
                     if (novoUsuario.getStatus() != null && !novoUsuario.getStatus().isEmpty()) usuario.setStatus(novoUsuario.getStatus());
-                    if (novoUsuario.getCpf() != null && !novoUsuario.getCpf().isEmpty()) usuario.setCpf(novoUsuario.getCpf());
+                    if (novoUsuario.getCpf() != null && !novoUsuario.getCpf().isEmpty()) usuario.setCpf(novoUsuario.getCpf().replaceAll("\\D", ""));
                     if (novoUsuario.getTipoUsuario() != null && !novoUsuario.getTipoUsuario().isEmpty()) usuario.setTipoUsuario(novoUsuario.getTipoUsuario());
                     return ResponseEntity.ok(toDTO(service.salvar(usuario)));
                 })
@@ -95,7 +92,6 @@ public class UsuarioController {
         return ResponseEntity.notFound().build();
     }
 
-    // Conversão Model -> DTO
     private UsuarioDTO toDTO(UsuarioModel usuario) {
         UsuarioDTO dto = new UsuarioDTO();
         dto.setId(usuario.getId());
@@ -108,8 +104,7 @@ public class UsuarioController {
         dto.setStatus(usuario.getStatus());
         return dto;
     }
-
-    // Conversão InputDTO -> Model
+    
     private UsuarioModel fromInputDTO(UsuarioInputDTO input) {
         UsuarioModel usuario = new UsuarioModel();
         usuario.setNome(input.getNome());
@@ -121,7 +116,11 @@ public class UsuarioController {
             usuario.setCnhValidade(java.time.LocalDate.parse(input.getCnhValidade()));
         }
         usuario.setStatus(input.getStatus());
-        usuario.setCpf(input.getCpf());
+        if (input.getCpf() != null) {
+            usuario.setCpf(input.getCpf().replaceAll("\\D", ""));
+        } else {
+            usuario.setCpf(null);
+        }
         usuario.setTipoUsuario(input.getTipoUsuario());
         return usuario;
     }

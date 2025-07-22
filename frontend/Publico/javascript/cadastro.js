@@ -32,12 +32,17 @@ document.getElementById('cadastroForm').addEventListener('submit', function(e) {
         },
         body: JSON.stringify({ nome, email, senha, cpf })
     })
-    .then(response => {
+    .then(async response => {
         if (response.ok) {
             alert('Cadastro realizado com sucesso!');
             window.location.href = 'login.html';
         } else {
-            alert('Erro ao cadastrar.');
+            try {
+                const text = await response.text();
+                alert(text || 'Erro ao cadastrar.');
+            } catch {
+                alert('Erro ao cadastrar.');
+            }
         }
     })
     .catch(error => {
