@@ -1,3 +1,11 @@
+// Permite apenas números, ponto e traço no campo CPF (bloqueia letras)
+document.getElementById('cpf').addEventListener('input', function(e) {
+    this.value = this.value.replace(/[^0-9.\-]/g, '');
+});
+// Permite apenas letras no campo nome
+document.getElementById('nome').addEventListener('input', function(e) {
+    this.value = this.value.replace(/[^A-Za-zÀ-ÿ\s]/g, '');
+});
 // Ajusta a altura do divisor central para acompanhar o conteúdo da direita
 function ajustarAlturaDivisor() {
     const rightSection = document.querySelector('.right');
@@ -25,6 +33,11 @@ document.getElementById('cadastroForm').addEventListener('submit', function(e) {
     const email = document.getElementById('email').value;
     const senha = document.getElementById('senha').value;
     const cpf = document.getElementById('cpf').value;
+    if (senha.length < 4) {
+        alert('A senha deve ter no minimo 4 caracteres.');
+        document.getElementById('senha').focus();
+        return;
+    }
     fetch('http://localhost:8080/usuarios', {
         method: 'POST',
         headers: {
