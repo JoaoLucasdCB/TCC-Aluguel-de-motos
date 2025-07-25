@@ -8,16 +8,22 @@ async function fetchAndRenderPlanos() {
         planos.forEach(plano => {
             const card = document.createElement('div');
             card.className = 'plano-card';
-            card.onclick = () => {
-                window.location.href = `plano-detalhe.html?id=${plano.id}`;
-            };
             card.innerHTML = `
+                <div class="badge">${plano.destaque ? plano.destaque : ''}</div>
                 <div class="plano-nome">${plano.nomePlano}</div>
                 <div class="plano-descricao">Duração: ${plano.duracao} dias</div>
                 <ul class="plano-beneficios">
                     ${plano.beneficios.split('\n').map(b => `<li>${b}</li>`).join('')}
                 </ul>
+                <button class="plano-btn">Ver Detalhes</button>
             `;
+            card.querySelector('.plano-btn').onclick = (e) => {
+                e.stopPropagation();
+                window.location.href = `plano-detalhe.html?id=${plano.id}`;
+            };
+            card.onclick = () => {
+                window.location.href = `plano-detalhe.html?id=${plano.id}`;
+            };
             planosList.appendChild(card);
         });
     } catch (err) {
