@@ -30,8 +30,10 @@ public class SecurityConfig {
                 .requestMatchers("/login", "/usuarios", "/usuarios/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/reservas", "/reservas/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/reservas").hasRole("CLIENTE")
+                .requestMatchers(HttpMethod.POST, "/api/motos").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.GET, "/api/motos", "/api/motos/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/planos", "/planos/**").permitAll()
+                .requestMatchers("/img/**").permitAll()
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);

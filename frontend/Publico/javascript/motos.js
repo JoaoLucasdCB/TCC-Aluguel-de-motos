@@ -27,6 +27,7 @@ async function renderMotos() {
     motoList.innerHTML = '';
     const motos = await fetchMotosAPI();
     motos.forEach((moto, idx) => {
+        console.log('Moto:', moto.modelo, '| Imagem:', moto.imagem);
         const card = document.createElement('div');
         card.className = 'moto-card';
 

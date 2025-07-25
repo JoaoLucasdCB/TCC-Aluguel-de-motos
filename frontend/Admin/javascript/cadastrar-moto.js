@@ -1,5 +1,20 @@
 // Protege a página: só acessa se estiver logado
 document.addEventListener('DOMContentLoaded', function() {
+    // Preview da imagem ao digitar a URL
+    const imagemInput = document.getElementById('imagem');
+    const previewImagem = document.getElementById('previewImagem');
+    if (imagemInput && previewImagem) {
+        imagemInput.addEventListener('input', function() {
+            const url = this.value.trim();
+            if (url) {
+                previewImagem.src = url;
+                previewImagem.style.display = 'block';
+            } else {
+                previewImagem.src = '';
+                previewImagem.style.display = 'none';
+            }
+        });
+    }
     // Loga o valor do campo nome sempre que for digitado
     const nomeInput = document.getElementById('nome');
     if (nomeInput) {
@@ -7,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('[DEBUG] Nome digitado:', this.value);
         });
     }
-    if (!localStorage.getItem('token')) {
+    if (!localStorage.getItem('token') || localStorage.getItem('tipoUsuario')?.toLowerCase() !== 'admin') {
         window.location.href = '../../Publico/html/login.html';
         return;
     }
@@ -26,6 +41,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const anoStr = document.getElementById('ano').value;
     const quilometragemStr = document.getElementById('quilometragem').value;
     const imagem = document.getElementById('imagem').value.trim();
+    // Atualiza preview ao submeter
+    if (previewImagem && imagem) {
+        previewImagem.src = imagem;
+        previewImagem.style.display = 'block';
+    }
 
     // Validação detalhada
     if (!nome) {
@@ -148,6 +168,15 @@ btnBuscarPlaca.addEventListener('click', async function() {
         document.getElementById('ano').value = moto.ano || '';
         document.getElementById('quilometragem').value = moto.quilometragem || '';
         document.getElementById('imagem').value = moto.imagem || '';
+        if (previewImagem) {
+            if (moto.imagem) {
+                previewImagem.src = moto.imagem;
+                previewImagem.style.display = 'block';
+            } else {
+                previewImagem.src = '';
+                previewImagem.style.display = 'none';
+            }
+        }
         idMotoEditando = moto.id;
         cadastrarBtn.style.display = 'none';
         editarBtn.style.display = 'none';
