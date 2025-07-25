@@ -1,4 +1,7 @@
 /* Garante que o avisoDatas fique visível e destacado */
+/* aluguel.css - Segue o padrão visual do projeto, inspirado em cadastro.css, motos.css e planos.css */
+
+/* Garante que o avisoDatas fique visível e destacado */
 #avisoDatas {
   color: #f357a8;
   background: #ffffff;

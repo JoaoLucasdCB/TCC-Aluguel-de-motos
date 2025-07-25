@@ -241,26 +241,13 @@ body {
     margin-left: 16px;
     z-index: 120;
 }
-#perfilMenuBtn {
-    background: none;
-    border: none;
-    color: #444;
-    font-weight: 600;
-    cursor: pointer;
-    font-size: 1rem;
-    padding: 6px 12px;
-    border-radius: 6px;
-    transition: background 0.2s;
-}
-#perfilMenuBtn:hover {
-    background: #f2f2f2;
-}
 #perfilDropdown {
     display: none;
     position: absolute;
-    right: 0;
-    left: auto;
-    top: 38px;
+    left: 50%;
+    right: auto;
+    top: 110%;
+    transform: translateX(-50%);
     background: #fff;
     box-shadow: 0 2px 8px rgba(0,0,0,0.12);
     border-radius: 8px;
@@ -268,8 +255,8 @@ body {
     z-index: 300;
     list-style: none;
     padding: 8px 0;
-    margin-top: 4px;
 }
+
 #perfilDropdown li a {
     display: block;
     padding: 6px 12px;
