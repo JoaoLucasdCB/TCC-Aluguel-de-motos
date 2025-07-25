@@ -1,3 +1,9 @@
+/* Efeito de hover para aumentar o card de moto */
+.moto-card:hover {
+    box-shadow: 0 8px 32px 0 rgba(0,207,255,0.18);
+    border: 3px solid #ff5ecb;
+    transform: scale(1.03);
+}
 body {
     margin: 0;
     padding: 0;
