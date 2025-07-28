@@ -45,6 +45,72 @@
             </form>
         </section>
     </main>
+    <!-- Suporte Flutuante Melhorado -->
+    <style>
+      #suporte-float {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        z-index: 9999;
+        cursor: pointer;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #4b2067 0%, #6c2eb7 100%);
+        box-shadow: 0 6px 24px rgba(76, 34, 114, 0.18);
+        padding: 12px;
+        transition: box-shadow 0.2s, transform 0.2s, background 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: visible;
+      }
+      #suporte-float:hover {
+        box-shadow: 0 12px 32px rgba(76, 34, 114, 0.28);
+        transform: scale(1.08);
+        background: linear-gradient(135deg, #6c2eb7 0%, #4b2067 100%);
+      }
+      #suporte-float svg {
+        display: block;
+        z-index: 1;
+      }
+      #suporte-float .suporte-label {
+        opacity: 0;
+        pointer-events: none;
+        position: absolute;
+        right: 70px;
+        top: 50%;
+        transform: translateY(-50%) translateX(10px);
+        background: #fff;
+        color: #4b2067;
+        font-weight: bold;
+        font-size: 1.08rem;
+        border-radius: 18px;
+        padding: 7px 18px 7px 18px;
+        box-shadow: 0 2px 12px rgba(76,34,114,0.10);
+        transition: opacity 0.3s, transform 0.3s;
+        white-space: nowrap;
+        z-index: 2;
+      }
+      #suporte-float:hover .suporte-label {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(-50%) translateX(-10px);
+      }
+    </style>
+    <div id="suporte-float" title="Fale com o suporte no WhatsApp" aria-label="Fale com o suporte no WhatsApp">
+      <span class="suporte-label">Suporte</span>
+      <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="22" cy="22" r="22" fill="#fff" fill-opacity="0.10"/>
+        <path d="M32 30v-4a6 6 0 0 0-6-6h-8a6 6 0 0 0-6 6v4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M22 12c5.523 0 10 4.477 10 10v4c0 5.523-4.477 10-10 10s-10-4.477-10-10v-4c0-5.523 4.477-10 10-10z" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="18.5" y="27.5" width="7" height="3" rx="1.5" fill="#fff"/>
+        <rect x="20.5" y="19.5" width="3" height="3" rx="1.5" fill="#fff"/>
+      </svg>
+    </div>
+    <script>
+    document.getElementById('suporte-float').onclick = function() {
+      window.open('https://wa.me/553193531201?text=Ol%C3%A1%2C%20preciso%20de%20suporte%20no%20RideMoto', '_blank');
+    };
+    </script>
     <script src="../javascript/aluguel-resumo.js"></script>
 </body>
 </html>
