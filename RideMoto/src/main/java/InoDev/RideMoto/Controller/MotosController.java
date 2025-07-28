@@ -43,19 +43,30 @@ public class MotosController {
     }
 
     @PostMapping
-    public ResponseEntity<MotosModel> cadastrarMoto(@RequestBody MotosInputDTO dto) {
-        MotosModel moto = new MotosModel();
-        moto.setNome(dto.getNome());
-        moto.setMarca(dto.getMarca());
-        moto.setModelo(dto.getModelo());
-        moto.setCilindrada(dto.getCilindrada());
-        moto.setPlaca(dto.getPlaca());
-        moto.setStatus(dto.getStatus());
-        moto.setAno(dto.getAno());
-        moto.setQuilometragem(dto.getQuilometragem());
-        moto.setImagem(dto.getImagem());
-        MotosModel novaMoto = motosService.salvar(moto);
-        return ResponseEntity.ok(novaMoto);
+    public ResponseEntity<?> cadastrarMoto(@RequestBody MotosInputDTO dto) {
+        try {
+            MotosModel moto = new MotosModel();
+            moto.setNome(dto.getNome());
+            moto.setMarca(dto.getMarca());
+            moto.setModelo(dto.getModelo());
+            moto.setCilindrada(dto.getCilindrada());
+            moto.setPlaca(dto.getPlaca());
+            // Validação e conversão do status
+            InoDev.RideMoto.Models.MotosModel.StatusMoto statusEnum;
+            try {
+                statusEnum = InoDev.RideMoto.Models.MotosModel.StatusMoto.valueOf(dto.getStatus().toString());
+            } catch (Exception ex) {
+                return ResponseEntity.badRequest().body("Status da moto inválido. Valores aceitos: DISPONIVEL, RESERVADA, ALUGADA, MANUTENCAO");
+            }
+            moto.setStatus(statusEnum);
+            moto.setAno(dto.getAno());
+            moto.setQuilometragem(dto.getQuilometragem());
+            moto.setImagem(dto.getImagem());
+            MotosModel novaMoto = motosService.salvar(moto);
+            return ResponseEntity.ok(novaMoto);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erro ao cadastrar moto: " + e.getMessage());
+        }
     }
 
     @PutMapping(value = "/{id}", consumes = {"application/json", "application/json;charset=UTF-8"})
