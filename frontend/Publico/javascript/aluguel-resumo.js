@@ -134,24 +134,8 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(response => {
                 if (response.ok) {
-                    // Se atualização for ok, faz a reserva
-                    const aluguel = JSON.parse(sessionStorage.getItem('aluguel'));
-                    fetch('http://localhost:8080/reservas', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': 'Bearer ' + token
-                        },
-                        body: JSON.stringify(aluguel)
-                    })
-                    .then(res => {
-                        if (res.ok) {
-                            alert('Reserva finalizada com sucesso!');
-                            window.location.href = 'minhas-reservas.html';
-                        } else {
-                            alert('Erro ao finalizar reserva.');
-                        }
-                    });
+                    alert('Dados atualizados com sucesso!');
+                    window.location.href = 'minhas-reservas.html';
                 } else {
                     alert('Erro ao atualizar dados do usuário.');
                 }
