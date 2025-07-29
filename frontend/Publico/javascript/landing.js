@@ -1,6 +1,26 @@
 // landing.js - animações simples para a landing page
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Buscar moto de destaque do backend e exibir imagem
+    async function carregarMotoDestaque() {
+        try {
+            // Exemplo: pega a primeira moto cadastrada como destaque
+            const resp = await fetch('http://localhost:8080/api/motos');
+            if (!resp.ok) throw new Error('Erro ao buscar motos');
+            const motos = await resp.json();
+            if (!motos.length) return;
+            // Critério: primeira moto ou a que tiver campo especial (ex: maisAlugada)
+            const destaque = motos[0];
+            const imgDiv = document.querySelector('.hero-img img');
+            if (imgDiv && destaque.imagem) {
+                imgDiv.src = destaque.imagem;
+                imgDiv.alt = destaque.nome || destaque.modelo || 'Moto em destaque';
+            }
+        } catch (err) {
+            console.error('Erro ao carregar moto destaque:', err);
+        }
+    }
+    carregarMotoDestaque();
     // Animação suave ao rolar para seções
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
