@@ -8,6 +8,7 @@ import java.util.Optional;
 
 @Repository
 public interface MotosRepository extends JpaRepository<MotosModel, Long> {
+    java.util.List<MotosModel> findByStatus(InoDev.RideMoto.Models.MotosModel.StatusMoto status);
 
     Optional<MotosModel> findByPlaca(String placa);
     

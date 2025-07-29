@@ -26,8 +26,7 @@ public class ReservasModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "data_inicio", nullable = false)
-    private String dataInicio;
+    // Removido campo dataInicio
 
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
@@ -52,6 +51,8 @@ public class ReservasModel {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private StatusReserva status;
+
+    // Removido campo dataFim
 
     @OneToOne(mappedBy = "reserva")
     private AluguelModel aluguel;

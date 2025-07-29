@@ -1,14 +1,15 @@
+
 package InoDev.RideMoto.DTO;
 
 public class ReservaInputDTO {
-    private String dataInicio;
+    private String dataRetirada;
     private String status;
     private Long usuarioId;
     private Long planoId;
     private Long motoId;
 
-    public String getDataInicio() { return dataInicio; }
-    public void setDataInicio(String dataInicio) { this.dataInicio = dataInicio; }
+    public String getDataRetirada() { return dataRetirada; }
+    public void setDataRetirada(String dataRetirada) { this.dataRetirada = dataRetirada; }
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
     public Long getUsuarioId() { return usuarioId; }

@@ -1,0 +1,232 @@
+/* Botão moderno para cadastro */
+.btn-cadastrar {
+margin-top: 18px;
+    background: linear-gradient(90deg, #7b2ff2 0%, #f357a8 100%);
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 0;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.btn-cadastrar:hover {
+    background: linear-gradient(90deg, #f357a8 0%, #7b2ff2 100%);
+}
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(180deg, #2d085c 0%, #a12b8c 100%);
+    min-height: 100vh;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(90deg, #2d085c 0%, #a12b8c 100%);
+    padding: 16px 32px;
+    border-bottom: 3px solid #00cfff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.logo {
+    color: #b266ff;
+    font-size: 2rem;
+    font-weight: bold;
+}
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 32px;
+    margin: 0;
+    padding: 0;
+}
+.nav-links li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: color 0.2s;
+}
+.nav-links li a:hover {
+    color: #00cfff;
+}
+.login-btn {
+    background: #fff;
+    color: #7b2ff2;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 18px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    transition: background 0.2s, color 0.2s;
+    box-shadow: 0 2px 8px rgba(123,47,242,0.08);
+}
+.login-btn:hover {
+    background: #f357a8;
+    color: #fff;
+}
+main {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: calc(100vh - 80px);
+    padding: 40px 0 40px 0;
+    overflow-y: auto;
+}
+.left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    min-width: 350px;
+    text-align: center;
+    padding-top: 30px;
+}
+.logo-moto img {
+    width: 120px;
+    margin-bottom: 18px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+h1 {
+    font-size: 2.8rem;
+    margin: 0 auto 0 auto;
+    font-weight: 700;
+    text-align: center;
+}
+.ride {
+    color: #7b2ff2;
+}
+.moto {
+    color: #f357a8;
+}
+h2 {
+    font-size: 1.3rem;
+    font-weight: 400;
+    margin: 10px 0 0 0;
+    color: #fff;
+    text-align: center;
+}
+.left p {
+    margin-top: 8px;
+    color: #e0cfff;
+    font-size: 1rem;
+    text-align: center;
+}
+.divider {
+    width: 2px;
+    height: 80vh;
+    min-height: 350px;
+    background: linear-gradient(180deg, #7b2ff2 0%, #f357a8 100%);
+    margin: 0 60px;
+    border-radius: 2px;
+    transition: height 0.2s;
+}
+.right {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    min-width: 350px;
+    height: 100%;
+}
+
+/* Formulário de cadastro (padronizado ao login) */
+#cadastroForm {
+    background: rgba(255,255,255,0.05);
+    border: 2px solid #a97ffb;
+    border-radius: 18px;
+    padding: 38px 36px 32px 36px;
+    display: flex;
+    flex-direction: column;
+    min-width: 320px;
+    max-width: 350px;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0 4px 32px 0 rgba(123,47,242,0.08);
+    margin-bottom: 40px;
+    margin-top: 20px;
+    /* Removido overflow interno e limite de altura para evitar barra de rolagem no form */
+}
+#cadastroForm h3 {
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 18px;
+    text-align: center;
+}
+#cadastroForm label {
+    color: #fff;
+    font-size: 1rem;
+    margin-bottom: 4px;
+    margin-top: 10px;
+}
+#cadastroForm input {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: none;
+    margin-bottom: 8px;
+    font-size: 1rem;
+    outline: none;
+    background: #fff;
+}
+#cadastroForm select {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: none;
+    margin-bottom: 8px;
+    font-size: 1rem;
+    outline: none;
+    background: #fff;
+    color: #333;
+}
+
+.cadastro-action {
+    margin-top: 18px;
+    background: linear-gradient(90deg, #7b2ff2 0%, #f357a8 100%);
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 0;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.cadastro-action:hover {
+    background: linear-gradient(90deg, #f357a8 0%, #7b2ff2 100%);
+}
+
+/* Responsividade */
+@media (max-width: 900px) {
+    main {
+        flex-direction: column;
+        padding: 0 10px;
+    }
+    .divider {
+        display: none;
+    }
+    .left, .right {
+        min-width: unset;
+        width: 100%;
+    }
+    .right {
+        margin-top: 30px;
+    }
+    #cadastroForm {
+        width: 100%;
+        min-width: unset;
+        max-width: unset;
+    }
+}

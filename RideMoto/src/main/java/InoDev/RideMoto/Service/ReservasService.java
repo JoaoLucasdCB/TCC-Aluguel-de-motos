@@ -31,4 +31,7 @@ public class ReservasService {
     public void deletar(Long id) {
         repository.deleteById(id);
     }
+    public boolean usuarioJaTemReserva(Long usuarioId) {
+        return repository.existsByUsuarioId(usuarioId);
+    }
 }

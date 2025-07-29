@@ -1,0 +1,212 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(180deg, #2d085c 0%, #a12b8c 100%);
+    color: #fff;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(90deg, #2d085c 0%, #a12b8c 100%);
+    padding: 16px 32px;
+    border-bottom: 3px solid #00cfff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.logo {
+    font-size: 2rem;
+    color: #b266ff;
+    font-weight: bold;
+}
+.nav-links {
+     list-style: none;
+    display: flex;
+    gap: 32px;
+    margin: 0;
+    padding: 0;
+}
+.nav-links li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: color 0.2s;
+}
+.nav-links li a.active, .nav-links li a:hover {
+    color: #00cfff;
+}
+.login-btn {
+   background: #fff;
+    color: #7b2ff2;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 18px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    transition: background 0.2s, color 0.2s;
+    box-shadow: 0 2px 8px rgba(123,47,242,0.08);
+}
+.login-btn:hover {
+     background: #f357a8;
+    color: #fff;
+}
+
+.hero {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 60px 8vw 40px 8vw;
+    background: linear-gradient(90deg, #2d085c 60%, #a12b8c 100%);
+}
+.hero-text {
+    max-width: 500px;
+}
+.hero-text h1 {
+    font-size: 2.8rem;
+    margin-bottom: 18px;
+    color: #fff;
+}
+.hero-text p {
+    font-size: 1.2rem;
+    margin-bottom: 28px;
+    color: #e0e0e0;
+}
+.cta-btn {
+    background: linear-gradient(90deg, #ffffff 0%, #ffffff 100%);
+    color: #f357a8;
+    padding: 8px 28px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 0 4px 16px #7b2ff233;
+    border: none;
+    transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+.cta-btn:hover {
+    background: #fff;
+    color: #a12b8c;
+    transform: scale(1.05);
+}
+.hero-img img {
+    max-width: 380px;
+    width: 100%;
+    filter: drop-shadow(0 8px 32px #7b2ff255);
+    border-radius: 12px;
+    background: #fff1;
+}
+.vantagens {
+    background: #2d085c;
+    padding: 50px 8vw 30px 8vw;
+    text-align: center;
+}
+.vantagens-lista {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 32px;
+    margin-top: 30px;
+}
+.vantagem {
+    background: #a12b8c33;
+    border: 1px solid #00cfff33;
+    border-radius: 12px;
+    padding: 24px 32px;
+    min-width: 220px;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 2px 8px #7b2ff211;
+    color: #fff;
+}
+.vantagem span {
+    font-size: 1.5rem;
+    color: #00cfff;
+}
+.como-funciona {
+    background: #a12b8c22;
+    padding: 50px 8vw 30px 8vw;
+    text-align: center;
+    color: #fff;
+}
+.como-funciona ol {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 32px;
+    list-style: decimal inside;
+    margin: 30px 0 0 0;
+    padding: 0;
+}
+.como-funciona li {
+    background: #2d085c;
+    border-radius: 10px;
+    padding: 18px 28px;
+    min-width: 180px;
+    font-size: 1.1rem;
+    box-shadow: 0 2px 8px #7b2ff211;
+    color: #fff;
+}
+.planos {
+    background: #2d085c;
+    padding: 50px 8vw 30px 8vw;
+    text-align: center;
+}
+.planos-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 32px;
+    margin-top: 30px;
+}
+.plano-card {
+    background: #a12b8c33;
+    border: 1px solid #00cfff33;
+    border-radius: 12px;
+    padding: 28px 38px;
+    min-width: 200px;
+    font-size: 1.1rem;
+    box-shadow: 0 2px 8px #7b2ff211;
+    color: #fff;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.plano-card.destaque {
+    border: 2px solid #00cfff;
+    transform: scale(1.05);
+    box-shadow: 0 4px 16px #00cfff22;
+}
+footer {
+    background: #2d085c;
+    color: #fff;
+    text-align: center;
+    padding: 18px 0;
+    margin-top: 40px;
+}
+
+
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 900px) {
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        gap: 32px;
+    }
+    .hero-img img {
+        max-width: 260px;
+    }
+    .vantagens-lista, .planos-cards, .como-funciona ol {
+        flex-direction: column;
+        gap: 18px;
+    }
+}

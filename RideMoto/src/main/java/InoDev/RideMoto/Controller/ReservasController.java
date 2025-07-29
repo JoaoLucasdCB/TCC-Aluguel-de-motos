@@ -2,6 +2,9 @@ package InoDev.RideMoto.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -35,10 +38,20 @@ public class ReservasController {
         return service.buscarPorId(id).map(this::toDTO);
     }
 
+    @PreAuthorize("hasRole('CLIENTE')")
     @PostMapping
-    public ReservaDTO salvar(@RequestBody ReservaInputDTO reservaInput) {
+    public ResponseEntity<?> salvar(@RequestBody ReservaInputDTO reservaInput) {
+        var usuarioOpt = usuarioService.buscarPorId(reservaInput.getUsuarioId());
+        if (usuarioOpt.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Usuário não encontrado para o ID informado.");
+        }
+        // Impede múltiplas reservas por usuário
+        if (service.usuarioJaTemReserva(reservaInput.getUsuarioId())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Usuário já possui uma reserva ativa.");
+        }
         ReservasModel reserva = fromInputDTO(reservaInput);
-        return toDTO(service.salvar(reserva));
+        reserva.setUsuario(usuarioOpt.get());
+        return ResponseEntity.ok(toDTO(service.salvar(reserva)));
     }
 
     @PutMapping("/{id}")
@@ -48,7 +61,16 @@ public class ReservasController {
             return null;
         }
         ReservasModel reserva = existente.get();
-        reserva.setDataInicio(reservaInput.getDataInicio());
+        // Atualiza dataRetirada
+        if (reservaInput.getDataRetirada() != null && !reservaInput.getDataRetirada().isEmpty()) {
+            try {
+                reserva.setDataRetirada(java.time.LocalDate.parse(reservaInput.getDataRetirada()));
+            } catch (Exception e) {
+                reserva.setDataRetirada(java.time.LocalDate.now());
+            }
+        } else {
+            reserva.setDataRetirada(java.time.LocalDate.now());
+        }
         reserva.setStatus(reservaInput.getStatus() != null ? ReservasModel.StatusReserva.valueOf(reservaInput.getStatus()) : null);
         reserva.setUsuario(usuarioService.buscarPorId(reservaInput.getUsuarioId()).orElse(null));
         reserva.setPlano(planosService.buscarPorId(reservaInput.getPlanoId()).orElse(null));
@@ -58,6 +80,17 @@ public class ReservasController {
 
     @DeleteMapping("/{id}")
     public void deletar(@PathVariable Long id) {
+        // Busca a reserva antes de deletar
+        Optional<InoDev.RideMoto.Models.ReservasModel> reservaOpt = service.buscarPorId(id);
+        if (reservaOpt.isPresent()) {
+            InoDev.RideMoto.Models.ReservasModel reserva = reservaOpt.get();
+            // Atualiza status da moto para DISPONIVEL
+            if (reserva.getMoto() != null) {
+                var moto = reserva.getMoto();
+                moto.setStatus(InoDev.RideMoto.Models.MotosModel.StatusMoto.DISPONIVEL);
+                motosService.salvar(moto);
+            }
+        }
         service.deletar(id);
     }
 
@@ -65,21 +98,56 @@ public class ReservasController {
     private ReservaDTO toDTO(ReservasModel reserva) {
         ReservaDTO dto = new ReservaDTO();
         dto.setId(reserva.getId());
-        dto.setDataInicio(reserva.getDataInicio());
+        dto.setDataRetirada(reserva.getDataRetirada() != null ? reserva.getDataRetirada().toString() : null);
         dto.setStatus(reserva.getStatus() != null ? reserva.getStatus().name() : null);
         dto.setNomePlano(reserva.getPlano() != null ? reserva.getPlano().getNomePlano() : null);
         dto.setNomeUsuario(reserva.getUsuario() != null ? reserva.getUsuario().getNome() : null);
+
+        // Moto
+        if (reserva.getMoto() != null) {
+            dto.setMotoId(reserva.getMoto().getId());
+            dto.setMotoNome(reserva.getMoto().getNome());
+            dto.setMotoPlaca(reserva.getMoto().getPlaca());
+            dto.setMotoMarca(reserva.getMoto().getMarca());
+            dto.setMotoModelo(reserva.getMoto().getModelo());
+            try {
+                dto.setMotoCilindrada(Integer.valueOf(reserva.getMoto().getCilindrada()));
+            } catch (Exception e) {
+                dto.setMotoCilindrada(null);
+            }
+        }
+        // Plano
+        if (reserva.getPlano() != null) {
+            dto.setPlanoId(reserva.getPlano().getId());
+            dto.setPlanoDuracao(reserva.getPlano().getDuracao());
+            dto.setPlanoBeneficios(reserva.getPlano().getBeneficios());
+        }
+        // Usuário
+        if (reserva.getUsuario() != null) {
+            dto.setUsuarioId(reserva.getUsuario().getId());
+            dto.setUsuarioNome(reserva.getUsuario().getNome());
+        }
         return dto;
     }
 
     // Conversão InputDTO -> Model
     private ReservasModel fromInputDTO(ReservaInputDTO input) {
         ReservasModel reserva = new ReservasModel();
-        reserva.setDataInicio(input.getDataInicio());
         reserva.setStatus(input.getStatus() != null ? ReservasModel.StatusReserva.valueOf(input.getStatus()) : null);
         reserva.setUsuario(usuarioService.buscarPorId(input.getUsuarioId()).orElse(null));
         reserva.setPlano(planosService.buscarPorId(input.getPlanoId()).orElse(null));
         reserva.setMoto(motosService.buscarPorId(input.getMotoId()).orElse(null));
+        reserva.setDataReserva(java.time.LocalDate.now());
+        // Define dataRetirada a partir do input
+        if (input.getDataRetirada() != null && !input.getDataRetirada().isEmpty()) {
+            try {
+                reserva.setDataRetirada(java.time.LocalDate.parse(input.getDataRetirada()));
+            } catch (Exception e) {
+                reserva.setDataRetirada(java.time.LocalDate.now());
+            }
+        } else {
+            reserva.setDataRetirada(java.time.LocalDate.now());
+        }
         return reserva;
     }
 }

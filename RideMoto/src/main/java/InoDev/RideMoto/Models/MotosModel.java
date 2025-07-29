@@ -53,7 +53,7 @@ public class MotosModel {
     @Column(name = "status", nullable = false)
     private StatusMoto status;
 
-    @Column(name = "data_fabricacao", nullable = false)
+    @Column(name = "ano", nullable = false)
     private Integer ano;
     
     @Column(name = "quilometragem", nullable = true)

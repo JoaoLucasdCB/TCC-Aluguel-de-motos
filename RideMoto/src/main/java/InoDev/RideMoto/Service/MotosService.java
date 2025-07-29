@@ -10,6 +10,9 @@ import java.util.Optional;
 
 @Service
 public class MotosService {
+    public java.util.List<MotosModel> listarDisponiveis() {
+        return motosRepository.findByStatus(MotosModel.StatusMoto.DISPONIVEL);
+    }
 
     @Autowired
     private MotosRepository motosRepository; 

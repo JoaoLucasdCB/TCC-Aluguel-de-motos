@@ -1,3 +1,4 @@
+
 package InoDev.RideMoto.Models;
 
 import jakarta.persistence.*;
@@ -31,29 +32,32 @@ public class UsuarioModel {
     @Column(name = "senha", nullable = false)
     private String senha;
 
+
     @Column(name = "cpf", nullable = false, unique = true)
     private String cpf;
-    
-    @Column(name = "cnh_numero")
+
+        @Column(name = "cnh_numero", nullable = true)
     private String cnhNumero;
 
     @Column(name = "cnh_validade", nullable = true)
-    private LocalDate cnhValidade;
+    private java.time.LocalDate cnhValidade;
 
-    @Column(name = "telefone", nullable = false)
+    @Column(name = "telefone", nullable = true)
     private String telefone;
 
-    @Column(name = "tipo_suario", nullable = false)
+    @Column(name = "tipo_suario", nullable = true)
     private String tipoUsuario;
 
     @Column(name = "status", nullable = true)
     private String status;
 
     @OneToMany(mappedBy = "usuario")
-    @JsonManagedReference
-    private List<ReservasModel> reservas;
+    @com.fasterxml.jackson.annotation.JsonManagedReference
+    private java.util.List<ReservasModel> reservas;
 
     @OneToMany(mappedBy = "usuario")
-    private List<AluguelModel> alugueis;
+    private java.util.List<AluguelModel> alugueis;
+
+    // Removidos campos extras, mantendo apenas nome, email, senha e cpf
 
 }

@@ -1,0 +1,52 @@
+.plano-detail-container {
+    max-width: 700px;
+    margin: 40px auto 0 auto;
+    background: rgba(41,41,41,0.35);
+    border-radius: 18px;
+    box-shadow: 0 4px 24px 0 rgba(0,0,0,0.10);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 32px;
+    color: #fff;
+}
+.plano-detail-nome {
+    font-size: 2rem;
+    color: #ff6600;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.plano-detail-descricao {
+    font-size: 1.1rem;
+    color: #e0e0e0;
+    margin-bottom: 18px;
+    text-align: center;
+}
+.plano-detail-preco {
+    font-size: 1.3rem;
+    color: #fff;
+    margin-bottom: 12px;
+}
+.plano-detail-beneficios {
+    list-style: disc inside;
+    color: #ccc;
+    font-size: 1.08rem;
+    margin-bottom: 18px;
+    text-align: left;
+    padding-left: 0;
+}
+.plano-detail-btn {
+    background: #ff6600;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 0;
+    font-size: 1.1rem;
+    cursor: pointer;
+    width: 180px;
+    transition: background 0.2s;
+    margin-top: 18px;
+}
+.plano-detail-btn:hover {
+    background: #e65c00;
+}
