@@ -19,6 +19,10 @@
     left: 30px;
     top: 50%;
     transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
 }
 .nav-links {
     list-style: none;
