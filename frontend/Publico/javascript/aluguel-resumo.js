@@ -134,8 +134,41 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(response => {
                 if (response.ok) {
-                    alert('Dados atualizados com sucesso!');
-                    window.location.href = 'minhas-reservas.html';
+                    // Atualiza status da moto para ALUGADA
+                    const aluguel = JSON.parse(sessionStorage.getItem('aluguel'));
+                    const motoId = aluguel && aluguel.motoId;
+                    const token = localStorage.getItem('token');
+                    if (motoId) {
+                        // Busca os dados completos da moto antes de atualizar
+                        fetch(`http://localhost:8080/api/motos/${motoId}`)
+                        .then(resp => resp.json())
+                        .then(motoCompleta => {
+                            fetch(`http://localhost:8080/api/motos/${motoId}`, {
+                                method: 'PUT',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': 'Bearer ' + token
+                                },
+                                body: JSON.stringify({
+                                    nome: motoCompleta.nome,
+                                    marca: motoCompleta.marca,
+                                    modelo: motoCompleta.modelo,
+                                    cilindrada: motoCompleta.cilindrada,
+                                    placa: motoCompleta.placa,
+                                    status: 'ALUGADA',
+                                    ano: motoCompleta.ano,
+                                    quilometragem: motoCompleta.quilometragem,
+                                    imagem: motoCompleta.imagem
+                                })
+                            })
+                            .then(res => {
+                                window.location.href = 'minhas-reservas.html';
+                            });
+                        });
+                    } else {
+                        alert('Dados atualizados com sucesso!');
+                        window.location.href = 'minhas-reservas.html';
+                    }
                 } else {
                     alert('Erro ao atualizar dados do usuário.');
                 }

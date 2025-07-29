@@ -25,6 +25,7 @@ async function renderMotoDetalhe() {
     document.getElementById('motoAno').textContent = moto.ano || '-';
     document.getElementById('motoCilindrada').textContent = moto.cilindrada ? moto.cilindrada + 'cc' : '-';
     document.getElementById('motoPlaca').textContent = moto.placa || '-';
+    // Atualiza status sempre com valor do backend
     document.getElementById('motoStatus').textContent = moto.status || '-';
     document.getElementById('motoQuilometragem').textContent = moto.quilometragem ? moto.quilometragem + ' km' : '-';
     document.getElementById('motoPreco').textContent = moto.valorDiaria ? `R$ ${moto.valorDiaria}/dia` : '-';

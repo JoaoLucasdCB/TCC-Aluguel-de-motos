@@ -171,12 +171,21 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = 'login.html';
             return;
         }
+        const motoSelecionadaObj = motos.find(m => String(m.id) === String(motoSelect.value));
         const reservaInput = {
             motoId: motoSelect.value,
             planoId: planoSelect.value,
             usuarioId: usuarioId,
             dataRetirada: retiradaInput.value, // novo campo para o backend
-            status: "PENDENTE"
+            status: "PENDENTE",
+            motoAno: motoSelecionadaObj ? Number(motoSelecionadaObj.ano) : 2000,
+            motoNome: motoSelecionadaObj ? motoSelecionadaObj.nome : '',
+            motoMarca: motoSelecionadaObj ? motoSelecionadaObj.marca : '',
+            motoModelo: motoSelecionadaObj ? motoSelecionadaObj.modelo : '',
+            motoCilindrada: motoSelecionadaObj ? motoSelecionadaObj.cilindrada : '',
+            motoPlaca: motoSelecionadaObj ? motoSelecionadaObj.placa : '',
+            motoQuilometragem: motoSelecionadaObj ? motoSelecionadaObj.quilometragem : '',
+            motoImagem: motoSelecionadaObj ? motoSelecionadaObj.imagem : ''
         };
         const headers = {
             'Content-Type': 'application/json',
