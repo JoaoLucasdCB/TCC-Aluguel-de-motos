@@ -87,6 +87,23 @@ body {
     margin-top: 18px;
 }
 
+.excluir-reserva-btn {
+  background: #e53935;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 16px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(229,57,53,0.08);
+}
+.excluir-reserva-btn:hover {
+  background: #b71c1c;
+  box-shadow: 0 4px 16px rgba(229,57,53,0.18);
+}
+
 @media (max-width: 700px) {
     .reservas-main {
         padding: 12px 2px;

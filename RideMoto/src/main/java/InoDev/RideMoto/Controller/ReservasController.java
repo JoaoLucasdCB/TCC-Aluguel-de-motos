@@ -80,6 +80,17 @@ public class ReservasController {
 
     @DeleteMapping("/{id}")
     public void deletar(@PathVariable Long id) {
+        // Busca a reserva antes de deletar
+        Optional<InoDev.RideMoto.Models.ReservasModel> reservaOpt = service.buscarPorId(id);
+        if (reservaOpt.isPresent()) {
+            InoDev.RideMoto.Models.ReservasModel reserva = reservaOpt.get();
+            // Atualiza status da moto para DISPONIVEL
+            if (reserva.getMoto() != null) {
+                var moto = reserva.getMoto();
+                moto.setStatus(InoDev.RideMoto.Models.MotosModel.StatusMoto.DISPONIVEL);
+                motosService.salvar(moto);
+            }
+        }
         service.deletar(id);
     }
 
