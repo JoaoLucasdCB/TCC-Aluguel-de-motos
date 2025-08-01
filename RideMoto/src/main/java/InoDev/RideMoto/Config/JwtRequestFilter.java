@@ -27,6 +27,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             chain.doFilter(request, response);
             return;
         }
+        
         final String authorizationHeader = request.getHeader("Authorization");
         String username = null;
         String jwt = null;
@@ -54,14 +55,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                             username, null, authorities);
                     authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(authToken);
-                    System.out.println("[JwtRequestFilter] Autenticado: " + username + " com role: ROLE_" + role.toUpperCase());
-                } else {
-                    System.out.println("[JwtRequestFilter] Token sem claim tipoUsuario!");
                 }
-            } else {
-                System.out.println("[JwtRequestFilter] Token JWT inválido para usuário: " + username);
             }
         }
+        
         chain.doFilter(request, response);
     }
 }

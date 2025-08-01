@@ -51,11 +51,11 @@ public class UsuarioModel {
     @Column(name = "status", nullable = true)
     private String status;
 
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     @com.fasterxml.jackson.annotation.JsonManagedReference
     private java.util.List<ReservasModel> reservas;
 
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private java.util.List<AluguelModel> alugueis;
 
     // Removidos campos extras, mantendo apenas nome, email, senha e cpf

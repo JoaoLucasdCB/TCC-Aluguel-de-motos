@@ -7,10 +7,16 @@ async function renderUsuarios() {
         const token = localStorage.getItem('token');
         const response = await fetch(API_URL, {
             headers: {
-                'Authorization': 'Bearer ' + token
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
             }
         });
-        if (!response.ok) throw new Error('Erro ao buscar usuários');
+        
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Erro ao buscar usuários: ${response.status} - ${errorText}`);
+        }
+        
         const usuarios = await response.json();
         const tbody = document.getElementById('usuariosTableBody');
         tbody.innerHTML = '';
@@ -46,10 +52,17 @@ window.excluirUsuario = async function(id) {
             const response = await fetch(`${API_URL}/${id}`, {
                 method: 'DELETE',
                 headers: {
-                    'Authorization': 'Bearer ' + token
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json'
                 }
             });
-            if (!response.ok) throw new Error('Erro ao excluir usuário');
+            
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`Erro ao excluir usuário: ${response.status} - ${errorText}`);
+            }
+            
+            alert('Usuário excluído com sucesso!');
             renderUsuarios();
         } catch (err) {
             alert('Erro ao excluir usuário: ' + err.message);

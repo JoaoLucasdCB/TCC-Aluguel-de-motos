@@ -27,7 +27,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
                 .requestMatchers(HttpMethod.POST, "/login").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/validar-cnh").permitAll()
-                .requestMatchers("/login", "/usuarios", "/usuarios/**").permitAll()
+                .requestMatchers("/usuarios/**").authenticated()
                 .requestMatchers(HttpMethod.GET, "/reservas", "/reservas/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/reservas").hasRole("CLIENTE")
                 .requestMatchers(HttpMethod.POST, "/api/motos").hasRole("ADMIN")
