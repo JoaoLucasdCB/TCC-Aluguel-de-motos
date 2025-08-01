@@ -1,41 +1,139 @@
-main {
-    max-width: 1000px;
-    margin: 40px auto 0 auto;
-    padding: 0 16px;
+/* planos.css - Design moderno com estilo consistente */
+
+/* Variáveis CSS específicas para a página de planos */
+:root {
+    --primary-gradient: linear-gradient(135deg, #2d085c 0%, #a12b8c 100%);
+    --secondary-gradient: linear-gradient(135deg, #7b2ff2 0%, #f357a8 100%);
+    --accent-color: #00cfff;
+    --glass-bg: rgba(45, 8, 92, 0.9);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --shadow-soft: 0 4px 16px rgba(0, 0, 0, 0.2);
+    --shadow-glow: 0 4px 16px rgba(123, 47, 242, 0.3);
 }
 
-.logo {
-    font-size: 2rem;
-    color: #b266ff;
-    font-weight: bold;
-}
-.nav-links {
-     list-style: none;
-    display: flex;
-    gap: 32px;
+/* Background específico para página de planos */
+body.planos-page {
     margin: 0;
     padding: 0;
-}
-.nav-links li a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 1.1rem;
-    transition: color 0.2s;
-}
-.nav-links li a.active, .nav-links li a:hover {
-    color: #00cfff;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--primary-gradient);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
-.login-btn:hover {
-     background: #f357a8;
-    color: #fff;
+/* Efeito de partículas no fundo - específico para página de planos */
+body.planos-page::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(0, 207, 255, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(243, 87, 168, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(123, 47, 242, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+    animation: float 30s ease-in-out infinite;
 }
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(0.5deg); }
+}
+
+/* Partículas flutuantes */
+.particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: rgba(0, 207, 255, 0.4);
+    border-radius: 50%;
+    animation: float-particle 8s infinite linear;
+}
+
+.particle:nth-child(2n) {
+    background: rgba(243, 87, 168, 0.4);
+    animation-duration: 10s;
+}
+
+.particle:nth-child(3n) {
+    background: rgba(123, 47, 242, 0.4);
+    animation-duration: 12s;
+}
+
+@keyframes float-particle {
+    0% {
+        transform: translateY(100vh) translateX(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100px) translateX(50px);
+        opacity: 0;
+    }
+}
+
+/* Container principal */
+main {
+    max-width: 1200px;
+    margin: 48px auto 0 auto;
+    padding: 40px 24px;
+    border-radius: 24px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-soft);
+    position: relative;
+    overflow: hidden;
+    overflow-y: hidden;
+}
+
+/* Título principal */
 .planos-title {
     color: #fff;
     font-size: 2.2rem;
-    margin-bottom: 24px;
+    margin-bottom: 32px;
     text-align: center;
+    background: linear-gradient(135deg, #00cfff 0%, #f357a8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    letter-spacing: 1px;
+    position: relative;
 }
+
+.planos-title::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: var(--secondary-gradient);
+    border-radius: 2px;
+}
+
+/* Lista de planos */
 .planos-list {
     display: flex;
     flex-direction: row;
@@ -43,17 +141,20 @@ main {
     width: 100%;
     max-width: 1100px;
     margin: 0 auto;
-    padding: 16px 48px;
+    padding: 16px 0;
     overflow-x: auto;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: stretch;
     scrollbar-width: thin;
     box-sizing: border-box;
+    overflow-y: hidden;
 }
+
+/* Cards de planos */
 .plano-card {
-    background: linear-gradient(180deg, #2d085c 0%, #a12b8c 100%);
-    border-radius: 18px;
-    box-shadow: 0 4px 24px rgba(255, 255, 255, 0.10);
+    background: var(--glass-bg);
+    border-radius: 20px;
+    box-shadow: var(--shadow-soft);
     width: 100%;
     min-height: 340px;
     max-width: 340px;
@@ -62,41 +163,56 @@ main {
     flex-direction: column;
     align-items: center;
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-    border: 3px solid #00cfff;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid var(--accent-color);
     position: relative;
     padding: 0 0 18px 0;
     justify-content: space-between;
+    overflow: hidden;
+    transform: translateZ(0);
+    will-change: transform, box-shadow, border-color;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
+
 .plano-card:hover {
-    box-shadow: 0 8px 32px 0 rgba(0,207,255,0.18);
-    border: 3px solid #ff5ecb;
-    transform: scale(1.03);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-glow);
+    border-color: #f357a8;
 }
+
+/* Nome do plano */
 .plano-nome {
     font-size: 1.4rem;
     font-weight: bold;
     margin-bottom: 10px;
-    color: #00cfff;
+    color: var(--accent-color);
     width: 100%;
     text-align: center;
     margin-top: 32px;
 }
+
+/* Descrição do plano */
 .plano-descricao {
     font-size: 1.05rem;
     margin-bottom: 16px;
     color: #e0e0e0;
     text-align: center;
     width: 100%;
+    padding: 0 20px;
 }
+
+/* Preço do plano */
 .plano-preco {
     font-size: 1.2rem;
-    color: #00cfff;
+    color: var(--accent-color);
     margin-bottom: 8px;
     width: 100%;
     text-align: center;
     font-weight: bold;
 }
+
+/* Benefícios do plano */
 .plano-beneficios {
     list-style: disc inside;
     color: #e0e0e0;
@@ -107,13 +223,14 @@ main {
     width: 90%;
     margin: 0 auto 10px auto;
 }
+
 /* Botão de ação do plano */
 .plano-card .plano-btn {
-    background: linear-gradient(90deg, #b266ff 0%, #ff5ecb 100%);
+    background: var(--secondary-gradient);
     color: #fff;
     border: none;
     border-radius: 16px;
-    padding: 10px 32px;
+    padding: 12px 32px;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
@@ -123,13 +240,18 @@ main {
     align-items: center;
     justify-content: center;
     align-self: center;
-    transition: background 0.2s, transform 0.2s;
-    box-shadow: 0 2px 8px rgba(123,47,242,0.08);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 16px rgba(123, 47, 242, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    will-change: transform, box-shadow;
 }
+
 .plano-card .plano-btn:hover {
-    background: #a12b8c;
-    transform: scale(1.04);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(123, 47, 242, 0.4);
 }
+
 /* Badge de destaque para plano especial */
 .plano-card .badge {
     display: inline-block;
@@ -143,17 +265,72 @@ main {
     align-self: center;
     min-height: 24px;
 }
+
 .plano-card .badge:empty {
     visibility: hidden;
 }
+
+/* Animações de entrada */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px) translateZ(0);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) translateZ(0);
+    }
+}
+
+/* Apenas animação na lista, não nos cards individuais */
+.planos-list {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+/* Responsividade */
 @media (max-width: 900px) {
+    main {
+        padding: 24px 16px;
+        margin: 24px 16px;
+    }
+    
     .planos-list {
         flex-direction: row;
         overflow-x: auto;
         align-items: stretch;
+        justify-content: flex-start;
+        padding: 16px 0;
     }
+    
     .plano-card {
         min-width: 320px;
         max-width: 340px;
+        flex-shrink: 0;
+    }
+    
+    .planos-title {
+        font-size: 1.8rem;
     }
 }
+
+@media (max-width: 600px) {
+    main {
+        padding: 20px 12px;
+        margin: 16px 8px;
+    }
+    
+    .planos-title {
+        font-size: 1.5rem;
+    }
+    
+    .plano-card {
+        min-width: 280px;
+        max-width: 300px;
+    }
+    
+    .particle {
+        display: none;
+    }
+}
+
+

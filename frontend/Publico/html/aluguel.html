@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RideMoto - Aluguel</title>
     <link rel="stylesheet" href="../css/aluguel.css">
+    <link rel="stylesheet" href="../css/aluguel-enhanced.css">
     <link rel="stylesheet" href="../css/cabecalho.css">
     <script src="../javascript/usuario-logado.js"></script>
+   
     
 </head>
-<body>
+<body class="aluguel-page">
     <nav class="navbar">
         <button class="logo" onclick="window.location.href='landing.html'">i&gt;</button>
         <ul class="nav-links">
@@ -27,27 +29,44 @@
             </div>
         </div>
     </nav>
+    
+    <!-- Partículas animadas -->
+    <div class="particles">
+        <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
+        <div class="particle" style="left: 20%; animation-delay: 2s;"></div>
+        <div class="particle" style="left: 30%; animation-delay: 4s;"></div>
+        <div class="particle" style="left: 40%; animation-delay: 1s;"></div>
+        <div class="particle" style="left: 50%; animation-delay: 3s;"></div>
+        <div class="particle" style="left: 60%; animation-delay: 5s;"></div>
+        <div class="particle" style="left: 70%; animation-delay: 2s;"></div>
+        <div class="particle" style="left: 80%; animation-delay: 4s;"></div>
+        <div class="particle" style="left: 90%; animation-delay: 1s;"></div>
+    </div>
+    
     <main class="aluguel-main">
         <section class="aluguel-info">
             <h1>Reserve sua Moto</h1>
             <form id="aluguelForm">
-                <div class="form-group">
+                <div class="form-group required">
                     <label for="moto">Moto</label>
                     <select id="moto" name="moto" required>
                         <option value="">Selecione a moto</option>
                         <!-- Opções dinâmicas -->
                     </select>
+                    <div class="tooltip">Escolha a moto que deseja alugar</div>
                 </div>
-                <div class="form-group">
+                <div class="form-group required">
                     <label for="plano">Plano</label>
                     <select id="plano" name="plano" required>
                         <option value="">Selecione o plano</option>
                         <!-- Opções dinâmicas -->
                     </select>
+                    <div class="tooltip">Escolha o plano de aluguel</div>
                 </div>
-                <div class="form-group">
+                <div class="form-group required">
                     <label for="retirada">Data de Retirada</label>
                     <input type="date" id="retirada" name="retirada" required>
+                    <div class="tooltip">Selecione a data de retirada da moto</div>
                 </div>
                 <button type="submit" class="alugar-btn">Alugar</button>
             </form>
@@ -59,6 +78,7 @@
         </section>
     </main>
     <script src="../javascript/aluguel.js"></script>
+    <script src="../javascript/aluguel-effects.js"></script>
     <script>
     // Exibe botão de relatório para admin
     document.addEventListener('DOMContentLoaded', function() {

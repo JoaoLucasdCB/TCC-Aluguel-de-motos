@@ -1,97 +1,384 @@
-.moto-detail-container {
-    max-width: 900px;
-    margin: 40px auto 0 auto;
-    background: rgba(41,41,41,0.35);
-    border-radius: 18px;
-    box-shadow: 0 4px 24px 0 rgba(0,0,0,0.10);
-    display: flex;
-    flex-direction: row;
-    gap: 0;
-    overflow: hidden;
+/* moto-detalhe.css - Estilos específicos para a página de detalhes da moto */
+
+/* Variáveis CSS específicas para a página de detalhes da moto */
+:root {
+    --primary-gradient: linear-gradient(135deg, #2d085c 0%, #a12b8c 100%);
+    --secondary-gradient: linear-gradient(135deg, #7b2ff2 0%, #f357a8 100%);
+    --accent-color: #00cfff;
+    --glass-bg: rgba(45, 8, 92, 0.9);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --shadow-soft: 0 4px 16px rgba(0, 0, 0, 0.2);
+    --shadow-glow: 0 4px 16px rgba(123, 47, 242, 0.3);
+    --price-color: #ff6600;
+    --text-primary: #fff;
+    --text-secondary: #e0e0e0;
 }
+
+/* Background específico para página de detalhes da moto */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--primary-gradient);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+    color: var(--text-primary);
+}
+
+/* Efeito de partículas no fundo */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(0, 207, 255, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(243, 87, 168, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(123, 47, 242, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+    animation: float 30s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(0.5deg); }
+}
+
+/* Container principal */
+main {
+    max-width: 1200px;
+    margin: 48px auto 60px auto;
+    padding: 40px 24px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Container de detalhes da moto */
+.moto-detail-container {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    box-shadow: var(--shadow-glow);
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+/* Efeito de brilho no container */
+.moto-detail-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s;
+}
+
+.moto-detail-container:hover::before {
+    left: 100%;
+}
+
+/* Seção da imagem */
 .moto-detail-img {
-    flex: 1 1 320px;
-    background: #222;
+    flex: 1;
+    min-width: 400px;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(45, 8, 92, 0.2) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 320px;
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
 }
+
+.moto-detail-img::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.05) 50%, transparent 70%);
+    animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
 .moto-detail-img img {
-    max-width: 90%;
-    max-height: 260px;
-    border-radius: 12px;
-    box-shadow: 0 2px 12px 0 rgba(0,0,0,0.15);
+    max-width: 100%;
+    max-height: 400px;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    z-index: 1;
+    position: relative;
 }
+
+.moto-detail-img img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Seção de informações */
 .moto-detail-info {
-    flex: 2 1 400px;
-    padding: 36px 32px;
-    background: transparent;
-    color: #fff;
+    flex: 1.5;
+    padding: 48px 40px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
+    position: relative;
 }
+
+/* Título da moto */
 .moto-detail-info h2 {
-    font-size: 2.1rem;
-    margin-bottom: 10px;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0 0 24px 0;
+    color: var(--accent-color);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    position: relative;
 }
-.moto-detail-info .specs {
-    margin: 18px 0 0 0;
-    padding: 0;
-    list-style: none;
+
+.moto-detail-info h2::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: var(--secondary-gradient);
+    border-radius: 2px;
 }
-.moto-detail-info .specs li {
-    font-size: 1.08rem;
-    margin-bottom: 7px;
-    color: #e0e0e0;
-}
-.moto-detail-info .price {
-    font-size: 1.3rem;
-    color: #ff6600;
-    margin: 18px 0 0 0;
-    font-weight: bold;
-}
-.moto-detail-info .back-btn {
-    margin-top: 28px;
-    background: #ff6600;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    padding: 12px 0;
-    font-size: 1.1rem;
-    cursor: pointer;
-    width: 180px;
-    transition: background 0.2s;
-}
-.moto-detail-info .back-btn:hover {
-    background: #e65c00;
-}
+
+/* Galeria de imagens */
 .moto-gallery {
     display: flex;
-    gap: 12px;
-    margin: 18px 0 18px 0;
+    gap: 16px;
+    margin: 24px 0;
     flex-wrap: wrap;
 }
+
 .moto-gallery img {
-    width: 90px;
-    height: 60px;
+    width: 100px;
+    height: 70px;
     object-fit: cover;
-    border-radius: 7px;
-    border: 2px solid #333;
-    background: #181818;
+    border-radius: 12px;
+    border: 2px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.05);
     cursor: pointer;
-    transition: border 0.2s, transform 0.2s;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
+
 .moto-gallery img:hover {
-    border: 2px solid #ff6600;
-    transform: scale(1.07);
+    border-color: var(--accent-color);
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 8px 24px rgba(0, 207, 255, 0.3);
 }
-@media (max-width: 900px) {
+
+/* Especificações da moto */
+.specs {
+    margin: 24px 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+}
+
+.specs li {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 16px 20px;
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+    font-size: 1rem;
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.specs li:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--accent-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 207, 255, 0.2);
+}
+
+.specs li strong {
+    color: var(--accent-color);
+    font-weight: 600;
+    margin-right: 12px;
+}
+
+/* Preço */
+.price {
+    font-size: 2rem;
+    color: var(--price-color);
+    font-weight: 700;
+    margin: 32px 0 24px 0;
+    text-align: center;
+    background: linear-gradient(135deg, rgba(255, 102, 0, 0.1) 0%, rgba(255, 102, 0, 0.05) 100%);
+    padding: 20px;
+    border-radius: 16px;
+    border: 2px solid rgba(255, 102, 0, 0.3);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Botão voltar */
+.back-btn {
+    background: var(--secondary-gradient);
+    color: var(--text-primary);
+    border: none;
+    border-radius: 12px;
+    padding: 16px 32px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(123, 47, 242, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    align-self: flex-start;
+    position: relative;
+    overflow: hidden;
+}
+
+.back-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.back-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(123, 47, 242, 0.4);
+}
+
+.back-btn:hover::before {
+    left: 100%;
+}
+
+/* Animações */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
     .moto-detail-container {
         flex-direction: column;
     }
+    
     .moto-detail-img {
-        min-height: 180px;
+        min-width: auto;
+        min-height: 300px;
+    }
+    
+    .moto-detail-info {
+        padding: 32px 24px;
+    }
+    
+    .specs {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    main {
+        margin: 24px 16px 40px 16px;
+        padding: 20px 16px;
+    }
+    
+    .moto-detail-img {
+        min-height: 250px;
+        padding: 24px;
+    }
+    
+    .moto-detail-info {
+        padding: 24px 20px;
+    }
+    
+    .moto-detail-info h2 {
+        font-size: 2rem;
+    }
+    
+    .price {
+        font-size: 1.6rem;
+        padding: 16px;
+    }
+    
+    .moto-gallery img {
+        width: 80px;
+        height: 60px;
+    }
+    
+    .specs li {
+        padding: 12px 16px;
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    main {
+        margin: 16px 12px 30px 12px;
+        padding: 16px 12px;
+    }
+    
+    .moto-detail-img {
+        min-height: 200px;
+        padding: 20px;
+    }
+    
+    .moto-detail-info {
+        padding: 20px 16px;
+    }
+    
+    .moto-detail-info h2 {
+        font-size: 1.8rem;
+    }
+    
+    .price {
+        font-size: 1.4rem;
+        padding: 12px;
+    }
+    
+    .back-btn {
+        padding: 14px 24px;
+        font-size: 1rem;
+        width: 100%;
+    }
+    
+    .moto-gallery {
+        gap: 12px;
+    }
+    
+    .moto-gallery img {
+        width: 70px;
+        height: 50px;
     }
 }
