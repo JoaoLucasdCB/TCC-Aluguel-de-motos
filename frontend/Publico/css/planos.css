@@ -95,7 +95,7 @@ body.planos-page::before {
 /* Container principal */
 main {
     max-width: 1200px;
-    margin: 48px auto 0 auto;
+    margin: 48px auto 60px auto;
     padding: 40px 24px;
     border-radius: 24px;
     background: var(--glass-bg);
@@ -291,7 +291,7 @@ main {
 @media (max-width: 900px) {
     main {
         padding: 24px 16px;
-        margin: 24px 16px;
+        margin: 24px 16px 60px 16px;
     }
     
     .planos-list {
@@ -316,7 +316,7 @@ main {
 @media (max-width: 600px) {
     main {
         padding: 20px 12px;
-        margin: 16px 8px;
+        margin: 16px 8px 60px 8px;
     }
     
     .planos-title {

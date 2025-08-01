@@ -11,6 +11,7 @@
     position: relative;
     height: 70px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    z-index: 100; /* Garante que fique acima de outros elementos */
 }
 
 .logo {

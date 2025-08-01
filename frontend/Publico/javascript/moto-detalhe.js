@@ -1,6 +1,48 @@
-// moto-detalhe.js - Funcionalidades específicas para a página de detalhes da moto
+// moto-detalhe.js - Funcionalidades otimizadas para a página de detalhes da moto
+
+// Funções utilitárias
+function getElement(id) {
+    return document.getElementById(id);
+}
+
+function addOptimizedEventListener(element, event, handler) {
+    if (element) {
+        element.addEventListener(event, handler);
+    }
+}
+
+function optimizedScrollHandler(handler) {
+    let ticking = false;
+    return function() {
+        if (!ticking) {
+            requestAnimationFrame(function() {
+                handler();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    };
+}
+
+function animateElement(element, properties, duration) {
+    if (!element) return;
+    
+    const originalStyles = {};
+    Object.keys(properties).forEach(prop => {
+        originalStyles[prop] = element.style[prop];
+    });
+    
+    Object.assign(element.style, properties);
+    
+    setTimeout(() => {
+        Object.keys(originalStyles).forEach(prop => {
+            element.style[prop] = originalStyles[prop];
+        });
+    }, duration);
+}
 
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM carregado, iniciando carregamento dos detalhes da moto...');
     // Carrega os dados da moto da URL
     loadMotoDetails();
     
@@ -13,21 +55,30 @@ async function loadMotoDetails() {
     const urlParams = new URLSearchParams(window.location.search);
     const motoId = urlParams.get('id');
     
+    console.log('ID da moto obtido da URL:', motoId);
+    
     if (!motoId) {
+        console.error('ID da moto não encontrado na URL');
         showError('ID da moto não encontrado');
         return;
     }
 
     try {
+        console.log('Fazendo requisição para:', `http://localhost:8080/api/motos/${motoId}`);
         const response = await fetch(`http://localhost:8080/api/motos/${motoId}`);
+        console.log('Resposta recebida:', response.status, response.statusText);
+        
         if (!response.ok) {
+            console.error('Erro na resposta:', response.status, response.statusText);
             showError('Moto não encontrada');
             return;
         }
+        
         const motoData = await response.json();
         console.log('Dados recebidos do backend:', motoData);
         displayMotoDetails(motoData);
     } catch (error) {
+        console.error('Erro ao buscar dados da moto:', error);
         showError('Erro ao buscar dados da moto. Tente novamente mais tarde.');
     }
 }
@@ -35,19 +86,24 @@ async function loadMotoDetails() {
 // Função de mock removida. Agora os dados são buscados do backend.
 
 function displayMotoDetails(moto) {
+    console.log('Exibindo detalhes da moto:', moto);
+    
     // Atualiza o título da página
     document.title = `${moto.nome || ''} - RideMoto`;
 
     // Atualiza a imagem principal
-    const motoImg = document.getElementById('motoImg');
+    const motoImg = getElement('motoImg');
     if (motoImg) {
-        motoImg.src = moto.imagem || '';
+        const imageSrc = moto.imagem || '../img/yamaha-purple.jpg';
+        console.log('Definindo imagem:', imageSrc);
+        motoImg.src = imageSrc;
         motoImg.alt = moto.nome || '';
     }
 
     // Atualiza o nome da moto
-    const motoNome = document.getElementById('motoNome');
+    const motoNome = getElement('motoNome');
     if (motoNome) {
+        console.log('Definindo nome:', moto.nome);
         motoNome.textContent = moto.nome || '';
     }
 
@@ -60,13 +116,14 @@ function displayMotoDetails(moto) {
     updateSpecification('motoStatus', moto.status || '');
     updateSpecification('motoQuilometragem', moto.quilometragem || '');
 
-    // Atualiza o preço
-    const motoPreco = document.getElementById('motoPreco');
+    // Atualiza o preço (campo não existe no backend ainda)
+    const motoPreco = getElement('motoPreco');
     if (motoPreco) {
         if (moto.preco !== undefined && moto.preco !== null) {
             motoPreco.textContent = Number(moto.preco).toFixed(2).replace('.', ',');
         } else {
-            motoPreco.textContent = '';
+            // Valor padrão se não houver preço definido
+            motoPreco.textContent = '150,00';
         }
     }
 
@@ -78,14 +135,17 @@ function displayMotoDetails(moto) {
 }
 
 function updateSpecification(elementId, value) {
-    const element = document.getElementById(elementId);
+    const element = getElement(elementId);
     if (element) {
+        console.log(`Atualizando ${elementId}:`, value);
         element.textContent = value;
+    } else {
+        console.warn(`Elemento ${elementId} não encontrado`);
     }
 }
 
 function updateGallery(images) {
-    const gallery = document.getElementById('motoGallery');
+    const gallery = getElement('motoGallery');
     if (!gallery) return;
     
     gallery.innerHTML = '';
@@ -100,16 +160,14 @@ function updateGallery(images) {
 }
 
 function changeMainImage(imageSrc) {
-    const motoImg = document.getElementById('motoImg');
+    const motoImg = getElement('motoImg');
     if (motoImg) {
-        // Adiciona efeito de transição
-        motoImg.style.opacity = '0';
-        motoImg.style.transform = 'scale(0.9)';
+        // Usar função otimizada de animação
+        animateElement(motoImg, { opacity: '0', transform: 'scale(0.9)' }, 200);
         
         setTimeout(() => {
             motoImg.src = imageSrc;
-            motoImg.style.opacity = '1';
-            motoImg.style.transform = 'scale(1)';
+            animateElement(motoImg, { opacity: '1', transform: 'scale(1)' }, 200);
         }, 200);
     }
 }
@@ -118,11 +176,11 @@ function addInteractiveFeatures() {
     // Adiciona efeito de hover nas especificações
     const specsItems = document.querySelectorAll('.specs li');
     specsItems.forEach(item => {
-        item.addEventListener('mouseenter', function() {
+        addOptimizedEventListener(item, 'mouseenter', function() {
             this.style.transform = 'translateY(-4px) scale(1.02)';
         });
         
-        item.addEventListener('mouseleave', function() {
+        addOptimizedEventListener(item, 'mouseleave', function() {
             this.style.transform = 'translateY(0) scale(1)';
         });
     });
@@ -130,7 +188,7 @@ function addInteractiveFeatures() {
     // Adiciona efeito de clique no botão voltar
     const backBtn = document.querySelector('.back-btn');
     if (backBtn) {
-        backBtn.addEventListener('click', function(e) {
+        addOptimizedEventListener(backBtn, 'click', function(e) {
             e.preventDefault();
             
             // Adiciona efeito de ripple
@@ -162,23 +220,26 @@ function addInteractiveFeatures() {
     }
     
     // Adiciona efeito de parallax suave na imagem
-    const motoImg = document.getElementById('motoImg');
+    const motoImg = getElement('motoImg');
     if (motoImg) {
-        window.addEventListener('scroll', function() {
+        // Usar scroll handler otimizado
+        const scrollHandler = optimizedScrollHandler(() => {
             const scrolled = window.pageYOffset;
             const rate = scrolled * -0.5;
             motoImg.style.transform = `translateY(${rate}px)`;
         });
+        
+        window.addEventListener('scroll', scrollHandler);
     }
     
     // Adiciona efeito de zoom na imagem principal
     if (motoImg) {
-        motoImg.addEventListener('mouseenter', function() {
+        addOptimizedEventListener(motoImg, 'mouseenter', function() {
             this.style.transform = 'scale(1.1)';
             this.style.transition = 'transform 0.3s ease';
         });
         
-        motoImg.addEventListener('mouseleave', function() {
+        addOptimizedEventListener(motoImg, 'mouseleave', function() {
             this.style.transform = 'scale(1)';
         });
     }
@@ -199,6 +260,7 @@ function animateEntry() {
 }
 
 function showError(message) {
+    console.error('Exibindo erro:', message);
     const main = document.querySelector('main');
     if (main) {
         main.innerHTML = `

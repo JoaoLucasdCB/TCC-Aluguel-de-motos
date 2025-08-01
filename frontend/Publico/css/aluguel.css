@@ -79,7 +79,7 @@ body.aluguel-page::before {
     justify-content: center;
     align-items: flex-start;
     gap: 48px;
-    margin: 48px auto 0 auto;
+    margin: 48px auto 60px auto;
     max-width: 1200px;
     padding: 40px 24px;
     border-radius: 24px;
@@ -87,19 +87,20 @@ body.aluguel-page::before {
     border: 1px solid var(--glass-border);
     box-shadow: var(--shadow-soft);
     position: relative;
-    overflow: hidden;
+    overflow: visible; /* Mudado de hidden para visible */
+    z-index: 5; /* Garante que fique acima do fundo */
 }
 
 /* Seção de informações do aluguel */
 .aluguel-info {
     flex: 1 1 400px;
-    background: var(--glass-bg);
+    background: rgba(45, 8, 92, 0.9); /* Cor sólida em vez de variável */
     border-radius: 20px;
     border: 1px solid var(--glass-border);
     box-shadow: var(--shadow-soft);
     padding: 40px 32px;
     position: relative;
-    overflow: hidden;
+    overflow: visible; /* Mudado de hidden para visible para evitar cortes */
     transition: all 0.3s ease;
 }
 
@@ -108,18 +109,18 @@ body.aluguel-page::before {
     box-shadow: var(--shadow-glow);
 }
 
-/* Título com gradiente */
+/* Título com cor sólida */
 .aluguel-info h1 {
-    background: linear-gradient(135deg, #00cfff 0%, #f357a8 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #00cfff !important; /* Cor sólida para garantir visibilidade */
     margin-bottom: 32px;
     font-size: 2.2rem;
     font-weight: 700;
     letter-spacing: 1px;
     text-align: center;
     position: relative;
+    z-index: 10; /* Garante que fique acima de outros elementos */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Adiciona sombra para melhor visibilidade */
+    background: transparent !important; /* Garante que não há fundo */
 }
 
 .aluguel-info h1::after {
@@ -130,8 +131,18 @@ body.aluguel-page::before {
     transform: translateX(-50%);
     width: 60px;
     height: 3px;
-    background: var(--secondary-gradient);
+    background: #00cfff; /* Cor sólida em vez de gradiente */
     border-radius: 2px;
+}
+
+/* Regra específica para garantir visibilidade do título */
+.aluguel-info h1 {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    color: #00cfff !important;
+    background: none !important; /* Garante que não há fundo */
+    -webkit-text-fill-color: #00cfff !important; /* Força a cor do texto */
 }
 
 /* Grupos de formulário */
@@ -275,7 +286,7 @@ body.aluguel-page::before {
         flex-direction: column;
         gap: 32px;
         padding: 24px 16px;
-        margin: 24px 16px;
+        margin: 24px 16px 60px 16px;
     }
     
     .aluguel-info, .aluguel-detalhes {
@@ -284,6 +295,8 @@ body.aluguel-page::before {
     
     .aluguel-info h1 {
         font-size: 1.8rem;
+        color: #00cfff !important;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     }
     
     .aluguel-detalhes h2 {
@@ -294,7 +307,7 @@ body.aluguel-page::before {
 @media (max-width: 600px) {
     .aluguel-main {
         padding: 20px 12px;
-        margin: 16px 8px;
+        margin: 16px 8px 60px 8px;
     }
     
     .aluguel-info, .aluguel-detalhes {

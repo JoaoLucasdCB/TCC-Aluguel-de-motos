@@ -1,4 +1,39 @@
-// cabecalho-include.js - Script para incluir o cabeçalho dinamicamente
+// cabecalho-include.js - Script otimizado para incluir o cabeçalho dinamicamente
+
+// Funções utilitárias (sem import ES6)
+function getElement(id) {
+    return document.getElementById(id);
+}
+
+function addOptimizedEventListener(element, event, handler, options = {}) {
+    if (!element) return;
+    const optimizedOptions = {
+        passive: true,
+        ...options
+    };
+    element.addEventListener(event, handler, optimizedOptions);
+}
+
+function loadCSS(href) {
+    if (!document.querySelector(`link[href="${href}"]`)) {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = href;
+        document.head.appendChild(link);
+    }
+}
+
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
 
 document.addEventListener('DOMContentLoaded', function() {
     // Função para carregar o cabeçalho
@@ -9,13 +44,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Insere o cabeçalho no início do body
                 document.body.insertAdjacentHTML('afterbegin', data);
                 
-                // Adiciona o CSS do cabeçalho se ainda não foi carregado
-                if (!document.querySelector('link[href*="cabecalho.css"]')) {
-                    const link = document.createElement('link');
-                    link.rel = 'stylesheet';
-                    link.href = '../css/cabecalho.css';
-                    document.head.appendChild(link);
-                }
+                // Carrega CSS otimizado
+                loadCSS('../css/cabecalho.css');
                 
                 // Inicializa as funcionalidades do cabeçalho
                 initializeCabecalho();
@@ -34,17 +64,12 @@ document.addEventListener('DOMContentLoaded', function() {
     function initializeCabecalho() {
         const nomeUsuario = localStorage.getItem('nomeUsuario');
         const tipoUsuario = localStorage.getItem('tipoUsuario');
-        const usuarioIcon = document.getElementById('usuarioLogado');
-        const perfilDropdown = document.getElementById('perfilDropdown');
-        const logoutBtn = document.getElementById('logoutBtn');
-        const minhasReservasBtn = document.getElementById('minhasReservasBtn');
-        const ctaBtn = document.getElementById('ctaBtn');
-        const relatorioBtn = document.getElementById('relatorioBtn');
-        
-        console.log('Debug - nomeUsuario:', nomeUsuario);
-        console.log('Debug - tipoUsuario:', tipoUsuario);
-        console.log('Debug - usuarioIcon:', usuarioIcon);
-        console.log('Debug - perfilDropdown:', perfilDropdown);
+        const usuarioIcon = getElement('usuarioLogado');
+        const perfilDropdown = getElement('perfilDropdown');
+        const logoutBtn = getElement('logoutBtn');
+        const minhasReservasBtn = getElement('minhasReservasBtn');
+        const ctaBtn = getElement('ctaBtn');
+        const relatorioBtn = getElement('relatorioBtn');
         
         // Configura o perfil do usuário
         if (usuarioIcon) {
@@ -61,38 +86,33 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (perfilDropdown) {
                     perfilDropdown.style.display = 'block';
                     perfilDropdown.classList.remove('show');
-                    console.log('Dropdown initialized', perfilDropdown);
-                    console.log('Usuario icon:', usuarioIcon);
                     let hideTimeout;
                     
-                    usuarioIcon.addEventListener('mouseenter', () => {
+                    // Usar debounce para otimizar os eventos de mouse
+                    const showDropdown = () => perfilDropdown.classList.add('show');
+                    const hideDropdown = debounce(() => perfilDropdown.classList.remove('show'), 400);
+                    
+                    addOptimizedEventListener(usuarioIcon, 'mouseenter', () => {
                         clearTimeout(hideTimeout);
-                        console.log('Mouse enter - showing dropdown');
-                        perfilDropdown.classList.add('show');
+                        showDropdown();
                     });
                     
                     // Adiciona evento de clique como fallback
-                    usuarioIcon.addEventListener('click', () => {
-                        console.log('Click - toggling dropdown');
+                    addOptimizedEventListener(usuarioIcon, 'click', () => {
                         perfilDropdown.classList.toggle('show');
                     });
                     
-                    usuarioIcon.addEventListener('mouseleave', () => {
-                        hideTimeout = setTimeout(() => { 
-                            console.log('Mouse leave - hiding dropdown');
-                            perfilDropdown.classList.remove('show'); 
-                        }, 400);
+                    addOptimizedEventListener(usuarioIcon, 'mouseleave', () => {
+                        hideTimeout = setTimeout(hideDropdown, 400);
                     });
                     
-                    perfilDropdown.addEventListener('mouseenter', () => {
+                    addOptimizedEventListener(perfilDropdown, 'mouseenter', () => {
                         clearTimeout(hideTimeout);
-                        perfilDropdown.classList.add('show');
+                        showDropdown();
                     });
                     
-                    perfilDropdown.addEventListener('mouseleave', () => {
-                        hideTimeout = setTimeout(() => { 
-                            perfilDropdown.classList.remove('show'); 
-                        }, 400);
+                    addOptimizedEventListener(perfilDropdown, 'mouseleave', () => {
+                        hideTimeout = setTimeout(hideDropdown, 400);
                     });
                 }
                 

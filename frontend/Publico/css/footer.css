@@ -7,6 +7,7 @@ footer {
     padding: 40px 8vw 20px 8vw;
     position: relative;
     overflow: hidden;
+    z-index: 1; /* Garante que fique abaixo do conteúdo principal */
 }
 
 /* Efeito de partículas no fundo do footer */
@@ -54,7 +55,7 @@ footer::before {
     left: 0;
     width: 30px;
     height: 2px;
-    background: linear-gradient(90deg, #00cfff, #f357a8);
+    background: #00cfff; /* Cor sólida em vez de gradiente */
     border-radius: 1px;
 }
 
@@ -127,28 +128,13 @@ footer::before {
 .footer-section:hover h4::after {
     width: 50px;
     transition: width 0.3s ease;
+    background: #00cfff; /* Cor sólida em vez de gradiente */
 }
 
-/* Animações de entrada */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
+/* Seções do footer sem animação */
 .footer-section {
-    animation: fadeInUp 0.6s ease-out;
-    animation-fill-mode: both;
+    /* Sem animação para evitar distração */
 }
-
-.footer-section:nth-child(1) { animation-delay: 0.1s; }
-.footer-section:nth-child(2) { animation-delay: 0.2s; }
-.footer-section:nth-child(3) { animation-delay: 0.3s; }
 
 /* Responsividade */
 @media (max-width: 768px) {
@@ -208,16 +194,7 @@ footer::before {
     }
 }
 
-/* Efeito de gradiente animado no fundo */
-@keyframes gradientShift {
-    0%, 100% {
-        background: linear-gradient(135deg, #2d085c 0%, #a12b8c 100%);
-    }
-    50% {
-        background: linear-gradient(135deg, #a12b8c 0%, #2d085c 100%);
-    }
-}
-
+/* Footer com gradiente estático */
 footer {
-    animation: gradientShift 10s ease-in-out infinite;
+    background: linear-gradient(135deg, #2d085c 0%, #a12b8c 100%);
 } 
