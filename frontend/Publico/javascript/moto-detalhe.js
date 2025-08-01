@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     addInteractiveFeatures();
 });
 
-function loadMotoDetails() {
+async function loadMotoDetails() {
     // Obtém o ID da moto da URL
     const urlParams = new URLSearchParams(window.location.search);
     const motoId = urlParams.get('id');
@@ -17,96 +17,62 @@ function loadMotoDetails() {
         showError('ID da moto não encontrado');
         return;
     }
-    
-    // Simula carregamento de dados (substitua por chamada real à API)
-    const motoData = getMotoData(motoId);
-    
-    if (motoData) {
+
+    try {
+        const response = await fetch(`http://localhost:8080/api/motos/${motoId}`);
+        if (!response.ok) {
+            showError('Moto não encontrada');
+            return;
+        }
+        const motoData = await response.json();
+        console.log('Dados recebidos do backend:', motoData);
         displayMotoDetails(motoData);
-    } else {
-        showError('Moto não encontrada');
+    } catch (error) {
+        showError('Erro ao buscar dados da moto. Tente novamente mais tarde.');
     }
 }
 
-function getMotoData(motoId) {
-    // Dados simulados - substitua por chamada real à API
-    const motos = [
-        {
-            id: 1,
-            nome: 'Yamaha YBR 125',
-            marca: 'Yamaha',
-            modelo: 'YBR 125',
-            ano: 2022,
-            cilindrada: '125cc',
-            placa: 'ABC-1234',
-            status: 'Disponível',
-            quilometragem: '5.000 km',
-            preco: 39.90,
-            imagem: '../img/yamaha-purple.jpg',
-            galeria: [
-                '../img/yamaha-purple.jpg',
-                '../img/yamaha-purple.jpg',
-                '../img/yamaha-purple.jpg'
-            ]
-        },
-        {
-            id: 2,
-            nome: 'Honda CG 150',
-            marca: 'Honda',
-            modelo: 'CG 150',
-            ano: 2021,
-            cilindrada: '150cc',
-            placa: 'DEF-5678',
-            status: 'Disponível',
-            quilometragem: '8.500 km',
-            preco: 45.90,
-            imagem: '../img/honda-cg.jpg',
-            galeria: [
-                '../img/honda-cg.jpg',
-                '../img/honda-cg.jpg',
-                '../img/honda-cg.jpg'
-            ]
-        }
-    ];
-    
-    return motos.find(moto => moto.id == motoId);
-}
+// Função de mock removida. Agora os dados são buscados do backend.
 
 function displayMotoDetails(moto) {
     // Atualiza o título da página
-    document.title = `${moto.nome} - RideMoto`;
-    
+    document.title = `${moto.nome || ''} - RideMoto`;
+
     // Atualiza a imagem principal
     const motoImg = document.getElementById('motoImg');
     if (motoImg) {
-        motoImg.src = moto.imagem;
-        motoImg.alt = moto.nome;
+        motoImg.src = moto.imagem || '';
+        motoImg.alt = moto.nome || '';
     }
-    
+
     // Atualiza o nome da moto
     const motoNome = document.getElementById('motoNome');
     if (motoNome) {
-        motoNome.textContent = moto.nome;
+        motoNome.textContent = moto.nome || '';
     }
-    
+
     // Atualiza as especificações
-    updateSpecification('motoMarca', moto.marca);
-    updateSpecification('motoModelo', moto.modelo);
-    updateSpecification('motoAno', moto.ano);
-    updateSpecification('motoCilindrada', moto.cilindrada);
-    updateSpecification('motoPlaca', moto.placa);
-    updateSpecification('motoStatus', moto.status);
-    updateSpecification('motoQuilometragem', moto.quilometragem);
-    
+    updateSpecification('motoMarca', moto.marca || '');
+    updateSpecification('motoModelo', moto.modelo || '');
+    updateSpecification('motoAno', moto.ano || '');
+    updateSpecification('motoCilindrada', moto.cilindrada || '');
+    updateSpecification('motoPlaca', moto.placa || '');
+    updateSpecification('motoStatus', moto.status || '');
+    updateSpecification('motoQuilometragem', moto.quilometragem || '');
+
     // Atualiza o preço
     const motoPreco = document.getElementById('motoPreco');
     if (motoPreco) {
-        motoPreco.textContent = moto.preco.toFixed(2).replace('.', ',');
+        if (moto.preco !== undefined && moto.preco !== null) {
+            motoPreco.textContent = Number(moto.preco).toFixed(2).replace('.', ',');
+        } else {
+            motoPreco.textContent = '';
+        }
     }
-    
-    // Atualiza a galeria
-    updateGallery(moto.galeria);
-    
+
+    // Atualiza a galeria (se existir)
+    updateGallery(moto.galeria || []);
+
     // Adiciona animação de entrada
     animateEntry();
 }
