@@ -6,29 +6,11 @@
     <title>RideMoto - Aluguel</title>
     <link rel="stylesheet" href="../css/aluguel.css">
     <link rel="stylesheet" href="../css/aluguel-enhanced.css">
-    <link rel="stylesheet" href="../css/cabecalho.css">
-    <script src="../javascript/usuario-logado.js"></script>
+    <script src="../javascript/cabecalho-include.js"></script>
    
     
 </head>
 <body class="aluguel-page">
-    <nav class="navbar">
-        <button class="logo" onclick="window.location.href='landing.html'">i&gt;</button>
-        <ul class="nav-links">
-            <li><a href="aluguel.html" class="active">Aluguel</a></li>
-            <li><a href="sobre.html">Sobre Nós</a></li>
-            <li><a href="motos.html">Motos</a></li>
-            <li><a href="planos.html">Planos</a></li>
-        </ul>
-        <div class="perfil-container">
-            <div id="usuarioLogado" class="perfil-btn" style="display:none;"></div>
-            <div id="perfilDropdown" class="perfil-dropdown" style="display:none;">
-                <button id="relatorioBtn" style="display:none;">Central</button>
-                <button id="minhasReservasBtn">Minhas Reservas</button>
-                <button id="logoutBtn">Sair</button>
-            </div>
-        </div>
-    </nav>
     
     <!-- Partículas animadas -->
     <div class="particles">
@@ -79,19 +61,6 @@
     </main>
     <script src="../javascript/aluguel.js"></script>
     <script src="../javascript/aluguel-effects.js"></script>
-    <script>
-    // Exibe botão de relatório para admin
-    document.addEventListener('DOMContentLoaded', function() {
-        const relatorioBtn = document.getElementById('relatorioBtn');
-        const tipoUsuario = localStorage.getItem('tipoUsuario');
-        if (tipoUsuario && tipoUsuario.toUpperCase() === 'ADMIN') {
-            relatorioBtn.style.display = 'block';
-            relatorioBtn.onclick = function() {
-                window.location.href = '../../Admin/html/aluguel-relatorio.html';
-            };
-        }
-    });
-    </script>
     <!-- Suporte Flutuante Melhorado -->
     <style>
       #suporte-float {

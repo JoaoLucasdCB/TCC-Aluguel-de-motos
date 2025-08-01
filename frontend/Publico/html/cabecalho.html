@@ -1,0 +1,26 @@
+<!-- cabecalho.html - Cabeçalho reutilizável para todas as páginas -->
+
+<nav class="navbar">
+    <button class="logo" onclick="window.location.href='landing.html'">i&gt;</button>
+    
+    <!-- Container do perfil do usuário -->
+    <div class="perfil-container">
+        <div id="usuarioLogado" class="perfil-btn" style="display:none;"></div>
+        <div id="perfilDropdown" class="perfil-dropdown">
+            <button id="relatorioBtn" style="display:none;">Central</button>
+            <button id="minhasReservasBtn">Minhas Reservas</button>
+            <button id="logoutBtn">Sair</button>
+        </div>
+    </div>
+    
+    <!-- Links de navegação -->
+    <ul class="nav-links">
+        <li><a href="aluguel.html" id="nav-aluguel">Aluguel</a></li>
+        <li><a href="sobre.html" id="nav-sobre">Sobre Nós</a></li>
+        <li><a href="motos.html" id="nav-motos">Motos</a></li>
+        <li><a href="planos.html" id="nav-planos">Planos</a></li>
+    </ul>
+    
+    <!-- Botão de cadastro/login (visível apenas quando não logado) -->
+    <a href="cadastro.html" class="cta-btn" id="ctaBtn">Cadastre-se</a>
+</nav> 
