@@ -1,16 +1,16 @@
 
 package InoDev.RideMoto.Models;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-import java.time.LocalDateTime;
-import java.time.LocalDate;
-import java.util.List;
-import jakarta.persistence.OneToMany;
 
 @Entity
 @Getter
@@ -50,6 +50,15 @@ public class UsuarioModel {
 
     @Column(name = "status", nullable = true)
     private String status;
+
+    @Column(name = "google_id", nullable = true, unique = true)
+    private String googleId;
+
+    @Column(name = "auth_provider", nullable = true)
+    private String authProvider;
+
+    @Column(name = "picture_url", nullable = true)
+    private String pictureUrl;
 
     @OneToMany(mappedBy = "usuario")
     @com.fasterxml.jackson.annotation.JsonManagedReference

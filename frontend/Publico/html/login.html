@@ -36,10 +36,34 @@
                 <label for="senha">Senha</label>
                 <input type="password" id="senha" name="senha" required>
                 <button type="submit" class="login-action">Login</button>
+                
+                <div class="divider-or">
+                    <span>ou</span>
+                </div>
+                
+                <button type="button" id="googleLoginBtn" class="google-login-btn">
+                    <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google" class="google-icon">
+                    Entrar com Google
+                </button>
+                
                 <a href="cadastro.html" style="margin-top:12px; text-align:center; color:#ffffff; text-decoration:underline; display:block; font-size:0.98rem;">Não tem cadastro? Clique aqui para se cadastrar</a>
             </form>
         </section>
     </main>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="../javascript/login.js"></script>
+    <script>
+        // Inicializar Google Sign-In quando a página carregar
+        window.onload = function() {
+            // Aguardar um pouco para garantir que a API do Google carregou
+            setTimeout(function() {
+                if (typeof gapi !== 'undefined') {
+                    initializeGoogleSignIn();
+                } else {
+                    console.error('API do Google não carregou');
+                }
+            }, 1000);
+        };
+    </script>
 </body>
 </html>

@@ -1,10 +1,12 @@
-// login.js
+// Exemplo alternativo de implementação do login com Google
+// Este arquivo pode ser usado como referência se a implementação principal não funcionar
 
-// Google OAuth2 Configuration
-const GOOGLE_CLIENT_ID = 'SEU_CLIENT_ID_AQUI'; // Substitua pelo seu Client ID
+// Configuração do Google OAuth2
+const GOOGLE_CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID';
 
-// Inicializar Google Sign-In
-function initializeGoogleSignIn() {
+// Função para inicializar o Google Sign-In
+function initGoogleSignIn() {
+    // Carregar a API do Google
     gapi.load('auth2', function() {
         gapi.auth2.init({
             client_id: GOOGLE_CLIENT_ID
@@ -85,51 +87,26 @@ function authenticateWithBackend(idToken) {
     });
 }
 
+// Função para fazer logout
+function signOutFromGoogle() {
+    const auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function() {
+        console.log('Usuário deslogado do Google');
+        // Limpar localStorage
+        localStorage.clear();
+        // Redirecionar para página de login
+        window.location.href = 'login.html';
+    });
+}
 
-
-// Login tradicional
-document.getElementById('loginForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const email = document.getElementById('email').value;
-    const senha = document.getElementById('senha').value;
-    if(email && senha) {
-        // Exemplo de requisição para o backend (ajuste o endpoint para o correto de login)
-        fetch('http://localhost:8080/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email, senha })
-        })
-        .then(async response => {
-            if (!response.ok) {
-                const msg = await response.text();
-                alert(msg || 'Email ou senha inválidos.');
-                throw new Error(msg || 'Email ou senha inválidos.');
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.token) {
-                localStorage.setItem('token', data.token);
-                localStorage.setItem('tipoUsuario', data.tipoUsuario);
-                localStorage.setItem('nomeUsuario', data.nome);
-                if (data.id) {
-                    localStorage.setItem('usuarioId', data.id);
-                }
-                if (data.tipoUsuario && data.tipoUsuario.toLowerCase() === 'admin') {
-                    window.location.href = '../../Admin/html/cadastrar-moto.html';
-                } else {
-                    window.location.href = 'aluguel.html';
-                }
-            } else {
-                alert('Email ou senha inválidos.');
-            }
-        })
-        .catch(error => {
-            console.error(error);
-        });
-    } else {
-        alert('Por favor, preencha todos os campos.');
-    }
-});
+// Inicializar quando a página carregar
+window.onload = function() {
+    // Aguardar um pouco para garantir que a API do Google carregou
+    setTimeout(function() {
+        if (typeof gapi !== 'undefined') {
+            initGoogleSignIn();
+        } else {
+            console.error('API do Google não carregou');
+        }
+    }, 1000);
+}; 
