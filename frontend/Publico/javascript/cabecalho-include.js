@@ -38,24 +38,20 @@ function debounce(func, wait) {
 document.addEventListener('DOMContentLoaded', function() {
     // Função para carregar o cabeçalho
     function loadCabecalho() {
-        fetch('../html/cabecalho.html')
+        // Detecta se está em página admin
+        const isAdmin = window.location.pathname.includes('/Admin/html/');
+        let cabecalhoFile = isAdmin ? '../../Admin/html/cabecalho-admin.html' : '../html/cabecalho.html';
+        let cssFile = isAdmin ? '../../Admin/css/cabecalho-admin.css' : '../css/cabecalho.css';
+        fetch(cabecalhoFile)
             .then(response => response.text())
             .then(data => {
-                // Insere o cabeçalho no início do body
                 document.body.insertAdjacentHTML('afterbegin', data);
-                
-                // Carrega CSS otimizado
-                loadCSS('../css/cabecalho.css');
-                
-                // Inicializa as funcionalidades do cabeçalho
+                loadCSS(cssFile);
                 initializeCabecalho();
-                
-                // Adiciona efeitos interativos ao cabeçalho
                 addCabecalhoInteractions();
             })
             .catch(error => {
                 console.error('Erro ao carregar o cabeçalho:', error);
-                // Fallback: insere um cabeçalho básico se não conseguir carregar
                 insertFallbackCabecalho();
             });
     }
