@@ -1,11 +1,23 @@
 // login.js
 
+
+function showMsg(msg, type = 'error') {
+    const msgContainer = document.getElementById('msgContainer');
+    if (!msgContainer) return;
+    const div = document.createElement('div');
+    div.className = `msg-toast ${type}`;
+    div.textContent = msg;
+    msgContainer.appendChild(div);
+    setTimeout(() => {
+        div.remove();
+    }, 3000);
+}
+
 document.getElementById('loginForm').addEventListener('submit', function(e) {
     e.preventDefault();
     const email = document.getElementById('email').value;
     const senha = document.getElementById('senha').value;
     if(email && senha) {
-        // Exemplo de requisição para o backend (ajuste o endpoint para o correto de login)
         fetch('http://localhost:8080/login', {
             method: 'POST',
             headers: {
@@ -16,7 +28,7 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
         .then(async response => {
             if (!response.ok) {
                 const msg = await response.text();
-                alert(msg || 'Email ou senha inválidos.');
+                showMsg(msg || 'Email ou senha inválidos.', 'error');
                 throw new Error(msg || 'Email ou senha inválidos.');
             }
             return response.json();
@@ -29,19 +41,22 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
                 if (data.id) {
                     localStorage.setItem('usuarioId', data.id);
                 }
-                if (data.tipoUsuario && data.tipoUsuario.toLowerCase() === 'admin') {
-                    window.location.href = '../../Admin/html/cadastrar-moto.html';
-                } else {
-                    window.location.href = 'aluguel.html';
-                }
+                showMsg('Login realizado com sucesso!', 'success');
+                setTimeout(() => {
+                    if (data.tipoUsuario && data.tipoUsuario.toLowerCase() === 'admin') {
+                        window.location.href = '../../Admin/html/cadastrar-moto.html';
+                    } else {
+                        window.location.href = 'aluguel.html';
+                    }
+                }, 900);
             } else {
-                alert('Email ou senha inválidos.');
+                showMsg('Email ou senha inválidos.', 'error');
             }
         })
         .catch(error => {
             console.error(error);
         });
     } else {
-        alert('Por favor, preencha todos os campos.');
+        showMsg('Por favor, preencha todos os campos.', 'error');
     }
 });

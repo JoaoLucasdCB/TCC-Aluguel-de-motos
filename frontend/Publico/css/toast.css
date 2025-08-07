@@ -1,0 +1,46 @@
+/* toast.css - estilos globais para mensagens toast reutilizáveis */
+#msgContainer {
+    position: fixed;
+    top: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    min-width: 280px;
+    max-width: 90vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    pointer-events: none;
+}
+.msg-toast {
+    background: #fff;
+    color: #a12b8c;
+    border-left: 6px solid #f357a8;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px 0 rgba(123,47,242,0.13);
+    padding: 16px 28px 16px 18px;
+    margin-bottom: 12px;
+    font-size: 1.05rem;
+    font-weight: 500;
+    animation: fadeInDown 0.5s, fadeOutUp 0.5s 2.5s forwards;
+    min-width: 220px;
+    max-width: 400px;
+    text-align: center;
+    pointer-events: auto;
+}
+.msg-toast.success {
+    color: #1a8c3b;
+    border-left-color: #1a8c3b;
+}
+.msg-toast.error {
+    color: #a12b8c;
+    border-left-color: #f357a8;
+}
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-30px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes fadeOutUp {
+    from { opacity: 1; transform: translateY(0) scale(1); }
+    to   { opacity: 0; transform: translateY(-30px) scale(0.98); }
+}
