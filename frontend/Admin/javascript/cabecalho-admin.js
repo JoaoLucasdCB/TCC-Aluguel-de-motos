@@ -40,9 +40,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     if (logoutBtn) {
         logoutBtn.onclick = () => {
-            localStorage.removeItem('token');
-            localStorage.removeItem('nomeUsuario');
-            localStorage.removeItem('tipoUsuario');
+            // Limpa dados de autenticação/localStorage e redireciona para login
+            localStorage.clear();
+            sessionStorage.clear();
             window.location.href = '../../Publico/html/login.html';
         };
     }

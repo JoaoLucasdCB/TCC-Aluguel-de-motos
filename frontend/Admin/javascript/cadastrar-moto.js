@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     if (!localStorage.getItem('token') || localStorage.getItem('tipoUsuario')?.toLowerCase() !== 'admin') {
-        window.location.href = '../../Publico/html/login.html';
+        window.location.href = '/frontend/Publico/html/login.html';
         return;
     }
 

@@ -48,7 +48,7 @@
 
 .nav-links li a {
     color: #fff;
-    text-decoration: none;
+    text-decoration: none !important;
     font-size: 1.1rem;
     transition: all 0.3s ease;
     position: relative;
@@ -218,8 +218,14 @@
     background: #f357a8;
     color: #fff;
     transform: translateY(-50%) scale(1.05);
-    box-shadow: 0 4px 12px rgba(123,47,242,0.2);
+    text-decoration: none !important;
 }
+
+.login-btn, .login-btn:visited, .login-btn:active, .login-btn:focus, .login-btn:hover {
+    text-decoration: none !important;
+}
+
+
 
 /* Responsividade */
 @media (max-width: 768px) {

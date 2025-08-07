@@ -66,69 +66,58 @@ document.addEventListener('DOMContentLoaded', function() {
         const minhasReservasBtn = getElement('minhasReservasBtn');
         const ctaBtn = getElement('ctaBtn');
         const relatorioBtn = getElement('relatorioBtn');
+        // Detecta página atual
+        const currentPage = window.location.pathname.split('/').pop();
         
         // Configura o perfil do usuário
         if (usuarioIcon) {
             if (nomeUsuario) {
                 usuarioIcon.innerHTML = nomeUsuario + (tipoUsuario ? ` (${tipoUsuario})` : '');
                 usuarioIcon.style.display = 'inline-block';
-                
-                // Esconde o botão de cadastro quando logado
+                // Esconde o botão de ação quando logado
                 if (ctaBtn) {
                     ctaBtn.style.display = 'none';
                 }
-                
                 // Configura o dropdown do perfil
                 if (perfilDropdown) {
                     perfilDropdown.style.display = 'block';
                     perfilDropdown.classList.remove('show');
                     let hideTimeout;
-                    
-                    // Usar debounce para otimizar os eventos de mouse
                     const showDropdown = () => perfilDropdown.classList.add('show');
                     const hideDropdown = debounce(() => perfilDropdown.classList.remove('show'), 400);
-                    
                     addOptimizedEventListener(usuarioIcon, 'mouseenter', () => {
                         clearTimeout(hideTimeout);
                         showDropdown();
                     });
-                    
-                    // Adiciona evento de clique como fallback
                     addOptimizedEventListener(usuarioIcon, 'click', () => {
                         perfilDropdown.classList.toggle('show');
                     });
-                    
                     addOptimizedEventListener(usuarioIcon, 'mouseleave', () => {
                         hideTimeout = setTimeout(hideDropdown, 400);
                     });
-                    
                     addOptimizedEventListener(perfilDropdown, 'mouseenter', () => {
                         clearTimeout(hideTimeout);
                         showDropdown();
                     });
-                    
                     addOptimizedEventListener(perfilDropdown, 'mouseleave', () => {
                         hideTimeout = setTimeout(hideDropdown, 400);
                     });
                 }
-                
                 // Configura o botão de minhas reservas
                 if (minhasReservasBtn) {
                     minhasReservasBtn.onclick = () => {
                         window.location.href = 'minhas-reservas.html';
                     };
                 }
-                
                 // Configura o botão de logout
                 if (logoutBtn) {
                     logoutBtn.onclick = () => {
                         localStorage.removeItem('token');
                         localStorage.removeItem('nomeUsuario');
                         localStorage.removeItem('tipoUsuario');
-                        window.location.href = 'login.html';
+                        window.location.href = '/frontend/Publico/html/login.html';
                     };
                 }
-                
                 // Configura o botão de relatório para admin
                 if (relatorioBtn && tipoUsuario && tipoUsuario.toUpperCase() === 'ADMIN') {
                     relatorioBtn.style.display = 'block';
@@ -136,17 +125,25 @@ document.addEventListener('DOMContentLoaded', function() {
                         window.location.href = '../../Admin/html/aluguel-relatorio.html';
                     };
                 }
-                
             } else {
-                // Usuário não logado
-                usuarioIcon.innerHTML = '<a href="login.html">Fazer login</a>';
-                usuarioIcon.style.display = 'inline-block';
-                
-                // Mostra o botão de cadastro
+                // Usuário não logado: não exibe mais link de login duplicado
+                usuarioIcon.innerHTML = '';
+                usuarioIcon.style.display = 'none';
+                // Mostra o botão de ação e define texto/link conforme página
                 if (ctaBtn) {
                     ctaBtn.style.display = 'inline-block';
+                    if (currentPage === 'login.html') {
+                        ctaBtn.textContent = 'Cadastre-se';
+                        ctaBtn.href = 'cadastro.html';
+                        ctaBtn.classList.remove('login-btn');
+                        ctaBtn.classList.add('cta-btn');
+                    } else {
+                    ctaBtn.textContent = 'Fazer login';
+                        ctaBtn.href = 'login.html';
+                        ctaBtn.classList.remove('cta-btn');
+                        ctaBtn.classList.add('login-btn');
+                    }
                 }
-                
                 if (perfilDropdown) {
                     perfilDropdown.classList.remove('show');
                 }
