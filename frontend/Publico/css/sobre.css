@@ -61,23 +61,6 @@ body.sobre::before {
     position: relative;
     overflow: hidden;
 }
-
-/* Efeito de brilho no container */
-.sobre-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-    transition: left 0.5s;
-}
-
-.sobre-container:hover::before {
-    left: 100%;
-}
-
 /* Título principal */
 .sobre-titulo {
     color: #b266ff;

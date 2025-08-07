@@ -69,23 +69,6 @@ main {
     position: relative;
     animation: fadeInUp 0.8s ease-out;
 }
-
-/* Efeito de brilho no container */
-.moto-detail-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-    transition: left 0.5s;
-}
-
-.moto-detail-container:hover::before {
-    left: 100%;
-}
-
 /* Seção da imagem */
 .moto-detail-img {
     flex: 1;

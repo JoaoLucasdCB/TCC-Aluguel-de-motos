@@ -1,52 +1,441 @@
+/* plano-detalhe.css - Estilos específicos para a página de detalhes do plano */
+
+/* Variáveis CSS específicas para a página de detalhes do plano */
+:root {
+    --primary-gradient: linear-gradient(135deg, #2d085c 0%, #a12b8c 100%);
+    --secondary-gradient: linear-gradient(135deg, #7b2ff2 0%, #f357a8 100%);
+    --accent-color: #00cfff;
+    --glass-bg: rgba(45, 8, 92, 0.9);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --shadow-soft: 0 4px 16px rgba(0, 0, 0, 0.2);
+    --shadow-glow: 0 4px 16px rgba(123, 47, 242, 0.3);
+    --price-color: #ff6600;
+    --text-primary: #fff;
+    --text-secondary: #e0e0e0;
+    --success-color: #00ff88;
+    --warning-color: #ffaa00;
+    --error-color: #ff4444;
+}
+
+/* Background específico para página de detalhes do plano */
+body.plano-detalhe-page {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--primary-gradient);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+    color: var(--text-primary);
+}
+
+/* Efeito de partículas no fundo */
+body.plano-detalhe-page::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(0, 207, 255, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(243, 87, 168, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(123, 47, 242, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+    animation: float 30s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(0.5deg); }
+}
+
+/* Partículas flutuantes */
+.particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: rgba(0, 207, 255, 0.4);
+    border-radius: 50%;
+    animation: float-particle 8s infinite linear;
+}
+
+.particle:nth-child(2n) {
+    background: rgba(243, 87, 168, 0.4);
+    animation-duration: 10s;
+}
+
+.particle:nth-child(3n) {
+    background: rgba(123, 47, 242, 0.4);
+    animation-duration: 12s;
+}
+
+@keyframes float-particle {
+    0% {
+        transform: translateY(100vh) translateX(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100px) translateX(50px);
+        opacity: 0;
+    }
+}
+
+/* Container principal */
+main {
+    max-width: 1200px;
+    margin: 48px auto 60px auto;
+    padding: 40px 24px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Container de detalhes do plano */
 .plano-detail-container {
-    max-width: 700px;
-    margin: 40px auto 0 auto;
-    background: rgba(41,41,41,0.35);
-    border-radius: 18px;
-    box-shadow: 0 4px 24px 0 rgba(0,0,0,0.10);
+    max-width: 800px;
+    margin: 0 auto;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    box-shadow: var(--shadow-glow);
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 40px 32px;
-    color: #fff;
+    padding: 48px 40px;
+    color: var(--text-primary);
+    position: relative;
+    animation: fadeInUp 0.8s ease-out;
+
+/* Efeito de brilho no container */
+
+/* Cabeçalho do plano */
+.plano-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+    gap: 16px;
+    width: 100%;
 }
+
 .plano-detail-nome {
-    font-size: 2rem;
-    color: #ff6600;
-    font-weight: bold;
-    margin-bottom: 10px;
+    font-size: 2.5rem;
+    color: var(--price-color);
+    font-weight: 700;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    position: relative;
+    flex: 1;
 }
+
+.plano-detail-nome::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: var(--secondary-gradient);
+    border-radius: 2px;
+}
+
+/* Badge do plano */
+.plano-badge {
+    background: var(--success-color);
+    color: #000;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 12px rgba(0, 255, 136, 0.3);
+    animation: pulse 2s infinite;
+}
+
+.plano-badge.premium {
+    background: var(--warning-color);
+    box-shadow: 0 4px 12px rgba(255, 170, 0, 0.3);
+}
+
+.plano-badge.basico {
+    background: var(--accent-color);
+    box-shadow: 0 4px 12px rgba(0, 207, 255, 0.3);
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* Descrição do plano */
 .plano-detail-descricao {
-    font-size: 1.1rem;
-    color: #e0e0e0;
-    margin-bottom: 18px;
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 32px;
     text-align: center;
+    line-height: 1.6;
+    max-width: 600px;
 }
+
+/* Preço do plano */
 .plano-detail-preco {
-    font-size: 1.3rem;
-    color: #fff;
-    margin-bottom: 12px;
+    font-size: 2.5rem;
+    color: var(--price-color);
+    font-weight: 700;
+    margin-bottom: 32px;
+    text-align: center;
+    background: linear-gradient(135deg, rgba(255, 102, 0, 0.1) 0%, rgba(255, 102, 0, 0.05) 100%);
+    padding: 24px;
+    border-radius: 20px;
+    border: 2px solid rgba(255, 102, 0, 0.3);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease;
 }
+
+.plano-detail-preco:hover {
+    transform: scale(1.02);
+}
+
+/* Benefícios do plano */
 .plano-detail-beneficios {
-    list-style: disc inside;
-    color: #ccc;
-    font-size: 1.08rem;
-    margin-bottom: 18px;
-    text-align: left;
-    padding-left: 0;
-}
-.plano-detail-btn {
-    background: #ff6600;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    padding: 12px 0;
+    list-style: none;
+    color: var(--text-secondary);
     font-size: 1.1rem;
-    cursor: pointer;
-    width: 180px;
-    transition: background 0.2s;
-    margin-top: 18px;
+    margin-bottom: 32px;
+    text-align: left;
+    padding: 0;
+    width: 100%;
+    max-width: 500px;
 }
+
+.plano-detail-beneficios li {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 16px 20px;
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+    margin-bottom: 12px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    overflow: hidden;
+}
+
+.plano-detail-beneficios li::before {
+    content: '✓';
+    color: var(--success-color);
+    font-weight: bold;
+    font-size: 1.2rem;
+    min-width: 20px;
+}
+
+
+/* Botões de ação */
+.action-buttons {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+    width: 100%;
+    justify-content: center;
+}
+
+.contratar-btn {
+    background: var(--secondary-gradient);
+    color: var(--text-primary);
+    border: none;
+    border-radius: 12px;
+    padding: 16px 32px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(123, 47, 242, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+    flex: 1;
+    min-width: 200px;
+    justify-content: center;
+}
+
+.contratar-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.contratar-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(123, 47, 242, 0.4);
+}
+
+.contratar-btn:hover::before {
+    left: 100%;
+}
+
+/* Botão voltar */
+.plano-detail-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 16px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
 .plano-detail-btn:hover {
-    background: #e65c00;
+    background: rgba(255, 255, 255, 0.2);
+    border-color: var(--accent-color);
+    transform: translateY(-2px);
+}
+
+/* Animações */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    main {
+        margin: 24px 16px 40px 16px;
+        padding: 20px 16px;
+    }
+    
+    .plano-detail-container {
+        padding: 32px 24px;
+    }
+    
+    .plano-header {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+    
+    .plano-detail-nome {
+        font-size: 2rem;
+        text-align: center;
+    }
+    
+    .plano-detail-descricao {
+        font-size: 1.1rem;
+    }
+    
+    .plano-detail-preco {
+        font-size: 2rem;
+        padding: 20px;
+    }
+    
+    .plano-detail-beneficios {
+        font-size: 1rem;
+    }
+    
+    .plano-detail-beneficios li {
+        padding: 14px 16px;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .contratar-btn,
+    .plano-detail-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .particle {
+        width: 2px;
+        height: 2px;
+    }
+}
+
+@media (max-width: 480px) {
+    main {
+        margin: 16px 12px 30px 12px;
+        padding: 16px 12px;
+    }
+    
+    .plano-detail-container {
+        padding: 24px 20px;
+    }
+    
+    .plano-detail-nome {
+        font-size: 1.8rem;
+    }
+    
+    .plano-detail-descricao {
+        font-size: 1rem;
+    }
+    
+    .plano-detail-preco {
+        font-size: 1.8rem;
+        padding: 16px;
+    }
+    
+    .plano-detail-beneficios {
+        font-size: 0.95rem;
+    }
+    
+    .plano-detail-beneficios li {
+        padding: 12px 14px;
+    }
+    
+    .contratar-btn,
+    .plano-detail-btn {
+        padding: 14px 20px;
+        font-size: 1rem;
+    }
+}
+   
 }
