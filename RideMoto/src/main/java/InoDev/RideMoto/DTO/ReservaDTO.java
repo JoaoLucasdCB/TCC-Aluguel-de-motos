@@ -25,6 +25,13 @@ public class ReservaDTO {
     private Long usuarioId;
     private String usuarioNome;
 
+    // Local de retirada
+    private Long localRetiradaId;
+    private String localRetiradaCidade;
+    private String localRetiradaEstado;
+    private String localRetiradaEndereco;
+    private String localRetiradaHorario;
+
     public Long getMotoId() { return motoId; }
     public void setMotoId(Long motoId) { this.motoId = motoId; }
     public String getMotoNome() { return motoNome; }
@@ -58,4 +65,15 @@ public class ReservaDTO {
     public void setNomePlano(String nomePlano) { this.nomePlano = nomePlano; }
     public String getNomeUsuario() { return nomeUsuario; }
     public void setNomeUsuario(String nomeUsuario) { this.nomeUsuario = nomeUsuario; }
+
+    public Long getLocalRetiradaId() { return localRetiradaId; }
+    public void setLocalRetiradaId(Long localRetiradaId) { this.localRetiradaId = localRetiradaId; }
+    public String getLocalRetiradaCidade() { return localRetiradaCidade; }
+    public void setLocalRetiradaCidade(String localRetiradaCidade) { this.localRetiradaCidade = localRetiradaCidade; }
+    public String getLocalRetiradaEstado() { return localRetiradaEstado; }
+    public void setLocalRetiradaEstado(String localRetiradaEstado) { this.localRetiradaEstado = localRetiradaEstado; }
+    public String getLocalRetiradaEndereco() { return localRetiradaEndereco; }
+    public void setLocalRetiradaEndereco(String localRetiradaEndereco) { this.localRetiradaEndereco = localRetiradaEndereco; }
+    public String getLocalRetiradaHorario() { return localRetiradaHorario; }
+    public void setLocalRetiradaHorario(String localRetiradaHorario) { this.localRetiradaHorario = localRetiradaHorario; }
 }

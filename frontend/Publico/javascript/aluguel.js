@@ -3,9 +3,47 @@
 document.addEventListener('DOMContentLoaded', function() {
     const motoSelect = document.getElementById('moto');
     const planoSelect = document.getElementById('plano');
+    const localRetiradaSelect = document.getElementById('localRetirada');
     const detalhesMoto = document.getElementById('detalhesMoto');
     const detalhesPlano = document.getElementById('detalhesPlano');
+    const detalhesLocal = document.createElement('div');
+    detalhesLocal.id = 'detalhesLocal';
+    // Adiciona o container de detalhes do local após detalhesPlano, se não existir
+    if (!document.getElementById('detalhesLocal')) {
+        detalhesPlano.parentNode.appendChild(detalhesLocal);
+    }
+    // Atualiza detalhes do local ao selecionar
+    localRetiradaSelect.addEventListener('change', function() {
+        const localId = localRetiradaSelect.value;
+        if (!localId) {
+            detalhesLocal.innerHTML = '';
+            return;
+        }
+        fetch(`http://localhost:8080/localizacoes/${localId}`)
+            .then(res => res.json())
+            .then(local => {
+                detalhesLocal.innerHTML = `<b>Local de Retirada:</b> ${local.cidade} - ${local.estado}<br><b>Endereço:</b> ${local.enderecoCompleto}<br>${local.horarioFuncionamento ? `<b>Horário:</b> ${local.horarioFuncionamento}` : ''}`;
+            })
+            .catch(() => {
+                detalhesLocal.innerHTML = '<span style="color:#f357a8">Erro ao carregar detalhes do local.</span>';
+            });
+    });
     const retiradaInput = document.getElementById('retirada');
+    // Carregar locais de retirada
+    function carregarLocaisRetirada() {
+        fetch('http://localhost:8080/localizacoes')
+            .then(res => res.json())
+            .then(locais => {
+                localRetiradaSelect.innerHTML = '<option value="">Selecione o local</option>';
+                locais.forEach(local => {
+                    const opt = document.createElement('option');
+                    opt.value = local.id;
+                    opt.textContent = `${local.cidade} - ${local.estado} (${local.enderecoCompleto})`;
+                    localRetiradaSelect.appendChild(opt);
+                });
+            });
+    }
+    carregarLocaisRetirada();
     let avisoDatas = document.createElement('div');
     avisoDatas.id = 'avisoDatas';
     avisoDatas.style = 'color:#f357a8; margin-bottom:8px; font-size:0.98rem;';
@@ -176,6 +214,7 @@ document.addEventListener('DOMContentLoaded', function() {
             motoId: motoSelect.value,
             planoId: planoSelect.value,
             usuarioId: usuarioId,
+            localRetiradaId: localRetiradaSelect.value,
             dataRetirada: retiradaInput.value, // novo campo para o backend
             status: "PENDENTE",
             motoAno: motoSelecionadaObj ? Number(motoSelecionadaObj.ano) : 2000,

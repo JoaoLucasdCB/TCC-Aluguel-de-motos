@@ -8,6 +8,11 @@ VALUES (
   'ATIVO'
 ); 
 
+INSERT INTO localizacao (estado, cidade, endereco_completo, horario_funcionamento) VALUES
+('MG', 'Belo Horizonte', 'Av. Afonso Pena, 1000, Centro', 'Seg-Sex 08:00-18:00'),
+('SP', 'São Paulo', 'Rua Augusta, 1500, Consolação', 'Seg-Sab 09:00-19:00'),
+('RJ', 'Rio de Janeiro', 'Av. Atlântica, 2000, Copacabana', 'Todos os dias 07:00-22:00');
+
 -- Tabela de Usuários
 CREATE TABLE usuarios (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,

@@ -263,7 +263,8 @@ body.aluguel-page::before {
 }
 
 /* Detalhes da moto e plano */
-#detalhesMoto, #detalhesPlano {
+
+#detalhesMoto, #detalhesPlano, #detalhesLocal {
     margin-bottom: 20px;
     color: #fff;
     font-size: 1.1rem;
@@ -275,7 +276,7 @@ body.aluguel-page::before {
     transition: all 0.3s ease;
 }
 
-#detalhesMoto:hover, #detalhesPlano:hover {
+#detalhesMoto:hover, #detalhesPlano:hover, #detalhesLocal:hover {
     background: rgba(255, 255, 255, 0.15);
     transform: translateX(3px);
 }

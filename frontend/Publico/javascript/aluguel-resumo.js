@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
 
-    // Exibe o resumo usando apenas os campos do DTO do backend
+    // Exibe o resumo usando os campos do DTO do backend, incluindo local de retirada
     resumoDados.innerHTML = `
         <b>Moto:</b> ${aluguel.motoNome || '-'} (${aluguel.motoPlaca || '-'})<br>
         <b>Marca:</b> ${aluguel.motoMarca || '-'}<br>
@@ -24,6 +24,8 @@ document.addEventListener('DOMContentLoaded', function() {
         <b>Usuário:</b> ${aluguel.usuarioNome || aluguel.nomeUsuario || '-'}<br>
         <b>Início:</b> ${aluguel.dataRetirada ? new Date(aluguel.dataRetirada).toLocaleDateString('pt-BR') : '-'}<br>
         <b>Status:</b> ${aluguel.status || '-'}<br>
+        <b>Local de Retirada:</b> ${aluguel.localRetiradaCidade ? `${aluguel.localRetiradaCidade} - ${aluguel.localRetiradaEstado} (${aluguel.localRetiradaEndereco})` : '-'}<br>
+        ${aluguel.localRetiradaHorario ? `<b>Horário:</b> ${aluguel.localRetiradaHorario}<br>` : ''}
     `;
     // Função para validar CNH (11 dígitos, algoritmo módulo 11)
     function validarCNH(cnh) {

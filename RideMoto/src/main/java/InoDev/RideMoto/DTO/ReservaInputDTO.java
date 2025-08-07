@@ -7,6 +7,7 @@ public class ReservaInputDTO {
     private Long usuarioId;
     private Long planoId;
     private Long motoId;
+    private Long localRetiradaId;
 
     public String getDataRetirada() { return dataRetirada; }
     public void setDataRetirada(String dataRetirada) { this.dataRetirada = dataRetirada; }
@@ -18,4 +19,6 @@ public class ReservaInputDTO {
     public void setPlanoId(Long planoId) { this.planoId = planoId; }
     public Long getMotoId() { return motoId; }
     public void setMotoId(Long motoId) { this.motoId = motoId; }
+    public Long getLocalRetiradaId() { return localRetiradaId; }
+    public void setLocalRetiradaId(Long localRetiradaId) { this.localRetiradaId = localRetiradaId; }
 }

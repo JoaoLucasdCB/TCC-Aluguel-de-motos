@@ -13,6 +13,12 @@
         <section class="reservas-info">
             <h1>Minhas Reservas</h1>
             <div id="reservasTabelaContainer"></div>
+        <div id="localModal" class="modal" style="display:none;position:fixed;z-index:9999;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.5);align-items:center;justify-content:center;">
+          <div class="modal-content" style="background:#fff;padding:32px 24px;border-radius:16px;max-width:400px;min-width:260px;box-shadow:0 8px 32px rgba(0,0,0,0.18);position:relative;">
+            <span id="fecharModalLocal" style="position:absolute;top:8px;right:16px;font-size:1.5rem;cursor:pointer;">&times;</span>
+            <div id="localModalContent"></div>
+          </div>
+        </div>
         </section>
     </main>
     <!-- Suporte Flutuante Melhorado -->
