@@ -2,12 +2,17 @@
 
 document.getElementById('formCadastroPlano').addEventListener('submit', async function(e) {
     e.preventDefault();
+    const beneficio1 = document.getElementById('beneficio1').value.trim();
+    const beneficio2 = document.getElementById('beneficio2').value.trim();
+    const beneficio3 = document.getElementById('beneficio3').value.trim();
+    const beneficio4 = document.getElementById('beneficio4').value.trim();
+    const beneficios = [beneficio1, beneficio2, beneficio3, beneficio4].filter(b => b).join(', ');
     const plano = {
         nomePlano: document.getElementById('nomePlano').value,
         duracao: parseInt(document.getElementById('duracao').value),
-        beneficios: document.getElementById('beneficios').value
+        beneficios: beneficios
     };
-    if (!plano.nomePlano || !plano.duracao || !plano.beneficios) {
+    if (!plano.nomePlano || !plano.duracao || !beneficio1 || !beneficio2 || !beneficio3 || !beneficio4) {
         alert('Preencha todos os campos obrigatórios!');
         return;
     }
@@ -70,7 +75,11 @@ editarPlanoBtn.addEventListener('click', async function() {
             if (!plano) throw new Error('Plano não encontrado');
             document.getElementById('nomePlano').value = plano.nomePlano || '';
             document.getElementById('duracao').value = plano.duracao || '';
-            document.getElementById('beneficios').value = plano.beneficios || '';
+            const beneficiosArr = (plano.beneficios || '').split(',');
+            document.getElementById('beneficio1').value = beneficiosArr[0] ? beneficiosArr[0].trim() : '';
+            document.getElementById('beneficio2').value = beneficiosArr[1] ? beneficiosArr[1].trim() : '';
+            document.getElementById('beneficio3').value = beneficiosArr[2] ? beneficiosArr[2].trim() : '';
+            document.getElementById('beneficio4').value = beneficiosArr[3] ? beneficiosArr[3].trim() : '';
             idPlanoEditando = plano.id;
             cadastrarPlanoBtn.style.display = 'none';
             editarPlanoBtn.style.display = 'none';
@@ -82,7 +91,11 @@ editarPlanoBtn.addEventListener('click', async function() {
             const plano = await response.json();
             document.getElementById('nomePlano').value = plano.nomePlano || '';
             document.getElementById('duracao').value = plano.duracao || '';
-            document.getElementById('beneficios').value = plano.beneficios || '';
+            const beneficiosArr = (plano.beneficios || '').split(',');
+            document.getElementById('beneficio1').value = beneficiosArr[0] ? beneficiosArr[0].trim() : '';
+            document.getElementById('beneficio2').value = beneficiosArr[1] ? beneficiosArr[1].trim() : '';
+            document.getElementById('beneficio3').value = beneficiosArr[2] ? beneficiosArr[2].trim() : '';
+            document.getElementById('beneficio4').value = beneficiosArr[3] ? beneficiosArr[3].trim() : '';
             idPlanoEditando = plano.id;
             cadastrarPlanoBtn.style.display = 'none';
             editarPlanoBtn.style.display = 'none';
@@ -97,10 +110,15 @@ editarPlanoBtn.addEventListener('click', async function() {
 // Ao clicar em confirmar alteração, faz o PUT
 confirmarAlteracaoPlanoBtn.addEventListener('click', async function() {
     if (!idPlanoEditando) return;
+    const beneficio1 = document.getElementById('beneficio1').value.trim();
+    const beneficio2 = document.getElementById('beneficio2').value.trim();
+    const beneficio3 = document.getElementById('beneficio3').value.trim();
+    const beneficio4 = document.getElementById('beneficio4').value.trim();
+    const beneficios = [beneficio1, beneficio2, beneficio3, beneficio4].filter(b => b).join(', ');
     const planoEditado = {
         nomePlano: document.getElementById('nomePlano').value,
         duracao: parseInt(document.getElementById('duracao').value),
-        beneficios: document.getElementById('beneficios').value
+        beneficios: beneficios
     };
     try {
         const token = localStorage.getItem('token');
