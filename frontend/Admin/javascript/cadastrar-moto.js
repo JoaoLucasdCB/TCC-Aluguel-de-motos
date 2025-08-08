@@ -116,6 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
 const cadastrarBtn = document.getElementById('cadastrarMotoBtn');
 const editarBtn = document.getElementById('editarMotoBtn');
 const confirmarAlteracaoBtn = document.getElementById('confirmarAlteracaoBtn');
+const excluirMotoBtn = document.getElementById('excluirMotoBtn');
 let idMotoEditando = null;
 
 // Função para resetar o formulário para modo cadastro
@@ -123,6 +124,7 @@ function resetarParaCadastro() {
     cadastrarBtn.style.display = '';
     editarBtn.style.display = '';
     confirmarAlteracaoBtn.style.display = 'none';
+    excluirMotoBtn.style.display = 'none';
     idMotoEditando = null;
     document.getElementById('formCadastroMoto').reset();
     document.getElementById('formCadastroMoto').onsubmit = null;
@@ -181,6 +183,7 @@ btnBuscarPlaca.addEventListener('click', async function() {
         cadastrarBtn.style.display = 'none';
         editarBtn.style.display = 'none';
         confirmarAlteracaoBtn.style.display = '';
+        excluirMotoBtn.style.display = '';
         modalPlaca.style.display = 'none';
     } catch (err) {
         alert('Erro ao buscar moto: ' + err.message);
@@ -218,6 +221,26 @@ confirmarAlteracaoBtn.addEventListener('click', async function() {
         resetarParaCadastro();
     } catch (err) {
         alert('Erro ao editar moto: ' + err.message);
+    }
+});
+
+// Ao clicar em excluir, faz o DELETE
+excluirMotoBtn.addEventListener('click', async function() {
+    if (!idMotoEditando) return;
+    if (!confirm('Tem certeza que deseja excluir esta moto? Esta ação não pode ser desfeita.')) return;
+    try {
+        const token = localStorage.getItem('token');
+        const deleteResponse = await fetch(`http://localhost:8080/api/motos/${idMotoEditando}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        });
+        if (!deleteResponse.ok) throw new Error('Erro ao excluir moto');
+        alert('Moto excluída com sucesso!');
+        resetarParaCadastro();
+    } catch (err) {
+        alert('Erro ao excluir moto: ' + err.message);
     }
 });
 

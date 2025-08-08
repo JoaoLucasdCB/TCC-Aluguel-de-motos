@@ -50,6 +50,14 @@ public class PlanosController {
         return toDTO(service.salvar(plano));
     }
 
+    @GetMapping("/nome/{nome}")
+    public PlanoDTO buscarPorNome(@PathVariable String nome) {
+        Optional<PlanosModel> planoOpt = service.listarTodos().stream()
+            .filter(p -> p.getNomePlano() != null && p.getNomePlano().equalsIgnoreCase(nome))
+            .findFirst();
+        return planoOpt.map(this::toDTO).orElse(null);
+    }
+
     // Conversão Model -> DTO
     private PlanoDTO toDTO(PlanosModel plano) {
         PlanoDTO dto = new PlanoDTO();
