@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.ResponseEntity;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 
 import InoDev.RideMoto.Repository.MotosRepository;
 import InoDev.RideMoto.Repository.ReservasRepository;
@@ -35,8 +36,7 @@ public class DashboardController {
             if (mes >= 1 && mes <= 12) alugueisPorMes[mes-1] = count;
         }
 
-        // Motos cadastradas por mês (usando ano como exemplo, ajuste se tiver data de cadastro)
-        // Se não houver campo de data de cadastro, pode ignorar ou adaptar
+        // Motos cadastradas por mês (descomente e ajuste se tiver campo dataCadastro em MotosModel)
         // List<Object[]> motos = entityManager.createQuery(
         //     "SELECT MONTH(m.dataCadastro), COUNT(m.id) FROM MotosModel m GROUP BY MONTH(m.dataCadastro)", Object[].class
         // ).getResultList();
