@@ -19,12 +19,13 @@ document.addEventListener('DOMContentLoaded', function () {
             return '<div class="sem-reservas">Nenhuma reserva encontrada.</div>';
         }
         let tabela = '<table class="reservas-tabela">';
-        tabela += '<thead><tr><th>Moto</th><th>Usuário</th><th>Data de Retirada</th><th>Status</th><th>Local de Retirada</th><th>Ações</th></tr></thead><tbody>';
+        tabela += '<thead><tr><th>Moto</th><th>Plano</th><th>Usuário</th><th>Data de Retirada</th><th>Status</th><th>Local de Retirada</th><th>Ações</th></tr></thead><tbody>';
         reservas.forEach((reserva, idx) => {
             const localId = reserva.localRetiradaId || reserva.localRetirada_id || '';
             tabela += `
                 <tr>
                     <td>${reserva.motoNome || reserva.moto_nome || ''}</td>
+                    <td>${reserva.nomePlano || reserva.planoNome || reserva.plano_nome || '-'}</td>
                     <td>${reserva.usuarioNome || reserva.usuario_nome || ''}</td>
                     <td>${reserva.dataRetirada ? new Date(reserva.dataRetirada).toLocaleDateString('pt-BR') : '-'}</td>
                     <td>${reserva.status || ''}</td>
@@ -33,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         <button class="excluir-reserva-btn" onclick="excluirReserva(${reserva.id})">Excluir</button>
                     </td>
                 </tr>
-                <tr class="detalhes-local-row" id="detalhes-local-row-${idx}" style="display:none;"><td colspan="6"><div class="detalhes-local-content" id="detalhes-local-content-${idx}"></div></td></tr>
+                <tr class="detalhes-local-row" id="detalhes-local-row-${idx}" style="display:none;"><td colspan="7"><div class="detalhes-local-content" id="detalhes-local-content-${idx}"></div></td></tr>
             `;
         });
         tabela += '</tbody></table>';

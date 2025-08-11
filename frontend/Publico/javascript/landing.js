@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Buscar planos do backend e renderizar cards (se necessário)
     async function carregarPlanos() {
         try {
-            const resp = await fetch('http://localhost:8080/api/planos');
+            const resp = await fetch('http://localhost:8080/planos');
             if (!resp.ok) throw new Error('Erro ao buscar planos');
             const planos = await resp.json();
             
@@ -147,16 +147,45 @@ document.addEventListener('DOMContentLoaded', function() {
                     planos.forEach((plano, index) => {
                         const card = document.createElement('div');
                         card.className = `plano-card ${index === 1 ? 'destaque' : ''}`;
-                        
-                        const beneficios = plano.beneficios ? plano.beneficios.split(',').map(b => `✓ ${b.trim()}`).join('</li><li>') : '';
-                        
+
+                        // Ajuste de benefícios: quebra por vírgula ou por linha
+                        let beneficios = '';
+                        if (plano.beneficios) {
+                            beneficios = plano.beneficios
+                                .split(/[,\n]/)
+                                .map(b => b.trim())
+                                .filter(b => b.length > 0)
+                                .map(b => `✓ ${b}`)
+                                .join('</li><li>');
+                        }
+
+                        // Exibir quantidade de dias ou meses no lugar do valor
+                        let periodo = '';
+                        let periodoTexto = '';
+                        if (plano.duracao) {
+                            if (plano.duracao === 1) {
+                                periodo = '1 dia';
+                                periodoTexto = '/dia';
+                            } else if (plano.duracao >= 28) {
+                                const meses = Math.round(plano.duracao / 30);
+                                periodo = meses + (meses === 1 ? ' mês' : ' meses');
+                                periodoTexto = '/mês';
+                            } else if (plano.duracao >= 7) {
+                                const semanas = Math.round(plano.duracao / 7);
+                                periodo = semanas + (semanas === 1 ? ' semana' : ' semanas');
+                                periodoTexto = '/semana';
+                            } else {
+                                periodo = plano.duracao + ' dias';
+                                periodoTexto = '/dias';
+                            }
+                        }
+
                         card.innerHTML = `
                             ${index === 1 ? '<div class="plano-badge">Mais Popular</div>' : ''}
                             <div class="plano-header">
                                 <h3>${plano.nomePlano || plano.nome || 'Plano'}</h3>
                                 <div class="plano-preco">
-                                    <span class="preco-valor">R$ ${plano.valor ? plano.valor.toFixed(2) : '0,00'}</span>
-                                    <span class="preco-periodo">/${plano.duracao || 'período'}</span>
+                                    <span class="preco-valor">${periodo}</span>
                                 </div>
                             </div>
                             <ul class="plano-beneficios">

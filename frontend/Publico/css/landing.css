@@ -795,8 +795,9 @@ footer {
     }
     
     .hero-actions {
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
+        justify-content: center;
     }
     
     .hero-stats {
