@@ -80,14 +80,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 // Configura o dropdown do perfil
                 if (perfilDropdown) {
-                    perfilDropdown.style.display = 'block';
-                    perfilDropdown.classList.remove('show');
+                    perfilDropdown.style.display = '';
+                    perfilDropdown.classList.remove('show'); // Garante que o dropdown está fechado ao carregar
                     let hideTimeout;
                     const showDropdown = () => perfilDropdown.classList.add('show');
                     const hideDropdown = debounce(() => perfilDropdown.classList.remove('show'), 400);
                     addOptimizedEventListener(usuarioIcon, 'mouseenter', () => {
                         clearTimeout(hideTimeout);
-                        showDropdown();
+                        // Não abre dropdown automaticamente
                     });
                     addOptimizedEventListener(usuarioIcon, 'click', () => {
                         perfilDropdown.classList.toggle('show');
@@ -97,11 +97,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
                     addOptimizedEventListener(perfilDropdown, 'mouseenter', () => {
                         clearTimeout(hideTimeout);
-                        showDropdown();
+                        // Não abre dropdown automaticamente
                     });
                     addOptimizedEventListener(perfilDropdown, 'mouseleave', () => {
                         hideTimeout = setTimeout(hideDropdown, 400);
                     });
+                    // Garante que o dropdown está fechado após todos os eventos
+                    setTimeout(() => {
+                        perfilDropdown.classList.remove('show');
+                    }, 0);
                 }
                 // Configura o botão de minhas reservas
                 if (minhasReservasBtn) {

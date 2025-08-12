@@ -133,7 +133,7 @@
     transition: all 0.3s ease;
     pointer-events: none;
     margin-top: 8px;
-    display: block;
+    display: none;
 }
 
 .perfil-dropdown.show {

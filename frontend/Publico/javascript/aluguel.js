@@ -74,13 +74,16 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 motos = data;
                 motoSelect.innerHTML = '<option value="">Selecione a moto</option>';
+                const alugarBtn = document.querySelector('.alugar-btn');
                 if (motos.length === 0) {
                     avisoDatas.textContent = 'Nenhuma moto disponível.';
                     avisoDatas.style.display = 'block';
                     motoSelect.disabled = true;
+                    if (alugarBtn) alugarBtn.style.display = 'none';
                 } else {
                     avisoDatas.style.display = 'none';
                     motoSelect.disabled = false;
+                    if (alugarBtn) alugarBtn.style.display = '';
                     motos.forEach(m => {
                         const opt = document.createElement('option');
                         opt.value = m.id;
@@ -209,6 +212,8 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = 'login.html';
             return;
         }
+        const alugarBtn = document.querySelector('.alugar-btn');
+        alugarBtn.disabled = true;
         const motoSelecionadaObj = motos.find(m => String(m.id) === String(motoSelect.value));
         const reservaInput = {
             motoId: motoSelect.value,
@@ -239,22 +244,24 @@ document.addEventListener('DOMContentLoaded', function() {
             if (res.ok) {
                 const reserva = await res.json();
                 sessionStorage.setItem('aluguel', JSON.stringify(reserva));
-                atualizarMotosPorData();
                 window.location.href = 'aluguel-resumo.html';
             } else if (res.status === 409) {
                 const msg = await res.text();
                 avisoDatas.textContent = msg || 'Moto já reservada para a data selecionada.';
                 avisoDatas.style.display = 'block';
+                alugarBtn.disabled = false;
                 setTimeout(() => { avisoDatas.style.display = 'none'; }, 5000);
             } else {
                 avisoDatas.textContent = 'Erro ao realizar reserva. Tente novamente.';
                 avisoDatas.style.display = 'block';
+                alugarBtn.disabled = false;
                 setTimeout(() => { avisoDatas.style.display = 'none'; }, 5000);
             }
         })
         .catch(() => {
             avisoDatas.textContent = 'Erro de conexão com o servidor.';
             avisoDatas.style.display = 'block';
+            alugarBtn.disabled = false;
             setTimeout(() => { avisoDatas.style.display = 'none'; }, 5000);
         });
     });
