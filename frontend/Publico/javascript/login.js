@@ -36,7 +36,8 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
         .then(data => {
             if (data.token) {
                 localStorage.setItem('token', data.token);
-                localStorage.setItem('tipoUsuario', data.tipoUsuario);
+                // Garante que tipoUsuario sempre será salvo em maiúsculo
+                localStorage.setItem('tipoUsuario', data.tipoUsuario ? data.tipoUsuario.toUpperCase() : '');
                 localStorage.setItem('nomeUsuario', data.nome);
                 if (data.id) {
                     localStorage.setItem('usuarioId', data.id);

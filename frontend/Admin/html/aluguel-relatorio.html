@@ -13,74 +13,32 @@
     <main class="relatorio-main">
         <section class="relatorio-info">
             <h1>Relatório do Aluguel</h1>
-            <div id="relatorioDados"></div>
-            
+                        <div id="relatorioDados"></div>
+                        <!-- Modal de edição -->
+                        <div id="modal-editar" class="modal-editar">
+                            <div class="modal-editar-content">
+                                <button type="button" id="fechar-modal-editar" class="modal-editar-close" title="Fechar">&times;</button>
+                                <h2>Editar Reserva</h2>
+                                <form id="form-editar-reserva" class="modal-editar-form">
+                                    <input type="hidden" id="editar-id">
+                                    <div class="modal-editar-group">
+                                        <label for="editar-status">Status:</label>
+                                        <select id="editar-status" required>
+                                            <option value="PENDENTE">PENDENTE</option>
+                                            <option value="CONFIRMADA">CONFIRMADA</option>
+                                            <option value="CONCLUIDA">CONCLUIDA</option>
+                                            <option value="CANCELADA">CANCELADA</option>
+                                        </select>
+                                    </div>
+                                    <div class="modal-editar-actions">
+                                        <button type="submit" class="modal-editar-btn salvar">Salvar</button>
+                                        <button type="button" id="fechar-modal-editar-2" class="modal-editar-btn cancelar">Cancelar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
         </section>
     </main>
     <script src="../javascript/aluguel-relatorio.js"></script>
-    <script src="../javascript/logout.js"></script>
-    <script>
-    // Protege páginas admin: só admin pode acessar
-    document.addEventListener('DOMContentLoaded', function() {
-        const tipoUsuario = localStorage.getItem('tipoUsuario');
-        if (!tipoUsuario || tipoUsuario.toLowerCase() !== 'admin') {
-            window.location.href = '../../Publico/html/login.html';
-        }
-    });
-    // Dropdown perfil
-    const perfilBtn = document.getElementById('perfilMenuBtn');
-    const perfilDropdown = document.getElementById('perfilDropdown');
-    let perfilTimeout;
-    if (perfilBtn && perfilDropdown) {
-        perfilBtn.addEventListener('mouseenter', () => {
-            clearTimeout(perfilTimeout);
-            perfilDropdown.style.display = 'block';
-        });
-        perfilBtn.addEventListener('mouseleave', () => {
-            perfilTimeout = setTimeout(() => {
-                perfilDropdown.style.display = 'none';
-            }, 300);
-        });
-        perfilDropdown.addEventListener('mouseenter', () => {
-            clearTimeout(perfilTimeout);
-        });
-        perfilDropdown.addEventListener('mouseleave', () => {
-            perfilTimeout = setTimeout(() => {
-                perfilDropdown.style.display = 'none';
-            }, 300);
-        });
-    }
-    </script>
-    <script>
-    // Buscar reservas do backend e exibir no relatório
-    document.addEventListener('DOMContentLoaded', function() {
-        // Endpoint correto conforme backend
-        fetch('http://localhost:8080/reservas')
-            .then(response => response.json())
-            .then(reservas => {
-                const relatorioDiv = document.getElementById('relatorioDados');
-                if (!reservas || reservas.length === 0) {
-                    relatorioDiv.innerHTML = '<p>Nenhuma reserva encontrada.</p>';
-                    return;
-                }
-                let html = '<table style="width:100%;border-collapse:collapse;margin-top:16px;">';
-                html += '<tr style="background:#f357a8;color:#fff;"><th>Moto</th><th>Usuário</th><th>Data de Retirada</th><th>Status</th></tr>';
-                reservas.forEach(r => {
-                    html += `<tr style="border-bottom:1px solid #eee;">
-                        <td>${r.motoNome || '-'}</td>
-                        <td>${r.usuarioNome || '-'}</td>
-                        <td>${r.dataRetirada ? new Date(r.dataRetirada).toLocaleString('pt-BR') : '-'}</td>
-                        <td>${r.status || '-'}</td>
-                    </tr>`;
-                });
-                html += '</table>';
-                relatorioDiv.innerHTML = html;
-            })
-            .catch(err => {
-                document.getElementById('relatorioDados').innerHTML = '<p style="color:red">Erro ao buscar reservas.</p>';
-                console.error('Erro ao buscar reservas:', err);
-            });
-    });
-    </script>
 </body>
 </html>
