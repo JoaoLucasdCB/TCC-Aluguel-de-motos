@@ -27,9 +27,8 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
         })
         .then(async response => {
             if (!response.ok) {
-                const msg = await response.text();
-                showMsg(msg || 'Email ou senha inválidos.', 'error');
-                throw new Error(msg || 'Email ou senha inválidos.');
+                showMsg('Credenciais inválidas, Tente novamente', 'error');
+                throw new Error('Credenciais inválidas, Tente novamente');
             }
             return response.json();
         })
@@ -51,7 +50,7 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
                     }
                 }, 900);
             } else {
-                showMsg('Email ou senha inválidos.', 'error');
+                showMsg('Credenciais inválidas, Tente novamente', 'error');
             }
         })
         .catch(error => {
