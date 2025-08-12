@@ -1,5 +1,5 @@
 document.getElementById('supportForm').addEventListener('submit', function(e) {
     e.preventDefault();
-    alert('Mensagem enviada! Em breve nossa equipe entrará em contato.');
+    showMsg('Mensagem enviada! Em breve nossa equipe entrará em contato.', 'success');
     this.reset();
 });

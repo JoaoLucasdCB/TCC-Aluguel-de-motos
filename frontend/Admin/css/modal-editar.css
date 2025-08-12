@@ -1,0 +1,89 @@
+/* Modal de edição de reserva - bonito e responsivo */
+#modal-editar {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.45);
+  align-items: center; justify-content: center;
+  z-index: 1000;
+  animation: fadeInBg 0.2s;
+}
+@keyframes fadeInBg {
+  from { background: rgba(0,0,0,0); }
+  to { background: rgba(0,0,0,0.45); }
+}
+#modal-editar .modal-content {
+  background: #fff;
+  padding: 36px 32px 28px 32px;
+  border-radius: 18px;
+  min-width: 340px;
+  max-width: 95vw;
+  box-shadow: 0 4px 32px #0002;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  animation: popIn 0.2s;
+}
+@keyframes popIn {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+#modal-editar h2 {
+  margin: 0 0 10px 0;
+  color: #f357a8;
+  font-size: 1.4rem;
+  text-align: center;
+}
+#modal-editar label {
+  font-weight: 500;
+  color: #444;
+  margin-bottom: 4px;
+}
+#modal-editar select {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  font-size: 1rem;
+  margin-bottom: 12px;
+  background: #fafafa;
+  transition: border 0.2s;
+}
+#modal-editar select:focus {
+  border: 1.5px solid #f357a8;
+  outline: none;
+}
+#modal-editar .modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 10px;
+}
+#modal-editar button[type="submit"] {
+  background: #f357a8;
+  color: #fff;
+  padding: 8px 22px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+#modal-editar button[type="submit"]:hover {
+  background: #d12e7a;
+}
+#modal-editar button#fechar-modal-editar {
+  background: #eee;
+  color: #444;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+#modal-editar button#fechar-modal-editar:hover {
+  background: #e0e0e0;
+}

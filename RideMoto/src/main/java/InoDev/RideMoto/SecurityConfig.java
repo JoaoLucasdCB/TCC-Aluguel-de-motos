@@ -31,6 +31,8 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/dashboard/grafico").permitAll()
                 .requestMatchers("/usuarios/**").authenticated()
                 .requestMatchers(HttpMethod.GET, "/reservas", "/reservas/**").permitAll()
+                .requestMatchers(HttpMethod.DELETE, "/reservas/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/reservas/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.GET, "/localizacoes", "/localizacoes/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/reservas").hasRole("CLIENTE")
                 .requestMatchers(HttpMethod.POST, "/api/motos").hasRole("ADMIN")

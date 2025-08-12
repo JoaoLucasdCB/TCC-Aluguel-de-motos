@@ -88,6 +88,7 @@ public class ReservasController {
         return toDTO(service.salvar(reserva));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public void deletar(@PathVariable Long id) {
         // Busca a reserva antes de deletar

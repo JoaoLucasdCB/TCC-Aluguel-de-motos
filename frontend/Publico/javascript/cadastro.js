@@ -39,7 +39,7 @@ document.getElementById('cadastroForm').addEventListener('submit', function(e) {
     const senha = document.getElementById('senha').value;
     const cpf = document.getElementById('cpf').value;
     if (senha.length < 4) {
-        alert('A senha deve ter no minimo 4 caracteres.');
+    showMsg('A senha deve ter no minimo 4 caracteres.', 'error');
         document.getElementById('senha').focus();
         return;
     }
@@ -52,19 +52,19 @@ document.getElementById('cadastroForm').addEventListener('submit', function(e) {
     })
     .then(async response => {
         if (response.ok) {
-            alert('Cadastro realizado com sucesso!');
+            showMsg('Cadastro realizado com sucesso!', 'success');
             window.location.href = 'login.html';
         } else {
             try {
                 const text = await response.text();
-                alert(text || 'Erro ao cadastrar.');
+                showMsg(text || 'Erro ao cadastrar.', 'error');
             } catch {
-                alert('Erro ao cadastrar.');
+                showMsg('Erro ao cadastrar.', 'error');
             }
         }
     })
     .catch(error => {
-        alert('Erro de conexão com o servidor.');
+    showMsg('Erro de conexão com o servidor.', 'error');
         console.error(error);
     });
 });

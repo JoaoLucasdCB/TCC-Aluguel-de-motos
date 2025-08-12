@@ -27,16 +27,16 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
         })
         .then(async response => {
             if (!response.ok) {
-                const msg = await response.text();
-                showMsg(msg || 'Email ou senha inválidos.', 'error');
-                throw new Error(msg || 'Email ou senha inválidos.');
+                showMsg('Credenciais inválidas, Tente novamente', 'error');
+                throw new Error('Credenciais inválidas, Tente novamente');
             }
             return response.json();
         })
         .then(data => {
             if (data.token) {
                 localStorage.setItem('token', data.token);
-                localStorage.setItem('tipoUsuario', data.tipoUsuario);
+                // Garante que tipoUsuario sempre será salvo em maiúsculo
+                localStorage.setItem('tipoUsuario', data.tipoUsuario ? data.tipoUsuario.toUpperCase() : '');
                 localStorage.setItem('nomeUsuario', data.nome);
                 if (data.id) {
                     localStorage.setItem('usuarioId', data.id);
@@ -50,7 +50,7 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
                     }
                 }, 900);
             } else {
-                showMsg('Email ou senha inválidos.', 'error');
+                showMsg('Credenciais inválidas, Tente novamente', 'error');
             }
         })
         .catch(error => {

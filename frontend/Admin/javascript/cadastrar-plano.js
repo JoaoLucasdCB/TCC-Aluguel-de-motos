@@ -13,7 +13,7 @@ document.getElementById('formCadastroPlano').addEventListener('submit', async fu
         beneficios: beneficios
     };
     if (!plano.nomePlano || !plano.duracao || !beneficio1 || !beneficio2 || !beneficio3 || !beneficio4) {
-        alert('Preencha todos os campos obrigatórios!');
+    showMsg('Preencha todos os campos obrigatórios!', 'error');
         return;
     }
     try {
@@ -27,10 +27,10 @@ document.getElementById('formCadastroPlano').addEventListener('submit', async fu
             body: JSON.stringify(plano)
         });
         if (!response.ok) throw new Error('Erro ao cadastrar plano');
-        alert('Plano cadastrado com sucesso!');
+    showMsg('Plano cadastrado com sucesso!', 'success');
         this.reset();
     } catch (err) {
-        alert('Erro ao cadastrar plano: ' + err.message);
+    showMsg('Erro ao cadastrar plano: ' + err.message, 'error');
     }
 });
 
@@ -103,7 +103,7 @@ editarPlanoBtn.addEventListener('click', async function() {
             excluirPlanoBtn.style.display = '';
         }
     } catch (err) {
-        alert('Erro ao buscar plano: ' + err.message);
+    showMsg('Erro ao buscar plano: ' + err.message, 'error');
     }
 });
 
@@ -131,10 +131,10 @@ confirmarAlteracaoPlanoBtn.addEventListener('click', async function() {
             body: JSON.stringify(planoEditado)
         });
         if (!putResponse.ok) throw new Error('Erro ao editar plano');
-        alert('Plano editado com sucesso!');
+    showMsg('Plano editado com sucesso!', 'success');
         resetarParaCadastroPlano();
     } catch (err) {
-        alert('Erro ao editar plano: ' + err.message);
+    showMsg('Erro ao editar plano: ' + err.message, 'error');
     }
 });
 
@@ -151,9 +151,9 @@ excluirPlanoBtn.addEventListener('click', async function() {
             }
         });
         if (!deleteResponse.ok) throw new Error('Erro ao excluir plano');
-        alert('Plano excluído com sucesso!');
+    showMsg('Plano excluído com sucesso!', 'success');
         resetarParaCadastroPlano();
     } catch (err) {
-        alert('Erro ao excluir plano: ' + err.message);
+    showMsg('Erro ao excluir plano: ' + err.message, 'error');
     }
 });

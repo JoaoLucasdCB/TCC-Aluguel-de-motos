@@ -46,11 +46,13 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 String role = null;
                 try {
                     role = (String) jwtUtil.extractAllClaims(jwt).get("tipoUsuario");
+                    System.out.println("[JwtRequestFilter] tipoUsuario extraído do token: '" + role + "'");
                 } catch (Exception e) {
                     System.out.println("[JwtRequestFilter] Erro ao extrair role do token: " + e.getMessage());
                 }
                 if (role != null) {
                     java.util.List<SimpleGrantedAuthority> authorities = java.util.List.of(new SimpleGrantedAuthority("ROLE_" + role.toUpperCase()));
+                    System.out.println("[JwtRequestFilter] Authorities criadas: " + authorities);
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                             username, null, authorities);
                     authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
