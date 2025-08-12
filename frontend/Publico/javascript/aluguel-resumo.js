@@ -85,11 +85,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const telefone = document.getElementById('telefone').value;
         // Validação do telefone: deve estar no formato (00) 90000-0000
         if (!/^\(\d{2}\) \d{5}-\d{4}$/.test(telefone)) {
-            alert('Telefone inválido. Use o formato (00) 90000-0000.');
+            showMsg('Telefone inválido. Use o formato (00) 90000-0000.', 'error');
             return;
         }
         if (!validarCNH(cnh)) {
-            alert('CNH inválida. Digite uma CNH real.');
+            showMsg('CNH inválida. Digite uma CNH real.', 'error');
             return;
         }
 
@@ -106,14 +106,14 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             // Supondo que a resposta seja { valida: true } ou { valida: false }
             if (!data.valida) {
-                alert('CNH não encontrada ou inválida na base nacional.');
+                showMsg('CNH não encontrada ou inválida na base nacional.', 'error');
                 return;
             }
             // ...continua fluxo normal após validação externa...
             finalizarReserva();
         })
         .catch(() => {
-            alert('Erro ao validar CNH na base nacional. Tente novamente mais tarde.');
+            showMsg('Erro ao validar CNH na base nacional. Tente novamente mais tarde.', 'error');
         });
         // Impede o fluxo normal, só continua se a API retornar válida
         return;
@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function() {
         function finalizarReserva() {
             const token = localStorage.getItem('token');
             if (!token) {
-                alert('Você precisa estar logado para finalizar a reserva.');
+                showMsg('Você precisa estar logado para finalizar a reserva.', 'error');
                 return;
             }
             const usuarioId = localStorage.getItem('usuarioId');
@@ -168,17 +168,17 @@ document.addEventListener('DOMContentLoaded', function() {
                             });
                         });
                     } else {
-                        alert('Dados atualizados com sucesso!');
+                        showMsg('Dados atualizados com sucesso!', 'success');
                         window.location.href = 'minhas-reservas.html';
                     }
                 } else {
-                    alert('Erro ao atualizar dados do usuário.');
+                    showMsg('Erro ao atualizar dados do usuário.', 'error');
                 }
             });
         }
         const token = localStorage.getItem('token');
         if (!token) {
-            alert('Você precisa estar logado para finalizar a reserva.');
+            showMsg('Você precisa estar logado para finalizar a reserva.', 'error');
             return;
         }
         const usuarioId = localStorage.getItem('usuarioId');
@@ -204,14 +204,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
                 .then(res => {
                     if (res.ok) {
-                        alert('Reserva finalizada com sucesso!');
+                        showMsg('Reserva finalizada com sucesso!', 'success');
                         window.location.href = 'minhas-reservas.html';
                     } else {
-                        alert('Erro ao finalizar reserva.');
+                        showMsg('Erro ao finalizar reserva.', 'error');
                     }
                 });
             } else {
-                alert('Erro ao atualizar dados do usuário.');
+                showMsg('Erro ao atualizar dados do usuário.', 'error');
             }
         });
     });

@@ -104,7 +104,7 @@ window.excluirReserva = async function(id) {
                 document.getElementById('reservasTabelaContainer').innerHTML = criarTabelaReservas(reservas);
             });
         } catch (err) {
-            alert('Erro ao excluir reserva: ' + err.message);
+            showMsg('Erro ao excluir reserva: ' + err.message, 'error');
         }
     }
 }

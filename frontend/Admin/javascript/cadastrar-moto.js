@@ -49,36 +49,36 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Validação detalhada
     if (!nome) {
-        alert('Preencha o campo Nome!');
+    showMsg('Preencha o campo Nome!', 'error');
         return;
     }
     if (!marca) {
-        alert('Preencha o campo Marca!');
+    showMsg('Preencha o campo Marca!', 'error');
         return;
     }
     if (!modelo) {
-        alert('Preencha o campo Modelo!');
+    showMsg('Preencha o campo Modelo!', 'error');
         return;
     }
     if (!cilindrada) {
-        alert('Preencha o campo Cilindrada!');
+    showMsg('Preencha o campo Cilindrada!', 'error');
         return;
     }
     if (!placa) {
-        alert('Preencha o campo Placa!');
+    showMsg('Preencha o campo Placa!', 'error');
         return;
     }
     if (!status) {
-        alert('Selecione um Status!');
+    showMsg('Selecione um Status!', 'error');
         return;
     }
     if (anoStr === '') {
-        alert('Preencha o campo Ano de Fabricação!');
+    showMsg('Preencha o campo Ano de Fabricação!', 'error');
         return;
     }
     const ano = parseInt(anoStr);
     if (isNaN(ano) || ano < 1900 || ano > 2100) {
-        alert('Ano de Fabricação deve ser um número entre 1900 e 2100!');
+    showMsg('Ano de Fabricação deve ser um número entre 1900 e 2100!', 'error');
         return;
     }
     const quilometragem = quilometragemStr !== '' ? parseInt(quilometragemStr) : null;
@@ -106,10 +106,10 @@ document.addEventListener('DOMContentLoaded', function() {
             body: JSON.stringify(moto)
         });
         if (!response.ok) throw new Error('Erro ao cadastrar moto');
-        alert('Moto cadastrada com sucesso!');
+    showMsg('Moto cadastrada com sucesso!', 'success');
         this.reset();
     } catch (err) {
-        alert('Erro ao cadastrar moto: ' + err.message);
+    showMsg('Erro ao cadastrar moto: ' + err.message, 'error');
     }
 });
 // --- CONTROLE DE BOTOES E EDIÇÃO ---
@@ -186,7 +186,7 @@ btnBuscarPlaca.addEventListener('click', async function() {
         excluirMotoBtn.style.display = '';
         modalPlaca.style.display = 'none';
     } catch (err) {
-        alert('Erro ao buscar moto: ' + err.message);
+    showMsg('Erro ao buscar moto: ' + err.message, 'error');
         inputPlacaModal.focus();
     }
 });
@@ -217,10 +217,10 @@ confirmarAlteracaoBtn.addEventListener('click', async function() {
             body: JSON.stringify(motoEditada)
         });
         if (!putResponse.ok) throw new Error('Erro ao editar moto');
-        alert('Moto editada com sucesso!');
+    showMsg('Moto editada com sucesso!', 'success');
         resetarParaCadastro();
     } catch (err) {
-        alert('Erro ao editar moto: ' + err.message);
+    showMsg('Erro ao editar moto: ' + err.message, 'error');
     }
 });
 
@@ -237,10 +237,10 @@ excluirMotoBtn.addEventListener('click', async function() {
             }
         });
         if (!deleteResponse.ok) throw new Error('Erro ao excluir moto');
-        alert('Moto excluída com sucesso!');
+    showMsg('Moto excluída com sucesso!', 'success');
         resetarParaCadastro();
     } catch (err) {
-        alert('Erro ao excluir moto: ' + err.message);
+    showMsg('Erro ao excluir moto: ' + err.message, 'error');
     }
 });
 

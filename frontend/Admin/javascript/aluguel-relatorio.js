@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                     } catch (e) {}
                     if (!reservaCompleta) {
-                        alert('Erro ao buscar dados da reserva.');
+                        showMsg('Erro ao buscar dados da reserva.', 'error');
                         return;
                     }
                     // Salva dados completos em window para uso no submit
@@ -95,15 +95,15 @@ document.addEventListener('DOMContentLoaded', function() {
                         })
                         .then(resp => {
                             if (resp.ok) {
-                                alert('Reserva excluída com sucesso!');
+                                showMsg('Reserva excluída com sucesso!', 'success');
                                 location.reload();
                             } else if (resp.status === 403 || resp.status === 401) {
-                                alert('Sem permissão para excluir. Faça login como admin.');
+                                showMsg('Sem permissão para excluir. Faça login como admin.', 'error');
                             } else {
-                                alert('Erro ao excluir reserva.');
+                                showMsg('Erro ao excluir reserva.', 'error');
                             }
                         })
-                        .catch(() => alert('Erro ao excluir reserva.'));
+                        .catch(() => showMsg('Erro ao excluir reserva.', 'error'));
                     }
                 });
             });
@@ -150,16 +150,16 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(resp => {
                 if (resp.ok) {
-                    alert('Reserva editada com sucesso!');
+                    showMsg('Reserva editada com sucesso!', 'success');
                     modal.style.display = 'none';
                     location.reload();
                 } else if (resp.status === 403 || resp.status === 401) {
-                    alert('Sem permissão para editar. Faça login como admin.');
+                    showMsg('Sem permissão para editar. Faça login como admin.', 'error');
                 } else {
-                    alert('Erro ao editar reserva.');
+                    showMsg('Erro ao editar reserva.', 'error');
                 }
             })
-            .catch(() => alert('Erro ao editar reserva.'));
+            .catch(() => showMsg('Erro ao editar reserva.', 'error'));
         };
     }
 });
