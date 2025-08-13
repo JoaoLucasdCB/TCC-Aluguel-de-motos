@@ -32,6 +32,34 @@ window.addEventListener('resize', ajustarAlturaDivisor);
 window.addEventListener('scroll', ajustarAlturaDivisor);
 // JS básico para o formulário de cadastro
 
+// Verificação de força da senha
+document.getElementById('senha').addEventListener('input', function() {
+    const senha = this.value;
+    const strengthDiv = document.getElementById('senha-strength');
+    let strength = 0;
+    if (senha.length >= 8) strength++;
+    if (/[A-Z]/.test(senha)) strength++;
+    if (/[a-z]/.test(senha)) strength++;
+    if (/[0-9]/.test(senha)) strength++;
+    if (/[^A-Za-z0-9]/.test(senha)) strength++;
+    let msg = '';
+    let color = '';
+    if (senha.length === 0) {
+        msg = '';
+    } else if (strength <= 2) {
+        msg = 'Senha fraca';
+        color = '#e74c3c';
+    } else if (strength === 3 || strength === 4) {
+        msg = 'Senha média';
+        color = '#f1c40f';
+    } else if (strength === 5) {
+        msg = 'Senha forte';
+        color = '#27ae60';
+    }
+    strengthDiv.textContent = msg;
+    strengthDiv.style.color = color;
+});
+
 document.getElementById('cadastroForm').addEventListener('submit', function(e) {
     e.preventDefault();
     const nome = document.getElementById('nome').value;

@@ -4,8 +4,14 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Recupera dados do aluguel do sessionStorage
     let aluguel = JSON.parse(sessionStorage.getItem('aluguel'));
-    // Debug: mostrar objeto aluguel no console
+    // Log detalhado do objeto aluguel
     console.log('DEBUG aluguel sessionStorage:', aluguel);
+    if (!aluguel || !aluguel.motoNome || !aluguel.nomePlano || !aluguel.localRetiradaCidade || !aluguel.nomeUsuario) {
+        alert('Erro: Dados da reserva incompletos. Tente novamente ou contate o suporte.');
+        document.getElementById('resumoDados').innerHTML = '<span style="color:#f357a8">Erro ao carregar dados da reserva.</span>';
+        document.getElementById('dadosExtrasForm').style.display = 'none';
+        return;
+    }
     // Se o usuário sair da página sem confirmar, remove a reserva temporária
     window.addEventListener('beforeunload', function (e) {
         // Se a reserva ainda não foi confirmada, remove do sessionStorage

@@ -17,59 +17,120 @@
     <script src="../../Publico/javascript/cabecalho-include.js"></script>
     <script src="../../Publico/javascript/toast.js"></script>
     <main class="admin-main">
-        <form class="admin-form" id="formCadastroMoto">
-            <h1>Cadastrar Nova Moto</h1>
-            <label for="nome">Nome</label>
-            <input type="text" id="nome" name="nome" required>
+        <section class="relatorio-info">
+            <h1 style="margin-bottom:18px;">Gerenciamento de Motos</h1>
+            <button id="abrirCadastroMotoBtn" class="btn-cadastrar-fixo">Cadastrar Nova Moto</button>
+            <div id="motosCadastradas" style="margin-top:18px;"></div>
+        </section>
 
-            <label for="marca">Marca</label>
-            <input type="text" id="marca" name="marca" required>
-
-            <label for="modelo">Modelo</label>
-            <input type="text" id="modelo" name="modelo" required>
-
-            <label for="cilindrada">Cilindrada</label>
-            <input type="text" id="cilindrada" name="cilindrada" required>
-
-            <label for="placa">Placa</label>
-            <input type="text" id="placa" name="placa" maxlength="8" required>
-
-            <label for="status">Status</label>
-            <select id="status" name="status" required>
-                <option value="">Selecione</option>
-                <option value="DISPONIVEL">Disponível</option>
-                <option value="RESERVADA">Reservada</option>
-                <option value="ALUGADA">Alugada</option>
-                <option value="MANUTENCAO">Manutenção</option>
-            </select>
-
-            <label for="ano">Ano de Fabricação</label>
-            <input type="number" id="ano" name="ano" min="1900" max="2100" required>
-
-            <label for="quilometragem">Quilometragem</label>
-            <input type="number" id="quilometragem" name="quilometragem" min="0">
-
-            <label for="imagem">URL da Imagem</label>
-            <input type="text" id="imagem" name="imagem">
-            <div style="margin:10px 0; text-align:center;">
-                <img id="previewImagem" src="" alt="Preview da Imagem" style="max-width:220px; max-height:160px; display:none; border:1px solid #ccc; border-radius:6px; background:#f8f8f8;"/>
+        <!-- Modal de cadastro de moto -->
+        <div id="modal-cadastro-moto" class="modal-editar" style="display:none;">
+            <div class="modal-editar-content">
+                <button type="button" id="fechar-modal-cadastro-moto" class="modal-editar-close" title="Fechar">&times;</button>
+                <h2>Cadastrar Nova Moto</h2>
+                <form id="formCadastroMoto" class="modal-editar-form">
+                    <div class="modal-editar-group">
+                        <label for="nome">Nome</label>
+                        <input type="text" id="nome" name="nome" required>
+                    </div>
+                    <div class="modal-editar-group">
+                        <label for="marca">Marca</label>
+                        <input type="text" id="marca" name="marca" required>
+                    </div>
+                    <div class="modal-editar-group">
+                        <label for="modelo">Modelo</label>
+                        <input type="text" id="modelo" name="modelo" required>
+                    </div>
+                    <div class="modal-editar-group">
+                        <label for="cilindrada">Cilindrada</label>
+                        <input type="text" id="cilindrada" name="cilindrada" required>
+                    </div>
+                    <div class="modal-editar-group">
+                        <label for="placa">Placa</label>
+                        <input type="text" id="placa" name="placa" maxlength="8" required>
+                    </div>
+                    <div class="modal-editar-group">
+                        <label for="status">Status</label>
+                        <select id="status" name="status" required>
+                            <option value="">Selecione</option>
+                            <option value="DISPONIVEL">Disponível</option>
+                            <option value="RESERVADA">Reservada</option>
+                            <option value="ALUGADA">Alugada</option>
+                            <option value="MANUTENCAO">Manutenção</option>
+                        </select>
+                    </div>
+                    <div class="modal-editar-group">
+                        <label for="ano">Ano de Fabricação</label>
+                        <input type="number" id="ano" name="ano" min="1900" max="2100" required>
+                    </div>
+                    <div class="modal-editar-group">
+                        <label for="quilometragem">Quilometragem</label>
+                        <input type="number" id="quilometragem" name="quilometragem" min="0">
+                    </div>
+                    <div class="modal-editar-group">
+                        <label for="imagem">URL da Imagem</label>
+                        <input type="text" id="imagem" name="imagem">
+                    </div>
+                    <div class="modal-editar-actions">
+                        <button type="submit" id="cadastrarMotoBtn" class="modal-editar-btn salvar">Cadastrar Moto</button>
+                    </div>
+                </form>
             </div>
+        </div>
 
-            <button type="submit" id="cadastrarMotoBtn">Cadastrar Moto</button>
-            <button type="button" id="editarMotoBtn">Editar Moto</button>
-            <button type="button" id="confirmarAlteracaoBtn" style="display:none;">Confirmar Alteração</button>
-            <button type="button" id="excluirMotoBtn" style="display:none; background:#d9534f; color:#fff; margin-top:10px;">Excluir Moto</button>
-        </form>
-
-        <div id="modalPlaca" class="modal-placa" style="display:none;">
-            <div class="modal-placa-content">
+        <!-- Modal de edição de moto -->
+        <div id="modal-editar-moto" class="modal-editar" style="display:none;">
+            <div class="modal-editar-content">
+                <button type="button" id="fechar-modal-editar-moto" class="modal-editar-close" title="Fechar">&times;</button>
                 <h2>Editar Moto</h2>
-                <label for="inputPlacaModal">Digite a placa da moto:</label>
-                <input type="text" id="inputPlacaModal" maxlength="8" placeholder="Ex: ABC1234">
-                <div class="modal-placa-actions">
-                    <button type="button" id="btnBuscarPlaca">Buscar</button>
-                    <button type="button" id="btnFecharModalPlaca">Cancelar</button>
-                </div>
+                <form id="form-editar-moto" class="modal-editar-form">
+                    <input type="hidden" id="editar-moto-id">
+                    <div class="modal-editar-group">
+                        <label for="editar-moto-nome">Nome:</label>
+                        <input type="text" id="editar-moto-nome" required>
+                    </div>
+                    <div class="modal-editar-group">
+                        <label for="editar-moto-marca">Marca:</label>
+                        <input type="text" id="editar-moto-marca" required>
+                    </div>
+                    <div class="modal-editar-group">
+                        <label for="editar-moto-modelo">Modelo:</label>
+                        <input type="text" id="editar-moto-modelo" required>
+                    </div>
+                    <div class="modal-editar-group">
+                        <label for="editar-moto-cilindrada">Cilindrada:</label>
+                        <input type="text" id="editar-moto-cilindrada" required>
+                    </div>
+                    <div class="modal-editar-group">
+                        <label for="editar-moto-placa">Placa:</label>
+                        <input type="text" id="editar-moto-placa" maxlength="8" required>
+                    </div>
+                    <div class="modal-editar-group">
+                        <label for="editar-moto-status">Status:</label>
+                        <select id="editar-moto-status" required>
+                            <option value="DISPONIVEL">Disponível</option>
+                            <option value="RESERVADA">Reservada</option>
+                            <option value="ALUGADA">Alugada</option>
+                            <option value="MANUTENCAO">Manutenção</option>
+                        </select>
+                    </div>
+                    <div class="modal-editar-group">
+                        <label for="editar-moto-ano">Ano de Fabricação:</label>
+                        <input type="number" id="editar-moto-ano" min="1900" max="2100" required>
+                    </div>
+                    <div class="modal-editar-group">
+                        <label for="editar-moto-quilometragem">Quilometragem:</label>
+                        <input type="number" id="editar-moto-quilometragem" min="0">
+                    </div>
+                    <div class="modal-editar-group">
+                        <label for="editar-moto-imagem">URL da Imagem:</label>
+                        <input type="text" id="editar-moto-imagem">
+                    </div>
+                    <div class="modal-editar-actions">
+                        <button type="submit" class="modal-editar-btn salvar">Salvar</button>
+                        <button type="button" id="fechar-modal-editar-moto-2" class="modal-editar-btn cancelar">Cancelar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </main>

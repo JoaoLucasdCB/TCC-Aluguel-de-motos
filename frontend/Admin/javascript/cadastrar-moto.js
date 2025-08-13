@@ -1,20 +1,6 @@
 // Protege a página: só acessa se estiver logado
 document.addEventListener('DOMContentLoaded', function() {
-    // Preview da imagem ao digitar a URL
-    const imagemInput = document.getElementById('imagem');
-    const previewImagem = document.getElementById('previewImagem');
-    if (imagemInput && previewImagem) {
-        imagemInput.addEventListener('input', function() {
-            const url = this.value.trim();
-            if (url) {
-                previewImagem.src = url;
-                previewImagem.style.display = 'block';
-            } else {
-                previewImagem.src = '';
-                previewImagem.style.display = 'none';
-            }
-        });
-    }
+    // ...existing code...
     // Loga o valor do campo nome sempre que for digitado
     const nomeInput = document.getElementById('nome');
     if (nomeInput) {
@@ -247,3 +233,171 @@ excluirMotoBtn.addEventListener('click', async function() {
 // Removido: não limpar o formulário ao clicar em cadastrar, só após sucesso
 
 }); // Fim do DOMContentLoaded
+
+// --- NOVA LÓGICA DE MODAIS E TABELA DE MOTOS ---
+document.addEventListener('DOMContentLoaded', function() {
+    const abrirCadastroBtn = document.getElementById('abrirCadastroMotoBtn');
+    const modalCadastro = document.getElementById('modal-cadastro-moto');
+    const fecharModalCadastro = document.getElementById('fechar-modal-cadastro-moto');
+    const formCadastro = document.getElementById('formCadastroMoto');
+    const motosDiv = document.getElementById('motosCadastradas');
+
+    const modalEditar = document.getElementById('modal-editar-moto');
+    const fecharModalEditar = document.getElementById('fechar-modal-editar-moto');
+    const fecharModalEditar2 = document.getElementById('fechar-modal-editar-moto-2');
+    const formEditar = document.getElementById('form-editar-moto');
+
+    // Abrir modal de cadastro
+    abrirCadastroBtn.onclick = function() {
+        modalCadastro.style.display = 'flex';
+    };
+    fecharModalCadastro.onclick = function() {
+        modalCadastro.style.display = 'none';
+        formCadastro.reset();
+        document.getElementById('previewImagem').style.display = 'none';
+    };
+
+    // Abrir/fechar modal de edição
+    fecharModalEditar.onclick = fecharModalEditar2.onclick = function() {
+        modalEditar.style.display = 'none';
+        formEditar.reset();
+    };
+
+    // Listar motos cadastradas
+    function carregarMotos() {
+        const token = localStorage.getItem('token');
+        fetch('http://localhost:8080/api/motos', {
+            headers: { 'Authorization': 'Bearer ' + token }
+        })
+        .then(res => res.json())
+        .then(motos => {
+            if (!motos || motos.length === 0) {
+                motosDiv.innerHTML = '<p>Nenhuma moto cadastrada.</p>';
+                return;
+            }
+            let html = '<table style="width:100%;border-collapse:collapse;margin-top:16px;">';
+            html += '<tr style="background:#4caf50;color:#fff;"><th>Nome</th><th>Marca</th><th>Modelo</th><th>Placa</th><th>Status</th><th>Ano</th><th>Quilometragem</th><th>Ações</th></tr>';
+            motos.forEach(m => {
+                html += `<tr style="border-bottom:1px solid #eee;">
+                    <td>${m.nome || '-'}</td>
+                    <td>${m.marca || '-'}</td>
+                    <td>${m.modelo || '-'}</td>
+                    <td>${m.placa || '-'}</td>
+                    <td>${m.status || '-'}</td>
+                    <td>${m.ano || '-'}</td>
+                    <td>${m.quilometragem || '-'}</td>
+                    <td>
+                      <button class="editar-moto-btn" data-id="${m.id}" style="background:#2196f3;color:#fff;border:none;padding:6px 12px;border-radius:8px;cursor:pointer;margin-right:8px;">Editar</button>
+                      <button class="excluir-moto-btn" data-id="${m.id}" style="background:#d9534f;color:#fff;border:none;padding:6px 12px;border-radius:8px;cursor:pointer;">Excluir</button>
+                    </td>
+                </tr>`;
+            });
+            html += '</table>';
+            motosDiv.innerHTML = html;
+        });
+    }
+    carregarMotos();
+
+    // Cadastro de moto
+    formCadastro.onsubmit = async function(e) {
+        e.preventDefault();
+        const moto = {
+            nome: document.getElementById('nome').value,
+            marca: document.getElementById('marca').value,
+            modelo: document.getElementById('modelo').value,
+            cilindrada: document.getElementById('cilindrada').value,
+            placa: document.getElementById('placa').value,
+            status: document.getElementById('status').value,
+            ano: parseInt(document.getElementById('ano').value),
+            quilometragem: document.getElementById('quilometragem').value ? parseInt(document.getElementById('quilometragem').value) : null,
+            imagem: document.getElementById('imagem').value
+        };
+        const token = localStorage.getItem('token');
+        const res = await fetch('http://localhost:8080/api/motos', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+            body: JSON.stringify(moto)
+        });
+        if (!res.ok) return showMsg('Erro ao cadastrar moto', 'error');
+        showMsg('Moto cadastrada com sucesso!', 'success');
+        modalCadastro.style.display = 'none';
+        formCadastro.reset();
+        document.getElementById('previewImagem').style.display = 'none';
+        carregarMotos();
+    };
+
+    // ...existing code...
+
+    // Editar moto
+    motosDiv.addEventListener('click', async function(e) {
+        if (e.target.classList.contains('editar-moto-btn')) {
+            const id = e.target.getAttribute('data-id');
+            const token = localStorage.getItem('token');
+            const res = await fetch(`http://localhost:8080/api/motos/${id}`, {
+                headers: { 'Authorization': 'Bearer ' + token }
+            });
+            if (!res.ok) return showMsg('Erro ao buscar moto para edição', 'error');
+            const moto = await res.json();
+            document.getElementById('editar-moto-id').value = moto.id;
+            document.getElementById('editar-moto-nome').value = moto.nome || '';
+            document.getElementById('editar-moto-marca').value = moto.marca || '';
+            document.getElementById('editar-moto-modelo').value = moto.modelo || '';
+            document.getElementById('editar-moto-cilindrada').value = moto.cilindrada || '';
+            document.getElementById('editar-moto-placa').value = moto.placa || '';
+            document.getElementById('editar-moto-status').value = moto.status || '';
+            document.getElementById('editar-moto-ano').value = moto.ano || '';
+            document.getElementById('editar-moto-quilometragem').value = moto.quilometragem || '';
+            document.getElementById('editar-moto-imagem').value = moto.imagem || '';
+            modalEditar.style.display = 'flex';
+        }
+        // Excluir moto
+        if (e.target.classList.contains('excluir-moto-btn')) {
+            const id = e.target.getAttribute('data-id');
+            if (!confirm('Tem certeza que deseja excluir esta moto?')) return;
+            const token = localStorage.getItem('token');
+            const res = await fetch(`http://localhost:8080/api/motos/${id}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': 'Bearer ' + token }
+            });
+            if (!res.ok) return showMsg('Erro ao excluir moto', 'error');
+            showMsg('Moto excluída com sucesso!', 'success');
+            carregarMotos();
+        }
+    });
+
+    // Salvar edição
+    formEditar.onsubmit = async function(e) {
+        e.preventDefault();
+        const id = document.getElementById('editar-moto-id').value;
+        const motoEditada = {
+            nome: document.getElementById('editar-moto-nome').value,
+            marca: document.getElementById('editar-moto-marca').value,
+            modelo: document.getElementById('editar-moto-modelo').value,
+            cilindrada: document.getElementById('editar-moto-cilindrada').value,
+            placa: document.getElementById('editar-moto-placa').value,
+            status: document.getElementById('editar-moto-status').value,
+            ano: parseInt(document.getElementById('editar-moto-ano').value),
+            quilometragem: document.getElementById('editar-moto-quilometragem').value ? parseInt(document.getElementById('editar-moto-quilometragem').value) : null,
+            imagem: document.getElementById('editar-moto-imagem').value
+        };
+        const token = localStorage.getItem('token');
+        const res = await fetch(`http://localhost:8080/api/motos/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+            body: JSON.stringify(motoEditada)
+        });
+        if (!res.ok) return showMsg('Erro ao editar moto', 'error');
+        showMsg('Moto editada com sucesso!', 'success');
+    modalEditar.style.display = 'none';
+    formEditar.reset();
+    carregarMotos();
+    };
+
+    // ...existing code...
+});

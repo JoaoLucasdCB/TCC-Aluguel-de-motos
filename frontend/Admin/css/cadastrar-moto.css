@@ -1,10 +1,31 @@
+/* Botão fixo no canto inferior direito */
+.btn-cadastrar-fixo {
+    position: fixed;
+    right: 32px;
+    bottom: 32px;
+    background: #4caf50;
+    color: #fff;
+    padding: 16px 32px;
+    border: none;
+    border-radius: 32px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    box-shadow: 0 4px 16px #0002;
+    cursor: pointer;
+    z-index: 1100;
+    transition: background 0.2s, box-shadow 0.2s;
+}
+.btn-cadastrar-fixo:hover {
+    background: #388e3c;
+    box-shadow: 0 6px 24px #0003;
+}
 /* cadastrar-moto.css - Estilos específicos para a tela de cadastro de moto do admin */
 .admin-main {
     display: flex;
     justify-content: center;
     align-items: flex-start;
     margin: 48px auto 0 auto;
-    max-width: 600px;
+    max-width: 1000px;
     padding: 32px 16px;
     background: rgba(255,255,255,0.0);
     border-radius: 24px;
@@ -59,82 +80,6 @@
     background: linear-gradient(90deg, #f357a8 60%, #7b2ff2 100%);
 }
 
-/* MODAL DE PLACA - estilização customizada para o modal de busca de placa */
-.modal-placa {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(45,8,92,0.25);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 2000;
-    animation: fadeInModal 0.2s;
-}
-@keyframes fadeInModal {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-.modal-placa-content {
-    background: linear-gradient(90deg, #fff 60%, #f7e6fa 100%);
-    border-radius: 18px;
-    box-shadow: 0 6px 32px rgba(123,47,242,0.18);
-    padding: 32px 28px 22px 28px;
-    min-width: 320px;
-    max-width: 95vw;
-    color: #2d085c;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 2px solid #7b2ff2;
-}
-.modal-placa-content h2 {
-    color: #a12b8c;
-    margin-bottom: 12px;
-    font-size: 1.4rem;
-    font-weight: 700;
-}
-.modal-placa-content label {
-    font-weight: 500;
-    margin-bottom: 6px;
-    color: #7b2ff2;
-    align-self: flex-start;
-}
-#inputPlacaModal {
-    width: 100%;
-    padding: 10px 8px;
-    margin-bottom: 18px;
-    border: 1.5px solid #a12b8c;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    background: #f7f7fa;
-    color: #444;
-    transition: border 0.2s;
-}
-#inputPlacaModal:focus {
-    outline: none;
-    border: 2px solid #7b2ff2;
-}
-.modal-placa-actions {
-    display: flex;
-    gap: 12px;
-    width: 100%;
-    justify-content: flex-end;
-}
-.modal-placa-actions button {
-    background: linear-gradient(90deg, #7b2ff2 60%, #f357a8 100%);
-    color: #fff;
-    border: none;
-    border-radius: 16px;
-    padding: 8px 18px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s;
-    box-shadow: 0 2px 8px rgba(123,47,242,0.08);
-}
-.modal-placa-actions button:hover {
-    background: linear-gradient(90deg, #f357a8 60%, #7b2ff2 100%);
-}
 
 @media (max-width: 700px) {
     .admin-main {
