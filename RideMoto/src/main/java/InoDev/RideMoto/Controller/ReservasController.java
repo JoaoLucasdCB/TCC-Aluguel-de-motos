@@ -15,6 +15,7 @@ import InoDev.RideMoto.Service.PlanosService;
 import InoDev.RideMoto.Service.MotosService;
 import InoDev.RideMoto.DTO.ReservaDTO;
 import InoDev.RideMoto.DTO.ReservaInputDTO;
+import InoDev.RideMoto.Service.LocalizacaoService;
 
 @RestController
 @RequestMapping("/reservas")
@@ -27,6 +28,8 @@ public class ReservasController {
     private PlanosService planosService;
     @Autowired
     private MotosService motosService;
+    @Autowired
+    private LocalizacaoService localizacaoService;
 
     @GetMapping
     public List<ReservaDTO> listarTodos() {
@@ -51,6 +54,10 @@ public class ReservasController {
         }
         ReservasModel reserva = fromInputDTO(reservaInput);
         reserva.setUsuario(usuarioOpt.get());
+        // Setar local de retirada
+        if (reservaInput.getLocalRetiradaId() != null) {
+            localizacaoService.buscarPorId(reservaInput.getLocalRetiradaId()).ifPresent(reserva::setLocalRetirada);
+        }
         return ResponseEntity.ok(toDTO(service.salvar(reserva)));
     }
 
@@ -75,9 +82,13 @@ public class ReservasController {
         reserva.setUsuario(usuarioService.buscarPorId(reservaInput.getUsuarioId()).orElse(null));
         reserva.setPlano(planosService.buscarPorId(reservaInput.getPlanoId()).orElse(null));
         reserva.setMoto(motosService.buscarPorId(reservaInput.getMotoId()).orElse(null));
+        if (reservaInput.getLocalRetiradaId() != null) {
+            localizacaoService.buscarPorId(reservaInput.getLocalRetiradaId()).ifPresent(reserva::setLocalRetirada);
+        }
         return toDTO(service.salvar(reserva));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public void deletar(@PathVariable Long id) {
         // Busca a reserva antes de deletar
@@ -127,6 +138,14 @@ public class ReservasController {
             dto.setUsuarioId(reserva.getUsuario().getId());
             dto.setUsuarioNome(reserva.getUsuario().getNome());
         }
+        // Local de retirada
+        if (reserva.getLocalRetirada() != null) {
+            dto.setLocalRetiradaId(reserva.getLocalRetirada().getId());
+            dto.setLocalRetiradaCidade(reserva.getLocalRetirada().getCidade());
+            dto.setLocalRetiradaEstado(reserva.getLocalRetirada().getEstado());
+            dto.setLocalRetiradaEndereco(reserva.getLocalRetirada().getEnderecoCompleto());
+            dto.setLocalRetiradaHorario(reserva.getLocalRetirada().getHorarioFuncionamento());
+        }
         return dto;
     }
 
@@ -147,6 +166,10 @@ public class ReservasController {
             }
         } else {
             reserva.setDataRetirada(java.time.LocalDate.now());
+        }
+        // Setar local de retirada
+        if (input.getLocalRetiradaId() != null) {
+            localizacaoService.buscarPorId(input.getLocalRetiradaId()).ifPresent(reserva::setLocalRetirada);
         }
         return reserva;
     }

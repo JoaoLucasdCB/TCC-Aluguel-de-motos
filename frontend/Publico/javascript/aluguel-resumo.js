@@ -3,7 +3,23 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     // Recupera dados do aluguel do sessionStorage
-    const aluguel = JSON.parse(sessionStorage.getItem('aluguel'));
+    let aluguel = JSON.parse(sessionStorage.getItem('aluguel'));
+    // Log detalhado do objeto aluguel
+    console.log('DEBUG aluguel sessionStorage:', aluguel);
+    if (!aluguel || !aluguel.motoNome || !aluguel.nomePlano || !aluguel.localRetiradaCidade || !aluguel.nomeUsuario) {
+        alert('Erro: Dados da reserva incompletos. Tente novamente ou contate o suporte.');
+        document.getElementById('resumoDados').innerHTML = '<span style="color:#f357a8">Erro ao carregar dados da reserva.</span>';
+        document.getElementById('dadosExtrasForm').style.display = 'none';
+        return;
+    }
+    // Se o usuário sair da página sem confirmar, remove a reserva temporária
+    window.addEventListener('beforeunload', function (e) {
+        // Se a reserva ainda não foi confirmada, remove do sessionStorage
+        if (sessionStorage.getItem('aluguel')) {
+            sessionStorage.removeItem('aluguel');
+        }
+    });
+    // (Removido: declaração duplicada de aluguel)
     const resumoDados = document.getElementById('resumoDados');
 
     if (!aluguel) {
@@ -12,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
 
-    // Exibe o resumo usando apenas os campos do DTO do backend
+    // Exibe o resumo usando os campos do DTO do backend, incluindo local de retirada
     resumoDados.innerHTML = `
         <b>Moto:</b> ${aluguel.motoNome || '-'} (${aluguel.motoPlaca || '-'})<br>
         <b>Marca:</b> ${aluguel.motoMarca || '-'}<br>
@@ -21,10 +37,48 @@ document.addEventListener('DOMContentLoaded', function() {
         <b>Plano:</b> ${aluguel.nomePlano || '-'}<br>
         <b>Duração:</b> ${aluguel.planoDuracao || '-'} dias<br>
         <b>Benefícios:</b> ${aluguel.planoBeneficios || '-'}<br>
-        <b>Usuário:</b> ${aluguel.usuarioNome || aluguel.nomeUsuario || '-'}<br>
+    <b>Usuário:</b> ${aluguel.nomeUsuario || aluguel.nome_usuario || aluguel.usuarioNome || '-'}<br>
         <b>Início:</b> ${aluguel.dataRetirada ? new Date(aluguel.dataRetirada).toLocaleDateString('pt-BR') : '-'}<br>
         <b>Status:</b> ${aluguel.status || '-'}<br>
+        <b>Local de Retirada:</b> ${aluguel.localRetiradaCidade ? `${aluguel.localRetiradaCidade} - ${aluguel.localRetiradaEstado} (${aluguel.localRetiradaEndereco})` : '-'}<br>
+        ${aluguel.localRetiradaHorario ? `<b>Horário:</b> ${aluguel.localRetiradaHorario}<br>` : ''}
     `;
+
+    // Envia a reserva ao backend ao submeter o formulário de dados extras
+    const form = document.getElementById('dadosExtrasForm');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const token = localStorage.getItem('token');
+            if (!token) {
+                showMsg('Você precisa estar logado para finalizar a reserva.', 'error');
+                return;
+            }
+            // Atualiza dados extras no objeto aluguel
+            aluguel.cnh = document.getElementById('cnh').value;
+            aluguel.telefone = document.getElementById('telefone').value;
+            fetch('http://localhost:8080/reservas', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                },
+                body: JSON.stringify(aluguel)
+            })
+            .then(res => {
+                if (res.ok) {
+                    showMsg('Reserva finalizada com sucesso!', 'success');
+                    sessionStorage.removeItem('aluguel');
+                    window.location.href = 'minhas-reservas.html';
+                } else {
+                    showMsg('Erro ao finalizar reserva.', 'error');
+                }
+            })
+            .catch(() => {
+                showMsg('Erro de conexão com o servidor.', 'error');
+            });
+        });
+    }
     // Função para validar CNH (11 dígitos, algoritmo módulo 11)
     function validarCNH(cnh) {
         if (!/^[0-9]{11}$/.test(cnh)) return false;
@@ -83,11 +137,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const telefone = document.getElementById('telefone').value;
         // Validação do telefone: deve estar no formato (00) 90000-0000
         if (!/^\(\d{2}\) \d{5}-\d{4}$/.test(telefone)) {
-            alert('Telefone inválido. Use o formato (00) 90000-0000.');
+            showMsg('Telefone inválido. Use o formato (00) 90000-0000.', 'error');
             return;
         }
         if (!validarCNH(cnh)) {
-            alert('CNH inválida. Digite uma CNH real.');
+            showMsg('CNH inválida. Digite uma CNH real.', 'error');
             return;
         }
 
@@ -104,14 +158,14 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             // Supondo que a resposta seja { valida: true } ou { valida: false }
             if (!data.valida) {
-                alert('CNH não encontrada ou inválida na base nacional.');
+                showMsg('CNH não encontrada ou inválida na base nacional.', 'error');
                 return;
             }
             // ...continua fluxo normal após validação externa...
             finalizarReserva();
         })
         .catch(() => {
-            alert('Erro ao validar CNH na base nacional. Tente novamente mais tarde.');
+            showMsg('Erro ao validar CNH na base nacional. Tente novamente mais tarde.', 'error');
         });
         // Impede o fluxo normal, só continua se a API retornar válida
         return;
@@ -120,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function() {
         function finalizarReserva() {
             const token = localStorage.getItem('token');
             if (!token) {
-                alert('Você precisa estar logado para finalizar a reserva.');
+                showMsg('Você precisa estar logado para finalizar a reserva.', 'error');
                 return;
             }
             const usuarioId = localStorage.getItem('usuarioId');
@@ -166,17 +220,17 @@ document.addEventListener('DOMContentLoaded', function() {
                             });
                         });
                     } else {
-                        alert('Dados atualizados com sucesso!');
+                        showMsg('Dados atualizados com sucesso!', 'success');
                         window.location.href = 'minhas-reservas.html';
                     }
                 } else {
-                    alert('Erro ao atualizar dados do usuário.');
+                    showMsg('Erro ao atualizar dados do usuário.', 'error');
                 }
             });
         }
         const token = localStorage.getItem('token');
         if (!token) {
-            alert('Você precisa estar logado para finalizar a reserva.');
+            showMsg('Você precisa estar logado para finalizar a reserva.', 'error');
             return;
         }
         const usuarioId = localStorage.getItem('usuarioId');
@@ -202,14 +256,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
                 .then(res => {
                     if (res.ok) {
-                        alert('Reserva finalizada com sucesso!');
+                        showMsg('Reserva finalizada com sucesso!', 'success');
                         window.location.href = 'minhas-reservas.html';
                     } else {
-                        alert('Erro ao finalizar reserva.');
+                        showMsg('Erro ao finalizar reserva.', 'error');
                     }
                 });
             } else {
-                alert('Erro ao atualizar dados do usuário.');
+                showMsg('Erro ao atualizar dados do usuário.', 'error');
             }
         });
     });

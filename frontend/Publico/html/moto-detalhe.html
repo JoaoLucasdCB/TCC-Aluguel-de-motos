@@ -4,30 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalhes da Moto - RideMoto</title>
-    <link rel="stylesheet" href="../css/cabecalho.css">
-    <link rel="stylesheet" href="../css/motos.css">
-    <link rel="stylesheet" href="../css/moto-detalhe.css">
-    <script src="../javascript/usuario-logado.js"></script>
+  <link rel="stylesheet" href="../css/moto-detalhe.css">
+  <link rel="stylesheet" href="../css/toast.css">
+    <script src="../javascript/cabecalho-include.js"></script>
+  <script src="../javascript/footer-include.js"></script>
+  <script src="../javascript/toast.js"></script>
 </head>
 <body>
-    <nav class="navbar">
-        <button class="logo" onclick="window.location.href='landing.html'">i&gt;</button>
-        <div class="perfil-container">
-            <div id="usuarioLogado" class="perfil-btn" style="display:none;"></div>
-            <div id="perfilDropdown" class="perfil-dropdown" style="display:none;">
-                <button id="relatorioBtn" style="display:none;">Central</button>
-                <button id="minhasReservasBtn">Minhas Reservas</button>
-                <button id="logoutBtn">Sair</button>
-            </div>
-        </div>
-        <ul class="nav-links">
-            <li><a href="aluguel.html">Aluguel</a></li>
-            <li><a href="sobre.html">Sobre Nós</a></li>
-            <li><a href="motos.html" class="active">Motos</a></li>
-            <li><a href="planos.html">Planos</a></li>
-        </ul>
-    
-    </nav>
     <main>
         <div class="moto-detail-container">
             <div class="moto-detail-img">
@@ -47,7 +30,6 @@
                     <li><strong>Status:</strong> <span id="motoStatus">Status</span></li>
                     <li><strong>Quilometragem:</strong> <span id="motoQuilometragem">Quilometragem</span></li>
                 </ul>
-                <div class="price">R$ <span id="motoPreco">0,00</span> / dia</div>
                 <button id="relatorioBtn" style="display:none;">Central</button>
                 <button class="back-btn" onclick="window.location.href='motos.html'">Voltar para lista</button>
             </div>
@@ -55,19 +37,6 @@
         <!-- CSS removido do final, já está no <style> do <head> -->
     </main>
     <script src="../javascript/moto-detalhe.js"></script>
-    <script>
-    // Exibe botão de relatório para admin
-    document.addEventListener('DOMContentLoaded', function() {
-        const relatorioBtn = document.getElementById('relatorioBtn');
-        const tipoUsuario = localStorage.getItem('tipoUsuario');
-        if (tipoUsuario && tipoUsuario.toUpperCase() === 'ADMIN') {
-            relatorioBtn.style.display = 'block';
-            relatorioBtn.onclick = function() {
-                window.location.href = '../../Admin/html/aluguel-relatorio.html';
-            };
-        }
-    });
-    </script>
 
     <!-- Suporte Flutuante Melhorado -->
     <style>

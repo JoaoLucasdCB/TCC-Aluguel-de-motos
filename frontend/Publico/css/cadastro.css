@@ -157,7 +157,6 @@ h2 {
     box-shadow: 0 4px 32px 0 rgba(123,47,242,0.08);
     margin-bottom: 40px;
     margin-top: 20px;
-    /* Removido overflow interno e limite de altura para evitar barra de rolagem no form */
 }
 #cadastroForm h3 {
     color: #fff;
@@ -169,17 +168,22 @@ h2 {
 #cadastroForm label {
     color: #fff;
     font-size: 1rem;
-    margin-bottom: 4px;
-    margin-top: 10px;
+    margin-bottom: 2px;
+    margin-top: 14px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    text-shadow: none;
 }
 #cadastroForm input {
     padding: 8px 12px;
     border-radius: 8px;
     border: none;
-    margin-bottom: 8px;
+    margin-bottom: 14px;
     font-size: 1rem;
     outline: none;
     background: #fff;
+    box-shadow: 0 1px 4px rgba(123,47,242,0.04);
+    transition: border 0.2s, background 0.2s;
 }
 #cadastroForm select {
     padding: 8px 12px;
@@ -190,6 +194,35 @@ h2 {
     outline: none;
     background: #fff;
     color: #333;
+}
+
+.cadastro-titulo, .cadastro-sub {
+    /* Removido destaque especial, voltar para títulos simples */
+    all: unset;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+.input-group input {
+    flex: 1;
+}
+.input-feedback {
+    width: 22px;
+    height: 22px;
+    display: inline-block;
+    margin-left: 6px;
+    font-size: 1.2rem;
+    color: #00e676;
+    vertical-align: middle;
+}
+
+#cadastroForm input:focus {
+    border: 2px solid #7b2ff2;
+    background: #f7f3ff;
+    outline: none;
 }
 
 .cadastro-action {
@@ -206,6 +239,35 @@ h2 {
 }
 .cadastro-action:hover {
     background: linear-gradient(90deg, #f357a8 0%, #7b2ff2 100%);
+}
+
+.btn-cadastrar {
+    margin-top: 18px;
+    background: linear-gradient(90deg, #7b2ff2 0%, #f357a8 100%);
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 0;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    box-shadow: none;
+}
+.btn-cadastrar:hover {
+    background: linear-gradient(90deg, #f357a8 0%, #7b2ff2 100%);
+}
+.btn-icon {
+    font-size: 1.3rem;
+    margin-right: 2px;
+}
+
+.cadastro-orientacao {
+    color: #e0cfff;
+    font-size: 0.98rem;
+    margin-bottom: 10px;
+    text-align: center;
+    margin-top: -8px;
 }
 
 /* Responsividade */
@@ -228,5 +290,9 @@ h2 {
         width: 100%;
         min-width: unset;
         max-width: unset;
+        padding: 28px 8vw 24px 8vw;
+    }
+    .cadastro-titulo {
+        font-size: 2rem;
     }
 }

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin</title>
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../../Publico/css/toast.css">
+</head>
+<body>
+    <link rel="stylesheet" href="../css/cabecalho-admin.css">
+    <!-- cabecalho-admin.html - Cabeçalho exclusivo para páginas de administração -->
+    <script src="/frontend/Publico/javascript/cabecalho-include.js"></script>
+    <script src="../javascript/cabecalho-admin.js"></script>
+    <script src="../../Publico/javascript/toast.js"></script>
+    <main>
+        <section class="dashboard-cards">
+            <div class="card">
+                <h2 id="motos-cadastradas">0</h2>
+                <p>Motos Cadastradas</p>
+            </div>
+            <div class="card">
+                <h2 id="motos-alugadas">0</h2>
+                <p>Motos Alugadas</p>
+            </div>
+            <div class="card">
+                <h2 id="usuarios-conectados">0</h2>
+                <p>Usuários Conectados</p>
+            </div>
+            <div class="card">
+                <h2 id="plano-mais-alugado">-</h2>
+                <p>Plano Mais Alugado</p>
+            </div>
+            <div class="card">
+                <h2 id="moto-mais-alugada">-</h2>
+                <p>Moto Mais Alugada</p>
+            </div>
+        </section>
+        <section class="dashboard-analytics">
+            <canvas id="dashboardChart"></canvas>
+        </section>
+        <button id="atualizar-dados">Atualizar Dados</button>
+    </main>
+    <script src="../javascript/dashboard.js"></script>
+</body>
+</html>

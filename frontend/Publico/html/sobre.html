@@ -4,54 +4,89 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sobre Nós - RideMoto</title>
-    <link rel="stylesheet" href="../css/motos.css">
-    <link rel="stylesheet" href="../css/cabecalho.css">
-    <script src="../javascript/usuario-logado.js"></script>
+    <link rel="stylesheet" href="../css/sobre.css">
+    <link rel="stylesheet" href="../css/toast.css">
+    <script src="../javascript/cabecalho-include.js"></script>
+    <script src="../javascript/sobre.js"></script>
+    <script src="../javascript/footer-include.js"></script>
+    <script src="../javascript/toast.js"></script>
 </head>
 <body class="sobre">
-   <nav class="navbar">
-        <button class="logo" onclick="window.location.href='landing.html'">i&gt;</button>
-        <div class="perfil-container">
-            <div id="usuarioLogado" class="perfil-btn" style="display:none;"></div>
-            <div id="perfilDropdown" class="perfil-dropdown" style="display:none;">
-                <button id="relatorioBtn" style="display:none;">Central</button>
-                <button id="minhasReservasBtn">Minhas Reservas</button>
-                <button id="logoutBtn">Sair</button>
-    <script>
-    // Exibe botão de relatório para admin
-    document.addEventListener('DOMContentLoaded', function() {
-        const relatorioBtn = document.getElementById('relatorioBtn');
-        const tipoUsuario = localStorage.getItem('tipoUsuario');
-        if (tipoUsuario && tipoUsuario.toUpperCase() === 'ADMIN') {
-            relatorioBtn.style.display = 'block';
-            relatorioBtn.onclick = function() {
-                window.location.href = '../../Admin/html/aluguel-relatorio.html';
-            };
-        }
-    });
-    </script>
+    
+    <main class="sobre-container">
+        <h1 class="sobre-titulo">Sobre Nós</h1>
+        <h2 class="sobre-subtitulo">Conheça a RideMoto</h2>
+        
+        <div class="sobre-secao">
+            <h3>Nossa História</h3>
+            <p class="sobre-texto">
+                A RideMoto nasceu da paixão por motocicletas e da necessidade de democratizar o acesso a esse meio de transporte. Fundada em 2023, nossa empresa surgiu com o objetivo de oferecer uma solução inovadora para locação de motos, combinando tecnologia, segurança e praticidade.
+            </p>
+            <p class="sobre-texto">
+                Começamos como uma pequena startup local e hoje somos referência no setor de locação de motocicletas, atendendo centenas de clientes satisfeitos que confiam em nossos serviços para suas necessidades de mobilidade.
+            </p>
+        </div>
+
+        <div class="sobre-secao">
+            <h3>Nossa Missão</h3>
+            <p class="sobre-texto">
+                Facilitar a mobilidade urbana através de soluções inovadoras de locação de motocicletas, oferecendo qualidade, segurança e conforto aos nossos clientes. Queremos ser a ponte entre você e a liberdade de se locomover pela cidade de forma ágil e econômica.
+            </p>
+        </div>
+
+        <div class="sobre-secao">
+            <h3>Nossos Valores</h3>
+            <div class="valores-grid">
+                <div class="valor-card">
+                    <h4>Segurança</h4>
+                    <p>Priorizamos a segurança dos nossos clientes com motos bem mantidas e equipamentos de proteção de qualidade.</p>
+                </div>
+                <div class="valor-card">
+                    <h4>Qualidade</h4>
+                    <p>Mantemos uma frota moderna e bem conservada, garantindo a melhor experiência de locomoção.</p>
+                </div>
+                <div class="valor-card">
+                    <h4>Transparência</h4>
+                    <p>Oferecemos preços claros e sem taxas ocultas, estabelecendo uma relação de confiança com nossos clientes.</p>
+                </div>
+                <div class="valor-card">
+                    <h4>Inovação</h4>
+                    <p>Utilizamos tecnologia de ponta para simplificar o processo de locação e melhorar a experiência do usuário.</p>
+                </div>
+                <div class="valor-card">
+                    <h4>Sustentabilidade</h4>
+                    <p>Contribuímos para a redução do trânsito e poluição, promovendo uma mobilidade mais sustentável.</p>
+                </div>
+                <div class="valor-card">
+                    <h4>Atendimento</h4>
+                    <p>Oferecemos suporte 24/7 para garantir que você tenha assistência sempre que precisar.</p>
+                </div>
             </div>
         </div>
-        <ul class="nav-links">
-            <li><a href="aluguel.html">Aluguel</a></li>
-            <li><a href="sobre.html" class="active">Sobre Nós</a></li>
-            <li><a href="motos.html">Motos</a></li>
-            <li><a href="planos.html">Planos</a></li>
-        </ul>
-    </nav>
-    <main style="max-width: 900px; margin: 48px auto 0 auto; background: rgba(255,255,255,0.04); border-radius: 18px; box-shadow: 0 4px 32px 0 rgba(123,47,242,0.08); padding: 40px 32px; color: #fff;">
-        <h1 style="color:#b266ff; font-size:2.2rem; margin-bottom: 18px;">Sobre Nós</h1>
-        <h2 style="color:#00cfff; font-size:1.3rem; margin-bottom: 24px;">Conheça a RideMoto</h2>
-        <p style="font-size:1.1rem; line-height:1.7; color:#e0e0e0;">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque euismod, nisi eu consectetur consectetur, nisl nisi consectetur nisi, euismod euismod nisi nisi euismod. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Etiam euismod, nisi eu consectetur consectetur, nisl nisi consectetur nisi, euismod euismod nisi nisi euismod.
-        </p>
-        <p style="font-size:1.1rem; line-height:1.7; color:#e0e0e0;">
-            Nullam ac urna eu felis dapibus condimentum sit amet a augue. Sed non neque elit. Sed ut imperdiet nisi. Proin condimentum fermentum nunc. Etiam pharetra, erat sed fermentum feugiat, velit mauris egestas quam, ut aliquam massa nisl quis neque. Suspendisse in orci enim.
-        </p>
-        <p style="font-size:1.1rem; line-height:1.7; color:#e0e0e0;">
-            Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.
-        </p>
+
+        <div class="sobre-secao">
+            <h3>Por que escolher a RideMoto?</h3>
+            <p class="sobre-texto">
+                Na RideMoto, entendemos que cada cliente tem necessidades únicas. Por isso, oferecemos uma ampla variedade de motocicletas, desde scooters práticas para o dia a dia até motos esportivas para momentos especiais. Nossa plataforma digital permite que você reserve sua moto com apenas alguns cliques, eliminando burocracia e espera.
+            </p>
+            <p class="sobre-texto">
+                Nossa equipe é composta por profissionais experientes e apaixonados por motocicletas, sempre prontos para oferecer o melhor atendimento e orientação. Além disso, investimos constantemente em tecnologia e manutenção para garantir que sua experiência seja sempre excepcional.
+            </p>
+        </div>
+
+        <div class="contato-secao">
+            <h3>Entre em Contato</h3>
+            <p class="sobre-texto">
+                Estamos sempre disponíveis para atender você e esclarecer suas dúvidas. Entre em contato conosco através dos canais abaixo:
+            </p>
+            <div class="contato-info">
+                <div class="contato-item">contato@ridemoto.com.br</div>
+                <div class="contato-item telefone">(31) 3353-1201</div>
+                <div class="contato-item endereco">Belo Horizonte - MG</div>
+            </div>
+        </div>
     </main>
+
     <!-- Suporte Flutuante Melhorado -->
     <style>
       #suporte-float {

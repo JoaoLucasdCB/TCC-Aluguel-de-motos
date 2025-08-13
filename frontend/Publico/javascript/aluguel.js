@@ -3,9 +3,47 @@
 document.addEventListener('DOMContentLoaded', function() {
     const motoSelect = document.getElementById('moto');
     const planoSelect = document.getElementById('plano');
+    const localRetiradaSelect = document.getElementById('localRetirada');
     const detalhesMoto = document.getElementById('detalhesMoto');
     const detalhesPlano = document.getElementById('detalhesPlano');
+    const detalhesLocal = document.createElement('div');
+    detalhesLocal.id = 'detalhesLocal';
+    // Adiciona o container de detalhes do local após detalhesPlano, se não existir
+    if (!document.getElementById('detalhesLocal')) {
+        detalhesPlano.parentNode.appendChild(detalhesLocal);
+    }
+    // Atualiza detalhes do local ao selecionar
+    localRetiradaSelect.addEventListener('change', function() {
+        const localId = localRetiradaSelect.value;
+        if (!localId) {
+            detalhesLocal.innerHTML = '';
+            return;
+        }
+        fetch(`http://localhost:8080/localizacoes/${localId}`)
+            .then(res => res.json())
+            .then(local => {
+                detalhesLocal.innerHTML = `<b>Local de Retirada:</b> ${local.cidade} - ${local.estado}<br><b>Endereço:</b> ${local.enderecoCompleto}<br>${local.horarioFuncionamento ? `<b>Horário:</b> ${local.horarioFuncionamento}` : ''}`;
+            })
+            .catch(() => {
+                detalhesLocal.innerHTML = '<span style="color:#f357a8">Erro ao carregar detalhes do local.</span>';
+            });
+    });
     const retiradaInput = document.getElementById('retirada');
+    // Carregar locais de retirada
+    function carregarLocaisRetirada() {
+        fetch('http://localhost:8080/localizacoes')
+            .then(res => res.json())
+            .then(locais => {
+                localRetiradaSelect.innerHTML = '<option value="">Selecione o local</option>';
+                locais.forEach(local => {
+                    const opt = document.createElement('option');
+                    opt.value = local.id;
+                    opt.textContent = `${local.cidade} - ${local.estado} (${local.enderecoCompleto})`;
+                    localRetiradaSelect.appendChild(opt);
+                });
+            });
+    }
+    carregarLocaisRetirada();
     let avisoDatas = document.createElement('div');
     avisoDatas.id = 'avisoDatas';
     avisoDatas.style = 'color:#f357a8; margin-bottom:8px; font-size:0.98rem;';
@@ -36,13 +74,16 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 motos = data;
                 motoSelect.innerHTML = '<option value="">Selecione a moto</option>';
+                const alugarBtn = document.querySelector('.alugar-btn');
                 if (motos.length === 0) {
                     avisoDatas.textContent = 'Nenhuma moto disponível.';
                     avisoDatas.style.display = 'block';
                     motoSelect.disabled = true;
+                    if (alugarBtn) alugarBtn.style.display = 'none';
                 } else {
                     avisoDatas.style.display = 'none';
                     motoSelect.disabled = false;
+                    if (alugarBtn) alugarBtn.style.display = '';
                     motos.forEach(m => {
                         const opt = document.createElement('option');
                         opt.value = m.id;
@@ -171,52 +212,69 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = 'login.html';
             return;
         }
+        const alugarBtn = document.querySelector('.alugar-btn');
+        alugarBtn.disabled = true;
         const motoSelecionadaObj = motos.find(m => String(m.id) === String(motoSelect.value));
-        const reservaInput = {
-            motoId: motoSelect.value,
-            planoId: planoSelect.value,
-            usuarioId: usuarioId,
-            dataRetirada: retiradaInput.value, // novo campo para o backend
-            status: "PENDENTE",
-            motoAno: motoSelecionadaObj ? Number(motoSelecionadaObj.ano) : 2000,
-            motoNome: motoSelecionadaObj ? motoSelecionadaObj.nome : '',
-            motoMarca: motoSelecionadaObj ? motoSelecionadaObj.marca : '',
-            motoModelo: motoSelecionadaObj ? motoSelecionadaObj.modelo : '',
-            motoCilindrada: motoSelecionadaObj ? motoSelecionadaObj.cilindrada : '',
-            motoPlaca: motoSelecionadaObj ? motoSelecionadaObj.placa : '',
-            motoQuilometragem: motoSelecionadaObj ? motoSelecionadaObj.quilometragem : '',
-            motoImagem: motoSelecionadaObj ? motoSelecionadaObj.imagem : ''
-        };
-        const headers = {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token
-        };
-        fetch('http://localhost:8080/reservas', {
-            method: 'POST',
-            headers: headers,
-            body: JSON.stringify(reservaInput)
-        })
-        .then(async res => {
-            if (res.ok) {
-                const reserva = await res.json();
-                sessionStorage.setItem('aluguel', JSON.stringify(reserva));
-                atualizarMotosPorData();
+        const planoSelecionadoObj = planos.find(p => String(p.id) === String(planoSelect.value));
+        const localId = localRetiradaSelect.value;
+        fetch(`http://localhost:8080/localizacoes/${localId}`)
+            .then(res => res.json())
+            .then(localRetiradaObj => {
+                    const reservaInput = {
+                        motoId: motoSelect.value,
+                        planoId: planoSelect.value,
+                        usuarioId: usuarioId,
+                        localRetiradaId: localRetiradaSelect.value,
+                        dataRetirada: retiradaInput.value,
+                        status: "PENDENTE",
+                        motoAno: motoSelecionadaObj ? Number(motoSelecionadaObj.ano) : 2000,
+                        motoNome: motoSelecionadaObj ? motoSelecionadaObj.nome : '',
+                        motoMarca: motoSelecionadaObj ? motoSelecionadaObj.marca : '',
+                        motoModelo: motoSelecionadaObj ? motoSelecionadaObj.modelo : '',
+                        motoCilindrada: motoSelecionadaObj ? motoSelecionadaObj.cilindrada : '',
+                        motoPlaca: motoSelecionadaObj ? motoSelecionadaObj.placa : '',
+                        motoQuilometragem: motoSelecionadaObj ? motoSelecionadaObj.quilometragem : '',
+                        motoImagem: motoSelecionadaObj ? motoSelecionadaObj.imagem : '',
+                        nomePlano: planoSelecionadoObj ? planoSelecionadoObj.nomePlano : '',
+                        planoDuracao: planoSelecionadoObj ? planoSelecionadoObj.duracao : '',
+                        planoBeneficios: planoSelecionadoObj && planoSelecionadoObj.beneficios ? planoSelecionadoObj.beneficios : '',
+                        localRetiradaCidade: localRetiradaObj && localRetiradaObj.cidade ? localRetiradaObj.cidade : '',
+                        localRetiradaEstado: localRetiradaObj && localRetiradaObj.estado ? localRetiradaObj.estado : '',
+                        localRetiradaEndereco: localRetiradaObj && (localRetiradaObj.enderecoCompleto || localRetiradaObj.endereco) ? (localRetiradaObj.enderecoCompleto || localRetiradaObj.endereco) : '',
+                        localRetiradaHorario: localRetiradaObj && (localRetiradaObj.horarioFuncionamento || localRetiradaObj.horario) ? (localRetiradaObj.horarioFuncionamento || localRetiradaObj.horario) : '',
+                        nomeUsuario: localStorage.getItem('nomeUsuario') || localStorage.getItem('usuarioNome') || '',
+                    };
+                sessionStorage.setItem('aluguel', JSON.stringify(reservaInput));
                 window.location.href = 'aluguel-resumo.html';
-            } else if (res.status === 409) {
-                const msg = await res.text();
-                avisoDatas.textContent = msg || 'Moto já reservada para a data selecionada.';
-                avisoDatas.style.display = 'block';
-                setTimeout(() => { avisoDatas.style.display = 'none'; }, 5000);
-            } else {
-                avisoDatas.textContent = 'Erro ao realizar reserva. Tente novamente.';
-                avisoDatas.style.display = 'block';
-                setTimeout(() => { avisoDatas.style.display = 'none'; }, 5000);
-            }
-        })
-        .catch(() => {
-            avisoDatas.textContent = 'Erro de conexão com o servidor.';
-            avisoDatas.style.display = 'block';
-            setTimeout(() => { avisoDatas.style.display = 'none'; }, 5000);
-        });
+            })
+            .catch(() => {
+                // Se falhar, ainda salva o básico para não travar o fluxo
+                const reservaInput = {
+                    motoId: motoSelect.value,
+                    planoId: planoSelect.value,
+                    usuarioId: usuarioId,
+                    localRetiradaId: localRetiradaSelect.value,
+                    dataRetirada: retiradaInput.value,
+                    status: "PENDENTE",
+                    motoAno: motoSelecionadaObj ? Number(motoSelecionadaObj.ano) : 2000,
+                    motoNome: motoSelecionadaObj ? motoSelecionadaObj.nome : '',
+                    motoMarca: motoSelecionadaObj ? motoSelecionadaObj.marca : '',
+                    motoModelo: motoSelecionadaObj ? motoSelecionadaObj.modelo : '',
+                    motoCilindrada: motoSelecionadaObj ? motoSelecionadaObj.cilindrada : '',
+                    motoPlaca: motoSelecionadaObj ? motoSelecionadaObj.placa : '',
+                    motoQuilometragem: motoSelecionadaObj ? motoSelecionadaObj.quilometragem : '',
+                    motoImagem: motoSelecionadaObj ? motoSelecionadaObj.imagem : '',
+                    nomePlano: planoSelecionadoObj ? planoSelecionadoObj.nomePlano : '',
+                    planoDuracao: planoSelecionadoObj ? planoSelecionadoObj.duracao : '',
+                    planoBeneficios: planoSelecionadoObj ? planoSelecionadoObj.beneficios : '',
+                    localRetiradaCidade: '',
+                    localRetiradaEstado: '',
+                    localRetiradaEndereco: '',
+                    localRetiradaHorario: '',
+                    nomeUsuario: localStorage.getItem('nomeUsuario') || '',
+                };
+                sessionStorage.setItem('aluguel', JSON.stringify(reservaInput));
+                window.location.href = 'aluguel-resumo.html';
+            });
     });
 });

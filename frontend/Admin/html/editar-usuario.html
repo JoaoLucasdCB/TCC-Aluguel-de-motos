@@ -6,20 +6,12 @@
     <title>Editar Usuário - Admin</title>
     <link rel="stylesheet" href="../css/editar-usuario.css">
     <link rel="stylesheet" href="../css/aluguel-relatorio.css">
+    <link rel="stylesheet" href="../../Publico/css/toast.css">
 </head>
 <body>
-    <nav class="navbar">
-        <button class="logo" onclick="window.location.href='../../Publico/html/landing.html'" style="background:transparent;border:none;cursor:pointer;padding:0;">
-            <img src="../img/logo.png" alt="RideMoto" style="height:40px;vertical-align:middle;"> Admin
-        </button>
-        <ul class="nav-links">
-            <li><a href="cadastrar-moto.html">Cadastrar Moto</a></li>
-            <li><a href="cadastrar-plano.html">Cadastrar Plano</a></li>
-            <li><a href="usuarios-admin.html">Usuários</a></li>
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#">Sair</a></li>
-        </ul>
-    </nav>
+    <!-- Cabeçalho dinâmico -->
+    <div id="cabecalho-include"></div>
+    <script src="../../Publico/javascript/cabecalho-include.js"></script>
     <main class="editar-usuario-main">
         <form class="editar-usuario-form" id="formEditarUsuario">
             <h1>Editar Usuário</h1>
@@ -43,6 +35,7 @@
         </form>
     </main>
     <script src="../javascript/editar-usuario.js"></script>
+    <script src="../../Publico/javascript/toast.js"></script>
     <script>
         // Protege páginas admin: só admin pode acessar
         document.addEventListener('DOMContentLoaded', function() {

@@ -4,32 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minhas Reservas - RideMoto</title>
-    <link rel="stylesheet" href="../css/cabecalho.css">
-    <link rel="stylesheet" href="../css/minhas-reservas.css">
-    <script src="../javascript/usuario-logado.js"></script>
+  <link rel="stylesheet" href="../css/minhas-reservas.css">
+  <link rel="stylesheet" href="../css/toast.css">
+    <script src="../javascript/cabecalho-include.js"></script>
+  <script src="../javascript/footer-include.js"></script>
+  <script src="../javascript/toast.js"></script>
 </head>
 <body>
-    <nav class="navbar">
-        <button class="logo" onclick="window.location.href='landing.html'">i&gt;</button>
-        <ul class="nav-links">
-            <li><a href="aluguel.html">Aluguel</a></li>
-            <li><a href="sobre.html">Sobre Nós</a></li>
-            <li><a href="motos.html">Motos</a></li>
-            <li><a href="planos.html">Planos</a></li>
-        </ul>
-        <div class="perfil-container">
-            <div id="usuarioLogado" class="perfil-btn" style="display:none;"></div>
-            <div id="perfilDropdown" class="perfil-dropdown" style="display:none;">
-                <button id="relatorioBtn" style="display:none;">Central</button>
-                <button id="minhasReservasBtn">Minhas Reservas</button>
-                <button id="logoutBtn">Sair</button>
-            </div>
-        </div>
-    </nav>
     <main class="reservas-main">
         <section class="reservas-info">
             <h1>Minhas Reservas</h1>
             <div id="reservasTabelaContainer"></div>
+        <div id="localModal" class="modal" style="display:none;position:fixed;z-index:9999;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.5);align-items:center;justify-content:center;">
+          <div class="modal-content">
+            <span id="fecharModalLocal" class="fechar-modal">&times;</span>
+            <div id="localModalContent"></div>
+          </div>
+        </div>
         </section>
     </main>
     <!-- Suporte Flutuante Melhorado -->

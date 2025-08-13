@@ -13,7 +13,7 @@ async function fetchAndRenderPlanos() {
                 <div class="plano-nome">${plano.nomePlano}</div>
                 <div class="plano-descricao">Duração: ${plano.duracao} dias</div>
                 <ul class="plano-beneficios">
-                    ${plano.beneficios.split('\n').map(b => `<li>${b}</li>`).join('')}
+                    ${plano.beneficios.split(',').map(b => `<li>${b.trim()}</li>`).join('')}
                 </ul>
                 <button class="plano-btn">Ver Detalhes</button>
             `;

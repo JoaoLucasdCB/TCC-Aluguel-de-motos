@@ -1,3 +1,106 @@
+/* Modal de edição de reserva - layout moderno */
+.modal-editar {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.35);
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    transition: background 0.2s;
+}
+.modal-editar[style*="display: flex"] {
+    display: flex !important;
+}
+.modal-editar-content {
+    background: #fff;
+    padding: 32px 28px 24px 28px;
+    border-radius: 16px;
+    min-width: 320px;
+    max-width: 95vw;
+    box-shadow: 0 4px 32px #0002;
+    position: relative;
+    animation: modalShow 0.25s cubic-bezier(.4,1.4,.6,1) 1;
+}
+@keyframes modalShow {
+    from { opacity: 0; transform: translateY(40px) scale(0.98); }
+    to   { opacity: 1; transform: none; }
+}
+.modal-editar-close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #f357a8;
+    cursor: pointer;
+    transition: color 0.2s;
+    z-index: 2;
+}
+.modal-editar-close:hover {
+    color: #b3005a;
+}
+.modal-editar-form {
+    margin-top: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+.modal-editar-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.modal-editar-group label {
+    font-weight: 600;
+    color: #f357a8;
+    margin-bottom: 2px;
+}
+.modal-editar-group select {
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    font-size: 1rem;
+    outline: none;
+    transition: border 0.2s;
+}
+.modal-editar-group select:focus {
+    border: 1.5px solid #f357a8;
+}
+.modal-editar-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    margin-top: 8px;
+}
+.modal-editar-btn {
+    padding: 8px 22px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+.modal-editar-btn.salvar {
+    background: #f357a8;
+    color: #fff;
+}
+.modal-editar-btn.salvar:hover {
+    background: #b3005a;
+}
+.modal-editar-btn.cancelar {
+    background: #eee;
+    color: #f357a8;
+}
+.modal-editar-btn.cancelar:hover {
+    background: #f8e6f0;
+    color: #b3005a;
+}
 /* Estilo para tabela de reservas do relatório */
 table {
     width: 100%;

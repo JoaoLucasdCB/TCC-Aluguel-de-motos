@@ -18,7 +18,7 @@ async function fetchMotosAPI() {
             imagem: moto.imagem || '',
         }));
     } catch (err) {
-        alert('Erro ao carregar motos do sistema: ' + err.message);
+    showMsg('Erro ao carregar motos do sistema: ' + err.message, 'error');
         return [];
     }
 }

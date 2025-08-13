@@ -4,37 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalhes do Plano - RideMoto</title>
-    <link rel="stylesheet" href="../css/cabecalho.css">
-    <link rel="stylesheet" href="../css/motos.css">
-    <link rel="stylesheet" href="../css/plano-detalhe.css">
-    <script src="../javascript/usuario-logado.js"></script>
+  <link rel="stylesheet" href="../css/motos.css">
+  <link rel="stylesheet" href="../css/plano-detalhe.css">
+  <link rel="stylesheet" href="../css/toast.css">
+    <script src="../javascript/cabecalho-include.js"></script>
+  <script src="../javascript/footer-include.js"></script>
+  <script src="../javascript/toast.js"></script>
 </head>
-<body>
-    <nav class="navbar">
-        <button class="logo" onclick="window.location.href='landing.html'">i&gt;</button>
-        <ul class="nav-links">
-            <li><a href="aluguel.html">Aluguel</a></li>
-            <li><a href="sobre.html">Sobre Nós</a></li>
-            <li><a href="motos.html">Motos</a></li>
-            <li><a href="planos.html" class="active">Planos</a></li>
-        </ul>
-        <div class="perfil-container">
-            <div id="usuarioLogado" class="perfil-btn" style="display:none;"></div>
-            <div id="perfilDropdown" class="perfil-dropdown" style="display:none;">
-                <button id="relatorioBtn" style="display:none;">Central</button>
-                <button id="minhasReservasBtn">Minhas Reservas</button>
-                <button id="logoutBtn">Sair</button>
-            </div>
-    </nav>
+<body class="plano-detalhe-page">
+    <!-- Partículas animadas -->
+    <div class="particles">
+        <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
+        <div class="particle" style="left: 20%; animation-delay: 2s;"></div>
+        <div class="particle" style="left: 30%; animation-delay: 4s;"></div>
+        <div class="particle" style="left: 40%; animation-delay: 1s;"></div>
+        <div class="particle" style="left: 50%; animation-delay: 3s;"></div>
+        <div class="particle" style="left: 60%; animation-delay: 5s;"></div>
+        <div class="particle" style="left: 70%; animation-delay: 2s;"></div>
+        <div class="particle" style="left: 80%; animation-delay: 4s;"></div>
+        <div class="particle" style="left: 90%; animation-delay: 1s;"></div>
+    </div>
+    
     <main>
         <div class="plano-detail-container">
-            <div class="plano-detail-nome" id="planoDetailNome">Plano</div>
+            <div class="plano-header">
+                <h2 class="plano-detail-nome" id="planoDetailNome">Plano</h2>
+                <div class="plano-badge" id="planoBadge">Popular</div>
+            </div>
             <div class="plano-detail-descricao" id="planoDetailDescricao">Descrição</div>
-            <div class="plano-detail-preco" id="planoDetailPreco">Preço</div>
             <ul class="plano-detail-beneficios" id="planoDetailBeneficios">
                 <!-- Benefícios -->
             </ul>
-            <button class="plano-detail-btn" onclick="window.location.href='planos.html'">Voltar para planos</button>
+            <div class="action-buttons">
+                <button class="plano-detail-btn" onclick="window.location.href='planos.html'">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Voltar para planos
+                </button>
+            </div>
         </div>
     </main>
     <script src="../javascript/plano-detalhe.js"></script>

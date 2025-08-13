@@ -52,7 +52,10 @@ public class ReservasModel {
     @Column(name = "status", nullable = false)
     private StatusReserva status;
 
-    // Removido campo dataFim
+
+    @ManyToOne
+    @JoinColumn(name = "local_retirada_id", nullable = false)
+    private LocalizacaoModel localRetirada;
 
     @OneToOne(mappedBy = "reserva")
     private AluguelModel aluguel;

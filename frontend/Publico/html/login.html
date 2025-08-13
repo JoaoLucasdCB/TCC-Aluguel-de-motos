@@ -4,20 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RideMoto - Login</title>
-    <link rel="stylesheet" href="../css/cabecalho.css">
     <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../css/toast.css">
+    <script src="../javascript/cabecalho-include.js"></script>
+    
 </head>
 <body>
-    <nav class="navbar">
-        <button class="logo" onclick="window.location.href='landing.html'">i&gt;</button>
-        <ul class="nav-links">
-            <li><a href="aluguel.html">Aluguel</a></li>
-            <li><a href="sobre.html">Sobre Nós</a></li>
-            <li><a href="motos.html">Motos</a></li>
-            <li><a href="planos.html">Planos</a></li>
-        </ul>
-        <button class="login-btn" onclick="window.location.href='cadastro.html'">Faça Cadastro</button>
-    </nav>
     <main>
         <section class="left">
             <div class="logo-moto">
@@ -29,8 +21,9 @@
         </section>
         <div class="divider"></div>
         <section class="right">
+            <div id="msgContainer"></div>
             <form id="loginForm">
-                <h3>Bem vindo ao RiderMoto!<br>Insira seu Login:</h3>
+                <h3>Bem vindo ao <span class="ride">Ride</span><span class="moto">Moto</span>!<br>Insira seu Login:</h3>
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" required>
                 <label for="senha">Senha</label>
@@ -40,6 +33,8 @@
             </form>
         </section>
     </main>
+    <script src="../javascript/footer-include.js"></script>
+    <script src="../javascript/toast.js"></script>
     <script src="../javascript/login.js"></script>
 </body>
 </html>

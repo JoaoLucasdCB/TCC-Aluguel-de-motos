@@ -4,50 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RideMoto - Aluguel</title>
-    <link rel="stylesheet" href="../css/aluguel.css">
-    <link rel="stylesheet" href="../css/cabecalho.css">
-    <script src="../javascript/usuario-logado.js"></script>
+  <link rel="stylesheet" href="../css/aluguel.css">
+  <link rel="stylesheet" href="../css/aluguel-enhanced.css">
+  <link rel="stylesheet" href="../css/toast.css">
+  <script src="../javascript/cabecalho-include.js"></script>
+  <script src="../javascript/toast.js"></script>
+   
     
 </head>
-<body>
-    <nav class="navbar">
-        <button class="logo" onclick="window.location.href='landing.html'">i&gt;</button>
-        <ul class="nav-links">
-            <li><a href="aluguel.html" class="active">Aluguel</a></li>
-            <li><a href="sobre.html">Sobre Nós</a></li>
-            <li><a href="motos.html">Motos</a></li>
-            <li><a href="planos.html">Planos</a></li>
-        </ul>
-        <div class="perfil-container">
-            <div id="usuarioLogado" class="perfil-btn" style="display:none;"></div>
-            <div id="perfilDropdown" class="perfil-dropdown" style="display:none;">
-                <button id="relatorioBtn" style="display:none;">Central</button>
-                <button id="minhasReservasBtn">Minhas Reservas</button>
-                <button id="logoutBtn">Sair</button>
-            </div>
-        </div>
-    </nav>
+<body class="aluguel-page">
+    
+    <!-- Partículas animadas -->
+    <div class="particles">
+        <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
+        <div class="particle" style="left: 20%; animation-delay: 2s;"></div>
+        <div class="particle" style="left: 30%; animation-delay: 4s;"></div>
+        <div class="particle" style="left: 40%; animation-delay: 1s;"></div>
+        <div class="particle" style="left: 50%; animation-delay: 3s;"></div>
+        <div class="particle" style="left: 60%; animation-delay: 5s;"></div>
+        <div class="particle" style="left: 70%; animation-delay: 2s;"></div>
+        <div class="particle" style="left: 80%; animation-delay: 4s;"></div>
+        <div class="particle" style="left: 90%; animation-delay: 1s;"></div>
+    </div>
+    
     <main class="aluguel-main">
         <section class="aluguel-info">
             <h1>Reserve sua Moto</h1>
             <form id="aluguelForm">
-                <div class="form-group">
+                <div class="form-group required">
                     <label for="moto">Moto</label>
                     <select id="moto" name="moto" required>
                         <option value="">Selecione a moto</option>
                         <!-- Opções dinâmicas -->
                     </select>
+                    <div class="tooltip">Escolha a moto que deseja alugar</div>
                 </div>
-                <div class="form-group">
+                <div class="form-group required">
                     <label for="plano">Plano</label>
                     <select id="plano" name="plano" required>
                         <option value="">Selecione o plano</option>
                         <!-- Opções dinâmicas -->
                     </select>
+                    <div class="tooltip">Escolha o plano de aluguel</div>
                 </div>
-                <div class="form-group">
+                <div class="form-group required">
+                    <label for="localRetirada">Local de Retirada</label>
+                    <select id="localRetirada" name="localRetirada" required>
+                        <option value="">Selecione o local</option>
+                        <!-- Opções dinâmicas -->
+                    </select>
+                    <div class="tooltip">Selecione o local de retirada da moto</div>
+                </div>
+                <div class="form-group required">
                     <label for="retirada">Data de Retirada</label>
                     <input type="date" id="retirada" name="retirada" required>
+                    <div class="tooltip">Selecione a data de retirada da moto</div>
                 </div>
                 <button type="submit" class="alugar-btn">Alugar</button>
             </form>
@@ -58,20 +69,9 @@
             <div id="detalhesPlano"></div>
         </section>
     </main>
+    <script src="../javascript/footer-include.js"></script>
     <script src="../javascript/aluguel.js"></script>
-    <script>
-    // Exibe botão de relatório para admin
-    document.addEventListener('DOMContentLoaded', function() {
-        const relatorioBtn = document.getElementById('relatorioBtn');
-        const tipoUsuario = localStorage.getItem('tipoUsuario');
-        if (tipoUsuario && tipoUsuario.toUpperCase() === 'ADMIN') {
-            relatorioBtn.style.display = 'block';
-            relatorioBtn.onclick = function() {
-                window.location.href = '../../Admin/html/aluguel-relatorio.html';
-            };
-        }
-    });
-    </script>
+    <script src="../javascript/aluguel-effects.js"></script>
     <!-- Suporte Flutuante Melhorado -->
     <style>
       #suporte-float {

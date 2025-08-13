@@ -1,0 +1,25 @@
+   <link rel="stylesheet" href="../css/cabecalho-admin.css">
+<!-- cabecalho-admin.html - Cabeçalho exclusivo para páginas de administração -->
+
+<nav class="navbar">
+    <button class="logo" onclick="window.location.href='../../Publico/html/landing.html'" style="background: none; border: none; cursor: pointer; padding: 0; outline: none;">
+        <img src="../img/logo.png" alt="RideMoto" style="height:40px;vertical-align:middle;background:transparent;box-shadow:none;">
+    </button>
+    <ul class="nav-links">
+        <li><a href="cadastrar-moto.html">Cadastrar Moto</a></li>
+        <li><a href="cadastrar-plano.html">Cadastrar Plano</a></li>
+        <li><a href="usuarios-admin.html">Usuários</a></li>
+        <li><a href="aluguel-relatorio.html">Relatórios</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+    </ul>
+    <div class="perfil-container">
+        <div id="usuarioLogado" class="perfil-btn" style="display:none;"></div>
+        <div id="perfilDropdown" class="perfil-dropdown">
+            <button id="relatorioBtn">Central</button>
+            <button id="logoutBtn">Sair</button>
+        </div>
+    </div>
+</nav>
+<!-- Nenhum redirecionamento JS extra necessário para o logoutBtn -->
+<script src="/frontend/Publico/javascript/cabecalho-include.js"></script>
+<script src="../javascript/cabecalho-admin.js"></script>

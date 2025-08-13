@@ -1,119 +1,356 @@
-/* Garante que o avisoDatas fique visível e destacado */
-/* aluguel.css - Segue o padrão visual do projeto, inspirado em cadastro.css, motos.css e planos.css */
+/* aluguel.css - Design moderno com glassmorphism e animações */
+
+/* Variáveis CSS específicas para a página de aluguel */
+:root {
+    --primary-gradient: linear-gradient(135deg, #2d085c 0%, #a12b8c 100%);
+    --secondary-gradient: linear-gradient(135deg, #7b2ff2 0%, #f357a8 100%);
+    --accent-color: #00cfff;
+    --glass-bg: rgba(45, 8, 92, 0.9);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --shadow-soft: 0 4px 16px rgba(0, 0, 0, 0.2);
+    --shadow-glow: 0 4px 16px rgba(123, 47, 242, 0.3);
+}
 
 /* Garante que o avisoDatas fique visível e destacado */
 #avisoDatas {
-  color: #f357a8;
-  background: #ffffff;
-  border: 1px solid #f357a8;
-  border-radius: 4px;
-  padding: 8px 12px;
-  margin-bottom: 10px;
-  font-size: 1rem;
-  font-weight: 500;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  z-index: 1000;
-  display: none;
+    color: #f357a8;
+    background: rgba(255, 255, 255, 0.98);
+    border: 2px solid #f357a8;
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    font-size: 1rem;
+    font-weight: 600;
+    box-shadow: 0 4px 16px rgba(243, 87, 168, 0.2);
+    z-index: 1000;
+    display: none;
+    backdrop-filter: blur(10px);
+    animation: slideInDown 0.5s ease-out;
 }
-/* aluguel.css - Segue o padrão visual do projeto, inspirado em cadastro.css, motos.css e planos.css */
-body {
+
+/* Animação para o aviso */
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Background animado com partículas - específico para página de aluguel */
+body.aluguel-page {
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Arial, sans-serif;
-    background: linear-gradient(180deg, #2d085c 0%, #a12b8c 100%);
+    background: var(--primary-gradient);
     min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
 }
 
+/* Efeito de partículas no fundo - específico para página de aluguel */
+body.aluguel-page::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(0, 207, 255, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(243, 87, 168, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(123, 47, 242, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+    animation: float 30s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(0.5deg); }
+}
+
+/* Container principal com fundo roxo sólido */
 .aluguel-main {
     display: flex;
     justify-content: center;
     align-items: flex-start;
     gap: 48px;
-    margin: 48px auto 0 auto;
-    max-width: 1100px;
-    padding: 32px 16px;
+    margin: 48px auto 60px auto;
+    max-width: 1200px;
+    padding: 40px 24px;
     border-radius: 24px;
-    box-shadow: 0 4px 24px rgba(123,47,242,0.10);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-soft);
+    position: relative;
+    overflow: visible; /* Mudado de hidden para visible */
+    z-index: 5; /* Garante que fique acima do fundo */
 }
 
+/* Seção de informações do aluguel */
 .aluguel-info {
-    flex: 1 1 350px;
-    background: linear-gradient(90deg, #2d085c 0%, #a12b8c 100%);
-    border-radius: 16px;
-    box-shadow: 0 2px 12px rgba(123,47,242,0.07);
-    padding: 32px 28px;
+    flex: 1 1 400px;
+    background: rgba(45, 8, 92, 0.9); /* Cor sólida em vez de variável */
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-soft);
+    padding: 40px 32px;
+    position: relative;
+    overflow: visible; /* Mudado de hidden para visible para evitar cortes */
+    transition: all 0.3s ease;
 }
+
+.aluguel-info:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-glow);
+}
+
+/* Título com cor sólida */
 .aluguel-info h1 {
-    color: #7b2ff2;
-    margin-bottom: 24px;
-    font-size: 2rem;
+    color: #00cfff !important; /* Cor sólida para garantir visibilidade */
+    margin-bottom: 32px;
+    font-size: 2.2rem;
+    font-weight: 700;
     letter-spacing: 1px;
+    text-align: center;
+    position: relative;
+    z-index: 10; /* Garante que fique acima de outros elementos */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Adiciona sombra para melhor visibilidade */
+    background: transparent !important; /* Garante que não há fundo */
 }
+
+.aluguel-info h1::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: #00cfff; /* Cor sólida em vez de gradiente */
+    border-radius: 2px;
+}
+
+/* Regra específica para garantir visibilidade do título */
+.aluguel-info h1 {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    color: #00cfff !important;
+    background: none !important; /* Garante que não há fundo */
+    -webkit-text-fill-color: #00cfff !important; /* Força a cor do texto */
+}
+
+/* Grupos de formulário */
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 24px;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
+
 .form-group label {
-    color: #7b2ff2;
-    font-weight: 500;
-    margin-bottom: 6px;
+    color: #fff;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
+
+/* Inputs modernos */
 .form-group input, .form-group select {
-    padding: 10px 12px;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
+    padding: 16px 20px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
     font-size: 1rem;
-    background: #f7f7fa;
-    color: #333;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
     outline: none;
-    transition: border 0.2s;
+    transition: all 0.3s ease;
+    position: relative;
 }
+
+.form-group input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
 .form-group input:focus, .form-group select:focus {
-    border: 1.5px solid #7b2ff2;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 15px rgba(0, 207, 255, 0.3);
+    transform: translateY(-1px);
 }
+
+/* Estilo para options do select */
+.form-group select option {
+    background: #2d085c;
+    color: #fff;
+    padding: 12px;
+}
+
+/* Botão de alugar moderno */
 .alugar-btn {
     width: 100%;
-    background: linear-gradient(90deg, #7b2ff2 60%, #f357a8 100%);
+    background: var(--secondary-gradient);
     color: #fff;
     border: none;
-    border-radius: 20px;
-    padding: 12px 0;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    margin-top: 12px;
-    transition: background 0.2s;
-}
-.alugar-btn:hover {
-    background: linear-gradient(90deg, #f357a8 60%, #7b2ff2 100%);
-}
-
-.aluguel-detalhes {
-    flex: 1 1 300px;
-    background: #f7f7fa;
     border-radius: 16px;
-    box-shadow: 0 2px 12px rgba(123,47,242,0.05);
-    padding: 32px 24px;
-}
-.aluguel-detalhes h2 {
-    color: #f357a8;
-    margin-bottom: 18px;
-    font-size: 1.3rem;
-}
-#detalhesMoto, #detalhesPlano {
-    margin-bottom: 18px;
-    color: #444;
-    font-size: 1.05rem;
+    padding: 16px 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 24px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 16px rgba(123, 47, 242, 0.3);
 }
 
+.alugar-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(123, 47, 242, 0.4);
+}
+
+.alugar-btn:active {
+    transform: translateY(-1px);
+}
+
+/* Seção de detalhes */
+.aluguel-detalhes {
+    flex: 1 1 350px;
+    background: var(--glass-bg);
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-soft);
+    padding: 40px 32px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.aluguel-detalhes:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-glow);
+}
+
+.aluguel-detalhes h2 {
+    background: linear-gradient(135deg, #f357a8 0%, #00cfff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 24px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    position: relative;
+}
+
+.aluguel-detalhes h2::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 2px;
+    background: var(--secondary-gradient);
+    border-radius: 1px;
+}
+
+/* Detalhes da moto e plano */
+
+#detalhesMoto, #detalhesPlano, #detalhesLocal {
+    margin-bottom: 20px;
+    color: #fff;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+#detalhesMoto:hover, #detalhesPlano:hover, #detalhesLocal:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateX(3px);
+}
+
+/* Responsividade */
 @media (max-width: 900px) {
     .aluguel-main {
         flex-direction: column;
-        gap: 24px;
-        padding: 18px 4px;
+        gap: 32px;
+        padding: 24px 16px;
+        margin: 24px 16px 60px 16px;
     }
+    
     .aluguel-info, .aluguel-detalhes {
-        padding: 20px 10px;
+        padding: 24px 20px;
     }
+    
+    .aluguel-info h1 {
+        font-size: 1.8rem;
+        color: #00cfff !important;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    
+    .aluguel-detalhes h2 {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .aluguel-main {
+        padding: 20px 12px;
+        margin: 16px 8px 60px 8px;
+    }
+    
+    .aluguel-info, .aluguel-detalhes {
+        padding: 20px 16px;
+    }
+    
+    .form-group input, .form-group select {
+        padding: 14px 16px;
+    }
+    
+    .alugar-btn {
+        padding: 14px 0;
+        font-size: 1.1rem;
+    }
+}
+
+/* Animações de entrada */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.aluguel-info {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.aluguel-detalhes {
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+/* Efeito de pulso para elementos importantes */
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.01); }
+}
+
+.alugar-btn:hover {
+    animation: pulse 3s infinite;
 }

@@ -1,22 +1,97 @@
+/* Modal customizado */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.5);
+    align-items: center;
+    justify-content: center;
+}
+.modal-content {
+    background: #fff;
+    padding: 32px 24px;
+    border-radius: 16px;
+    max-width: 400px;
+    min-width: 260px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    position: relative;
+}
+.fechar-modal {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+/* Botão Ver Local estilizado */
+.ver-local-btn {
+    background-color: #f357a8;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s;
+    font-weight: 500;
+    box-shadow: 0 1px 4px rgba(243,87,168,0.08);
+    outline: none;
+}
+.ver-local-btn:hover, .ver-local-btn.aberto {
+    background-color: #d12e7a;
+    box-shadow: 0 2px 8px rgba(243,87,168,0.18);
+}
+
+/* Linha de detalhes expandida */
+.detalhes-local-row {
+    background: #fff0fa;
+    transition: all 0.2s;
+}
+.detalhes-local-content {
+    padding: 16px 12px;
+    font-size: 1rem;
+    color: #3a3a3a;
+    border-radius: 6px;
+    background: #fff;
+    box-shadow: 0 1px 6px rgba(243,87,168,0.07);
+    margin: 0 0 0 0;
+    line-height: 1.6;
+}
 body {
     font-family: 'Segoe UI', Arial, sans-serif;
     background: linear-gradient(180deg, #2d085c 0%, #a12b8c 100%);
     margin: 0;
     padding: 0;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 
 .reservas-main {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    margin: 48px auto 0 auto;
-    max-width: 700px;
-    padding: 32px 16px;
+    margin: 72px auto 0 auto;
+    max-width: 900px;
+    padding: 64px 48px 64px 48px;
     background: none;
     border-radius: 0;
     box-shadow: none;
+    flex: 1 0 auto;
+    gap: 96px;
+    margin-bottom: 96px;
+}
+footer {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
 }
 
 .reservas-info h1 {
@@ -37,11 +112,14 @@ body {
     border-radius: 16px;
     box-shadow: none;
     padding: 32px 28px;
+    margin-bottom: 96px;
+    padding: 48px 40px;
 }
 
 #reservasTabelaContainer {
     width: 100%;
     overflow-x: auto;
+    margin-bottom: 96px;
 }
 
 .reservas-tabela {
@@ -55,7 +133,7 @@ body {
 }
 
 .reservas-tabela th, .reservas-tabela td {
-    padding: 12px 10px;
+    padding: 20px 18px;
     text-align: left;
     border-bottom: 1px solid #e0e0e0;
     font-size: 1.08rem;
@@ -73,9 +151,7 @@ body {
     border-bottom: none;
 }
 
-.reservas-tabela tr:hover {
-    background: #f357a81a;
-}
+
 
 .sem-reservas {
     color: #fff;
