@@ -1,8 +1,14 @@
 --Dados para o banco de dados RideMoto
-INSERT INTO usuarios (id, cnh_numero, cnh_validade, cpf, email, nome, senha, status, telefone, tipo_suario, tipo_usuario) VALUES
-(8, NULL, NULL, '96999324069', 'adm@admin.com', 'Administrador', 'admin123', 'ATIVO', '31993289423', 'admin', NULL),
-(9, '85242089926', NULL, '51874331057', 'bra@bra.com', 'Bernardo', '123456', 'ATIVO', '(65) 87777-7708', 'cliente', NULL),
-(10, '85242089926', NULL, '71071057014', 'jajao@jajao.com', 'Joao Fedor', '123456', 'ATIVO', '(34) 65786-9090', 'cliente', NULL);
+INSERT INTO usuarios (nome, email, senha, cpf, tipo_suario, status)
+VALUES (
+  'Administrador',
+  'admin@admin.com',
+  'admin123',
+  '96999324069',
+  'ADMIN',
+  'ATIVO'
+);
+
 
 
 
