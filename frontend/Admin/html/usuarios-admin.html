@@ -68,5 +68,29 @@
         });
     }
     </script>
+    <!-- Modal de edição de usuário -->
+    <div id="modal-editar-usuario" style="display:none;">
+      <div class="modal-content">
+        <h2>Editar Usuário</h2>
+        <form id="formEditarUsuario">
+          <input type="hidden" id="editUsuarioId">
+          <label for="editUsuarioNome">Nome</label>
+          <input type="text" id="editUsuarioNome" required>
+          <label for="editUsuarioEmail">Email</label>
+          <input type="email" id="editUsuarioEmail" required>
+          <label for="editUsuarioTelefone">Telefone</label>
+          <input type="text" id="editUsuarioTelefone">
+          <label for="editUsuarioTipo">Tipo de Usuário</label>
+          <select id="editUsuarioTipo">
+            <option value="admin">Admin</option>
+            <option value="cliente">Cliente</option>
+          </select>
+          <div class="modal-actions">
+            <button type="submit">Salvar</button>
+            <button type="button" id="fechar-modal-editar">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
 </body>
 </html>

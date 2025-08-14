@@ -63,12 +63,13 @@
     margin-top: 18px;
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 4px;
 }
 .modal-editar-group {
     display: flex;
     flex-direction: column;
     gap: 6px;
+
 }
 .modal-editar-group label {
     font-weight: 600;

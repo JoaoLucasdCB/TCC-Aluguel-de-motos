@@ -39,7 +39,7 @@
 #modal-editar-moto input, #modal-editar-moto select {
   width: 100%;
   padding: 8px 10px;
-  border-radius: 16px;
+  border-radius: 8px;
   border: 1px solid #e0e0e0;
   font-size: 1rem;
   margin-bottom: 12px;
@@ -142,6 +142,11 @@
 #modal-editar select:focus {
   border: 1.5px solid #f357a8;
   outline: none;
+}
+/* Força border-radius nos inputs/selects do modal de editar moto */
+#modal-editar-moto input,
+#modal-editar-moto select {
+  border-radius: 8px !important;
 }
 #modal-editar .modal-actions {
   display: flex;

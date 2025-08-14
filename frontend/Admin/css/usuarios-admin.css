@@ -113,6 +113,84 @@ td {
     background: #388e3c;
     box-shadow: 0 6px 24px #0003;
 }
+/* Modal de edição de usuário */
+#modal-editar-usuario {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.45);
+  align-items: center; justify-content: center;
+  z-index: 1000;
+}
+#modal-editar-usuario .modal-content {
+  background: #fff;
+  padding: 36px 32px 28px 32px;
+  border-radius: 18px;
+  min-width: 340px;
+  max-width: 500px;
+  box-shadow: 0 4px 32px #0002;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+#modal-editar-usuario h2 {
+  margin: 0 0 10px 0;
+
+  font-size: 1.4rem;
+  text-align: center;
+}
+#modal-editar-usuario label {
+  font-weight: 500;
+  color: #444;
+  margin-bottom: 4px;
+}
+#modal-editar-usuario input, #modal-editar-usuario select {
+  width: 100%;
+  padding: 8px 10px;
+  
+  font-size: 1rem;
+  margin-bottom: 12px;
+  background: #fafafa;
+  transition: border 0.2s;
+}
+#modal-editar-usuario input:focus, #modal-editar-usuario select:focus {
+  border: 1.5px solid #f357a8;
+  outline: none;
+}
+#modal-editar-usuario .modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 10px;
+}
+#modal-editar-usuario button[type="submit"] {
+  background: #f357a8;
+  color: #fff;
+  padding: 8px 22px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+#modal-editar-usuario button[type="submit"]:hover {
+  background: #d12e7a;
+}
+#modal-editar-usuario button#fechar-modal-editar {
+  background: #eee;
+  color: #444;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+#modal-editar-usuario button#fechar-modal-editar:hover {
+  background: #e0e0e0;
+}
 @media (max-width: 900px) {
     .usuarios-main {
         padding: 12px 2px;
