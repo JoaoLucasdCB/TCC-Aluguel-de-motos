@@ -11,11 +11,11 @@ document.getElementById('formCadastroPlano').addEventListener('submit', async fu
         beneficios: beneficios
     };
     if (!plano.nomePlano || !plano.duracao || !beneficio1 || !beneficio2 || !beneficio3 || !beneficio4) {
-    showMsg('Preencha todos os campos obrigatórios!', 'error');
+        showMsg('Preencha todos os campos obrigatórios!', 'error');
         return;
     }
     try {
-    // Usa token já declarado fora do escopo, se necessário
+        const token = localStorage.getItem('token');
         const response = await fetch('http://localhost:8080/planos', {
             method: 'POST',
             headers: {
@@ -25,10 +25,10 @@ document.getElementById('formCadastroPlano').addEventListener('submit', async fu
             body: JSON.stringify(plano)
         });
         if (!response.ok) throw new Error('Erro ao cadastrar plano');
-    showMsg('Plano cadastrado com sucesso!', 'success');
+        showMsg('Plano cadastrado com sucesso!', 'success');
         this.reset();
     } catch (err) {
-    showMsg('Erro ao cadastrar plano: ' + err.message, 'error');
+        showMsg('Erro ao cadastrar plano: ' + err.message, 'error');
     }
 });
 // Protege a página: só acessa se estiver logado e for admin

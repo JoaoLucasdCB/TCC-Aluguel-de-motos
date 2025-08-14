@@ -6,6 +6,7 @@ public class PlanoDTO {
     private Integer duracao;
     private String beneficios;
 
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getNomePlano() { return nomePlano; }

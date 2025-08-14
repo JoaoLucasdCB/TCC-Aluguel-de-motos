@@ -5,6 +5,7 @@ public class PlanoInputDTO {
     private Integer duracao;
     private String beneficios;
 
+
     public String getNomePlano() { return nomePlano; }
     public void setNomePlano(String nomePlano) { this.nomePlano = nomePlano; }
     public Integer getDuracao() { return duracao; }

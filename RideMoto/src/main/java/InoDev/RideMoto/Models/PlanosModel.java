@@ -37,6 +37,7 @@ import lombok.Setter;
      @Column(name = "beneficios", nullable = false)
     private String beneficios;
 
+
     @ManyToMany
     @JoinTable(
         name = "plano_moto",

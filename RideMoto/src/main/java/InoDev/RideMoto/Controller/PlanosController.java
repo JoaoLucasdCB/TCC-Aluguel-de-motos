@@ -27,6 +27,7 @@ public class PlanosController {
     }
 
     @PostMapping
+    @org.springframework.security.access.prepost.PreAuthorize("hasRole('ADMIN')")
     public PlanoDTO salvar(@RequestBody PlanoInputDTO planoInput) {
         PlanosModel plano = fromInputDTO(planoInput);
         return toDTO(service.salvar(plano));
@@ -61,19 +62,19 @@ public class PlanosController {
     // Conversão Model -> DTO
     private PlanoDTO toDTO(PlanosModel plano) {
         PlanoDTO dto = new PlanoDTO();
-        dto.setId(plano.getId());
-        dto.setNomePlano(plano.getNomePlano());
-        dto.setDuracao(plano.getDuracao());
-        dto.setBeneficios(plano.getBeneficios());
+    dto.setId(plano.getId());
+    dto.setNomePlano(plano.getNomePlano());
+    dto.setDuracao(plano.getDuracao());
+    dto.setBeneficios(plano.getBeneficios());
         return dto;
     }
 
     // Conversão InputDTO -> Model
     private PlanosModel fromInputDTO(PlanoInputDTO input) {
         PlanosModel plano = new PlanosModel();
-        plano.setNomePlano(input.getNomePlano());
-        plano.setDuracao(input.getDuracao());
-        plano.setBeneficios(input.getBeneficios());
+    plano.setNomePlano(input.getNomePlano());
+    plano.setDuracao(input.getDuracao());
+    plano.setBeneficios(input.getBeneficios());
         return plano;
     }
 }
