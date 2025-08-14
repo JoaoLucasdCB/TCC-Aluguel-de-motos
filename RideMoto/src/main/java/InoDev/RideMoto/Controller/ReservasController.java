@@ -41,7 +41,7 @@ public class ReservasController {
         return service.buscarPorId(id).map(this::toDTO);
     }
 
-    @PreAuthorize("hasRole('CLIENTE')")
+    // @PreAuthorize removido para liberar acesso
     @PostMapping
     public ResponseEntity<?> salvar(@RequestBody ReservaInputDTO reservaInput) {
         var usuarioOpt = usuarioService.buscarPorId(reservaInput.getUsuarioId());
@@ -152,6 +152,16 @@ public class ReservasController {
     // Conversão InputDTO -> Model
     private ReservasModel fromInputDTO(ReservaInputDTO input) {
         ReservasModel reserva = new ReservasModel();
+        // Define dataInicio a partir do input
+        if (input.getDataInicio() != null && !input.getDataInicio().isEmpty()) {
+            try {
+                reserva.setDataInicio(java.time.LocalDate.parse(input.getDataInicio()));
+            } catch (Exception e) {
+                reserva.setDataInicio(java.time.LocalDate.now());
+            }
+        } else {
+            reserva.setDataInicio(java.time.LocalDate.now());
+        }
         reserva.setStatus(input.getStatus() != null ? ReservasModel.StatusReserva.valueOf(input.getStatus()) : null);
         reserva.setUsuario(usuarioService.buscarPorId(input.getUsuarioId()).orElse(null));
         reserva.setPlano(planosService.buscarPorId(input.getPlanoId()).orElse(null));

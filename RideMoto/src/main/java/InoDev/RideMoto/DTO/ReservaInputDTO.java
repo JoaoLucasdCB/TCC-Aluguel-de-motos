@@ -2,6 +2,9 @@
 package InoDev.RideMoto.DTO;
 
 public class ReservaInputDTO {
+    private String dataInicio;
+    public String getDataInicio() { return dataInicio; }
+    public void setDataInicio(String dataInicio) { this.dataInicio = dataInicio; }
     private String dataRetirada;
     private String status;
     private Long usuarioId;

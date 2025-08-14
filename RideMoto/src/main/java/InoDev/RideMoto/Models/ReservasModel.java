@@ -22,6 +22,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @NoArgsConstructor
 @Table(name = "reservas")
 public class ReservasModel {
+    @Column(name = "data_inicio", nullable = false)
+    private LocalDate dataInicio;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
