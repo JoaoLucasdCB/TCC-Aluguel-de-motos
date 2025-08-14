@@ -278,19 +278,19 @@ document.addEventListener('DOMContentLoaded', function() {
             let html = '<table style="width:100%;border-collapse:collapse;margin-top:16px;">';
             html += '<tr style="background:#4caf50;color:#fff;"><th>Nome</th><th>Marca</th><th>Modelo</th><th>Placa</th><th>Status</th><th>Ano</th><th>Quilometragem</th><th>Ações</th></tr>';
             motos.forEach(m => {
-                html += `<tr style="border-bottom:1px solid #eee;">
-                    <td>${m.nome || '-'}</td>
-                    <td>${m.marca || '-'}</td>
-                    <td>${m.modelo || '-'}</td>
-                    <td>${m.placa || '-'}</td>
-                    <td>${m.status || '-'}</td>
-                    <td>${m.ano || '-'}</td>
-                    <td>${m.quilometragem || '-'}</td>
-                    <td>
-                      <button class="editar-moto-btn" data-id="${m.id}" style="background:#2196f3;color:#fff;border:none;padding:6px 12px;border-radius:8px;cursor:pointer;margin-right:8px;">Editar</button>
-                      <button class="excluir-moto-btn" data-id="${m.id}" style="background:#d9534f;color:#fff;border:none;padding:6px 12px;border-radius:8px;cursor:pointer;">Excluir</button>
-                    </td>
-                </tr>`;
+                                html += `<tr style="border-bottom:1px solid #eee;">
+                                        <td>${m.nome || '-'}<\/td>
+                                        <td>${m.marca || '-'}<\/td>
+                                        <td>${m.modelo || '-'}<\/td>
+                                        <td>${m.placa || '-'}<\/td>
+                                        <td>${m.status || '-'}<\/td>
+                                        <td>${m.ano || '-'}<\/td>
+                                        <td>${m.quilometragem || '-'}<\/td>
+                                        <td>
+                                            <button class="editar-moto-btn btn-editar" data-id="${m.id}" style="margin-right:8px;">Editar<\/button>
+                                            <button class="excluir-moto-btn btn-excluir" data-id="${m.id}">Excluir<\/button>
+                                        <\/td>
+                                <\/tr>`;
             });
             html += '</table>';
             motosDiv.innerHTML = html;

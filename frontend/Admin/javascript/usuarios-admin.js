@@ -29,8 +29,9 @@ async function renderUsuarios() {
                 <td><span class="telefone">${usuario.telefone || ''}</span></td>
                 <td><span class="tipo-usuario">${usuario.tipoUsuario ? (usuario.tipoUsuario.charAt(0).toUpperCase() + usuario.tipoUsuario.slice(1)) : ''}</span></td>
                 <td>
-                    <button onclick="editarUsuario(${usuario.id})">Editar</button>
-                    <button onclick="excluirUsuario(${usuario.id})">Excluir</button>
+                        <button onclick="editarUsuario(${usuario.id})" style="background:#4caf50;color:#fff;border:none;padding:6px 12px;border-radius:8px;cursor:pointer;margin-right:8px;">Editar</button>
+                        <button onclick="excluirUsuario(${usuario.id})" style="background:#f357a8;color:#fff;border:none;padding:6px 12px;border-radius:8px;cursor:pointer;">Excluir</button>
+                    
                 </td>
             `;
             tbody.appendChild(tr);

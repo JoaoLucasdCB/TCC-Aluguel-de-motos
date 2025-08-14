@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Usuários Cadastrados - Admin</title>
-    <link rel="stylesheet" href="../css/aluguel-relatorio.css">
+    <!-- Removido CSS de aluguel-relatorio para evitar conflito de estilos -->
     <link rel="stylesheet" href="../css/usuarios-admin.css">
     <link rel="stylesheet" href="../../Publico/css/toast.css">
 </head>
@@ -18,15 +18,17 @@
             <table class="usuarios-table">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Nome</th>
-                        <th>Email</th>
-                        <th>Telefone</th>
-                        <th>Ações</th>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>Telefone</th>
+                            <th>Usuário</th>
+                            <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody id="usuariosTableBody">
-                    <!-- Usuários serão inseridos via JS -->
+                        <!-- Usuários serão inseridos via JS -->
+                        <!-- O JS deve preencher a nova coluna 'Usuário' e garantir que os botões fiquem abaixo do texto 'Ações' -->
                 </tbody>
             </table>
         </section>

@@ -1,6 +1,41 @@
+/* Estilos herdados de aluguel-relatorio.css para manter visual original */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(180deg, #2d085c 0%, #a12b8c 100%);
+    min-height: 100vh;
+}
+
+
+
+
+th {
+    background: #f357a8;
+    color: #fff;
+    font-weight: 600;
+    border-bottom: 2px solid #a12b8c;
+}
+tr {
+    border-bottom: 1px solid #eee;
+}
+tr:last-child {
+    border-bottom: none;
+}
+td {
+    color: #444;
+}
+@media (max-width: 700px) {
+    th, td {
+        padding: 8px 4px;
+        font-size: 0.95rem;
+    }
+    table {
+        font-size: 0.95rem;
+    }
+}
 /* usuarios-admin.css - Estilos para a tela de usuários do admin */
 .usuarios-main {
-    display: flex;
     justify-content: center;
     align-items: flex-start;
     margin: 48px auto 0 auto;
@@ -38,36 +73,45 @@
     text-align: left;
 }
 .usuarios-table th {
-    background: #7b2ff2;
     color: #fff;
     font-weight: 600;
 }
-.usuarios-table tr:nth-child(even) {
-    background: #f7f7fa;
-}
-.usuarios-table tr:nth-child(odd) {
-    background: #fff;
-}
+
 .usuarios-table td {
     vertical-align: middle;
 }
-.usuarios-table button {
-    background: linear-gradient(90deg, #7b2ff2 60%, #f357a8 100%);
+
+.btn-editar {
+    background: #4caf50;
     color: #fff;
     border: none;
-    border-radius: 16px;
-    padding: 6px 16px;
-    font-size: 1rem;
-    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 8px;
     cursor: pointer;
-    margin-right: 8px;
-    transition: background 0.2s;
+    transition: background 0.2s, color 0.2s;
 }
-.usuarios-table button:last-child {
-    margin-right: 0;
+.btn-editar:hover {
+    background: #b3005a;
 }
-.usuarios-table button:hover {
-    background: linear-gradient(90deg, #f357a8 60%, #7b2ff2 100%);
+/* Botão excluir */
+.btn-excluir {
+    background: #f357a8;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font: inherit;
+  line-height: 1;
+  transition: filter .2s ease, transform .05s ease;
+}
+.btn-excluir:hover {
+    background: #f8e6f0;
+    color: #b3005a;
+}
+.btn-cadastrar-fixo:hover {
+    background: #388e3c;
+    box-shadow: 0 6px 24px #0003;
 }
 @media (max-width: 900px) {
     .usuarios-main {

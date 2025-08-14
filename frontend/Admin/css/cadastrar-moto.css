@@ -15,6 +15,35 @@
     z-index: 1100;
     transition: background 0.2s, box-shadow 0.2s;
 }
+/* Botão editar */
+.btn-editar {
+    background: #4caf50;
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+.btn-editar:hover {
+    background: #b3005a;
+}
+/* Botão excluir */
+.btn-excluir {
+    background: #f357a8;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font: inherit;
+  line-height: 1;
+  transition: filter .2s ease, transform .05s ease;
+}
+.btn-excluir:hover {
+    background: #f8e6f0;
+    color: #b3005a;
+}
 .btn-cadastrar-fixo:hover {
     background: #388e3c;
     box-shadow: 0 6px 24px #0003;
