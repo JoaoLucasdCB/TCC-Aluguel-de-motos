@@ -5,13 +5,17 @@ async function fetchAndRenderPlanos() {
         const planos = await response.json();
         const planosList = document.getElementById('planosList');
         planosList.innerHTML = '';
-        planos.forEach(plano => {
+        // Preços fictícios baratos
+        const precosFicticios = ["R$ 25,90", "R$ 99,90", "R$ 249,90"];
+        planos.forEach((plano, idx) => {
             const card = document.createElement('div');
             card.className = 'plano-card';
+            const preco = precosFicticios[idx % precosFicticios.length];
             card.innerHTML = `
                 <div class="badge">${plano.destaque ? plano.destaque : ''}</div>
                 <div class="plano-nome">${plano.nomePlano}</div>
                 <div class="plano-descricao">Duração: ${plano.duracao} dias</div>
+                <div class="plano-preco">Preço: <strong>${preco}</strong></div>
                 <ul class="plano-beneficios">
                     ${plano.beneficios.split(',').map(b => `<li>${b.trim()}</li>`).join('')}
                 </ul>
