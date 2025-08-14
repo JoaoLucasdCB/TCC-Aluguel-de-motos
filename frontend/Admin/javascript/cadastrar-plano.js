@@ -205,8 +205,21 @@ async function carregarPlanos() {
             if (plano) abrirModalEditarPlano(plano);
         };
         window.excluirPlanoFront = async function(id) {
-            const plano = planos.find(p => p.id === id);
-            if (plano) abrirModalEditarPlano(plano);
+            if (!confirm('Tem certeza que deseja excluir este plano?')) return;
+            try {
+                const token = localStorage.getItem('token');
+                const response = await fetch(`http://localhost:8080/planos/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    }
+                });
+                if (!response.ok) throw new Error('Erro ao excluir plano');
+                showMsg('Plano excluído com sucesso!', 'success');
+                carregarPlanos();
+            } catch (err) {
+                showMsg('Erro ao excluir plano: ' + err.message, 'error');
+            }
         };
     } catch (err) {
         tbody.innerHTML = '<tr><td colspan="4">Erro ao carregar planos.</td></tr>';
