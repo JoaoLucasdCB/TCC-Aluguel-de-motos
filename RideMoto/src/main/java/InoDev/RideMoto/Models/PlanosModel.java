@@ -45,7 +45,7 @@ import lombok.Setter;
     )
     private Set<MotosModel> motos;
 
-    @OneToMany(mappedBy = "plano")
+    @OneToMany(mappedBy = "plano", cascade = jakarta.persistence.CascadeType.REMOVE, orphanRemoval = true)
     @JsonManagedReference
     private List<ReservasModel> reservas;
 
