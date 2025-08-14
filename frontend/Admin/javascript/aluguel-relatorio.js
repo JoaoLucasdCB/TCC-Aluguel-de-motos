@@ -1,5 +1,3 @@
-
-
 document.addEventListener('DOMContentLoaded', function() {
     // Protege páginas admin: só admin pode acessar
     const tipoUsuario = localStorage.getItem('tipoUsuario');
@@ -39,30 +37,75 @@ document.addEventListener('DOMContentLoaded', function() {
             const relatorioDiv = document.getElementById('relatorioDados');
             if (!reservas || reservas.length === 0) {
                 relatorioDiv.innerHTML = '<p>Nenhuma reserva encontrada.</p>';
-                return;
+            } else {
+                let html = '<table style="width:100%;border-collapse:collapse;margin-top:16px;">';
+                html += '<tr style="background:#f357a8;color:#fff;"><th>Moto</th><th>Usuário</th><th>Data de Retirada</th><th>Status</th><th>Ações</th></tr>';
+                reservas.forEach(r => {
+                    html += `<tr style="border-bottom:1px solid #eee;">
+                        <td>${r.motoNome || '-'}</td>
+                        <td>${r.usuarioNome || '-'}</td>
+                        <td>${r.dataRetirada ? r.dataRetirada : '-'}</td>
+                        <td>${r.status || '-'}</td>
+                        <td>
+                          <button class="editar-reserva-btn" data-id="${r.id}" data-status="${r.status || ''}" style="background:#4caf50;color:#fff;border:none;padding:6px 12px;border-radius:8px;cursor:pointer;margin-right:8px;">Editar</button>
+                          <button class="excluir-reserva-btn" data-id="${r.id}" style="background:#f357a8;color:#fff;border:none;padding:6px 12px;border-radius:8px;cursor:pointer;">Excluir</button>
+                        </td>
+                    </tr>`;
+                });
+                html += '</table>';
+                relatorioDiv.innerHTML = html;
             }
-            let html = '<table style="width:100%;border-collapse:collapse;margin-top:16px;">';
-            html += '<tr style="background:#f357a8;color:#fff;"><th>Moto</th><th>Usuário</th><th>Data de Retirada</th><th>Status</th><th>Ações</th></tr>';
-            reservas.forEach(r => {
-                html += `<tr style="border-bottom:1px solid #eee;">
-                    <td>${r.motoNome || '-'}</td>
-                    <td>${r.usuarioNome || '-'}</td>
-                    <td>${r.dataRetirada ? r.dataRetirada : '-'}</td>
-                    <td>${r.status || '-'}</td>
-                    <td>
-                      <button class="editar-reserva-btn" data-id="${r.id}" data-status="${r.status || ''}" style="background:#4caf50;color:#fff;border:none;padding:6px 12px;border-radius:8px;cursor:pointer;margin-right:8px;">Editar</button>
-                      <button class="excluir-reserva-btn" data-id="${r.id}" style="background:#f357a8;color:#fff;border:none;padding:6px 12px;border-radius:8px;cursor:pointer;">Excluir</button>
-                    </td>
-                </tr>`;
-            });
-            html += '</table>';
-            relatorioDiv.innerHTML = html;
 
-            // Evento editar
+            // Adiciona evento ao botão de exportação SEMPRE após preencher a tabela
+            const exportarBtn = document.getElementById('exportarPlanilhaBtn');
+            if (exportarBtn) {
+                exportarBtn.onclick = function() {
+                    // SheetJS - Gera dados
+                    let dados = [];
+                    // Cabeçalhos
+                    dados.push(["Moto", "Usuário", "Data de Retirada", "Status"]);
+                    // Linhas
+                    reservas.forEach(r => {
+                        dados.push([
+                            r.motoNome || '-',
+                            r.usuarioNome || '-',
+                            r.dataRetirada || '-',
+                            r.status || '-'
+                        ]);
+                    });
+
+                    // Cria workbook e worksheet
+                    const wb = XLSX.utils.book_new();
+                    const ws = XLSX.utils.aoa_to_sheet([]);
+
+                    // Adiciona texto identificador e logo
+                    XLSX.utils.sheet_add_aoa(ws, [["RideMoto Serviços"]], {origin: "A1"});
+                    XLSX.utils.sheet_add_aoa(ws, [["Relatório de Aluguel"]], {origin: "A2"});
+                    ws["A3"] = { t: "s", v: "Logo: https://localhost:8080/frontend/Publico/img/LogoRideMoto.png" };
+
+                    // Adiciona dados a partir da linha 4
+                    XLSX.utils.sheet_add_aoa(ws, [dados[0]], {origin: "A4"});
+                    for(let i=1; i<dados.length; i++) {
+                        XLSX.utils.sheet_add_aoa(ws, [dados[i]], {origin: `A${4+i}`});
+                    }
+
+                    // Organiza largura das colunas
+                    ws['!cols'] = [
+                        { wch: 20 }, // Moto
+                        { wch: 20 }, // Usuário
+                        { wch: 20 }, // Data de Retirada
+                        { wch: 15 }  // Status
+                    ];
+
+                    XLSX.utils.book_append_sheet(wb, ws, "Relatório");
+                    XLSX.writeFile(wb, "relatorio-aluguel.xlsx");
+                };
+            }
+
+            // Eventos dos botões editar/excluir
             document.querySelectorAll('.editar-reserva-btn').forEach(btn => {
                 btn.addEventListener('click', async function() {
                     const id = this.getAttribute('data-id');
-                    // Busca dados completos da reserva
                     let reservaCompleta = null;
                     try {
                         const resp = await fetch(`http://localhost:8080/reservas/${id}`);
@@ -74,14 +117,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         showMsg('Erro ao buscar dados da reserva.', 'error');
                         return;
                     }
-                    // Salva dados completos em window para uso no submit
                     window.reservaParaEditar = reservaCompleta;
                     document.getElementById('editar-id').value = id;
                     document.getElementById('editar-status').value = reservaCompleta.status || 'PENDENTE';
                     document.getElementById('modal-editar').style.display = 'flex';
                 });
             });
-            // Evento excluir
             document.querySelectorAll('.excluir-reserva-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const reservaId = this.getAttribute('data-id');
@@ -117,12 +158,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const modal = document.getElementById('modal-editar');
     const fecharBtn = document.getElementById('fechar-modal-editar');
     if (fecharBtn) fecharBtn.onclick = () => { modal.style.display = 'none'; };
-    // Botão cancelar dentro do form
     const cancelarBtn = document.getElementById('fechar-modal-editar-2');
     if (cancelarBtn) cancelarBtn.onclick = () => { modal.style.display = 'none'; };
-    // Fecha ao clicar fora do conteúdo
     if (modal) modal.onclick = e => { if (e.target === modal) modal.style.display = 'none'; };
-    // Submissão do form
     const form = document.getElementById('form-editar-reserva');
     if (form) {
         form.onsubmit = function(e) {
@@ -130,7 +168,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const id = document.getElementById('editar-id').value;
             const status = document.getElementById('editar-status').value;
             const token = localStorage.getItem('token');
-            // Usa os dados completos da reserva, só alterando o status
             const r = window.reservaParaEditar || {};
             const body = {
                 status,
