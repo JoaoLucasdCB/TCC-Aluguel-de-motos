@@ -62,7 +62,7 @@ function abrirModalCadastroPlano() {
     modalTituloPlano.textContent = 'Cadastrar Novo Plano';
     cadastrarPlanoBtn.style.display = '';
     editarPlanoBtn.style.display = 'none';
-    excluirPlanoBtn.style.display = 'none';
+    //excluirPlanoBtn.style.display = 'none';
     formCadastroPlano.reset();
     idPlanoEditando = null;
 }
@@ -71,7 +71,7 @@ function abrirModalEditarPlano(plano) {
     modalTituloPlano.textContent = 'Editar Plano';
     cadastrarPlanoBtn.style.display = 'none';
     editarPlanoBtn.style.display = '';
-    excluirPlanoBtn.style.display = '';
+    //excluirPlanoBtn.style.display = 'none';
     document.getElementById('nomePlano').value = plano.nomePlano || '';
     document.getElementById('duracao').value = plano.duracao || '';
     const beneficiosArr = (plano.beneficios || '').split(',');
@@ -153,25 +153,7 @@ editarPlanoBtn.addEventListener('click', async function() {
     }
 });
 
-excluirPlanoBtn.addEventListener('click', async function() {
-    if (!idPlanoEditando) return;
-    if (!confirm('Tem certeza que deseja excluir este plano?')) return;
-    try {
-        const token = localStorage.getItem('token');
-        const response = await fetch(`http://localhost:8080/planos/${idPlanoEditando}`, {
-            method: 'DELETE',
-            headers: {
-                'Authorization': 'Bearer ' + token
-            }
-        });
-        if (!response.ok) throw new Error('Erro ao excluir plano');
-        showMsg('Plano excluído com sucesso!', 'success');
-        fecharModalPlano();
-        carregarPlanos();
-    } catch (err) {
-        showMsg('Erro ao excluir plano: ' + err.message, 'error');
-    }
-});
+// Removido botão de excluir do modal de edição de planos
 
 async function carregarPlanos() {
     const tbody = document.getElementById('planosCadastrados');
@@ -201,8 +183,21 @@ async function carregarPlanos() {
             </tr>
         `).join('');
         window.editarPlanoFront = async function(id) {
-            const plano = planos.find(p => p.id === id);
-            if (plano) abrirModalEditarPlano(plano);
+            try {
+                const token = localStorage.getItem('token');
+                const response = await fetch(`http://localhost:8080/planos/${id}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                if (!response.ok) throw new Error('Erro ao buscar dados do plano');
+                const plano = await response.json();
+                abrirModalEditarPlano(plano);
+            } catch (err) {
+                showMsg('Erro ao buscar dados do plano: ' + err.message, 'error');
+            }
         };
         window.excluirPlanoFront = async function(id) {
             if (!confirm('Tem certeza que deseja excluir este plano?')) return;
