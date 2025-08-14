@@ -6,6 +6,7 @@
     <title>Cadastrar Novo Plano - Admin</title>
     <link rel="stylesheet" href="../css/aluguel-relatorio.css">
     <link rel="stylesheet" href="../css/cadastrar-moto.css">
+    <link rel="stylesheet" href="../css/modal-editar.css">
     <link rel="stylesheet" href="../../Publico/css/toast.css">
 </head>
 <body>
@@ -13,25 +14,53 @@
     <div id="cabecalho-include"></div>
     <script src="../../Publico/javascript/cabecalho-include.js"></script>
     <main class="admin-main">
-        <form class="admin-form" id="formCadastroPlano">
-            <h1>Cadastrar Novo Plano</h1>
-            <label for="nomePlano">Nome do Plano</label>
-            <input type="text" id="nomePlano" name="nomePlano" required>
+        <section class="relatorio-info">
+            <h1 style="margin-bottom:18px;">Gerenciamento de Planos</h1>
+            <button id="abrirCadastroPlanoBtn" class="btn-cadastrar-fixo">Cadastrar Novo Plano</button>
+            <div style="overflow-x:auto; margin-top:18px;">
+                <table id="tabelaPlanos" class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Nome do Plano</th>
+                            <th>Duração (dias)</th>
+                            <th>Benefícios</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="planosCadastrados"></tbody>
+                </table>
+            </div>
+        </section>
 
-            <label for="duracao">Duração (dias)</label>
-            <input type="number" id="duracao" name="duracao" min="1" required>
-
-            <label>Benefícios</label>
-            <input type="text" id="beneficio1" name="beneficio1" required placeholder="Benefício 1">
-            <input type="text" id="beneficio2" name="beneficio2" required placeholder="Benefício 2">
-            <input type="text" id="beneficio3" name="beneficio3" required placeholder="Benefício 3">
-            <input type="text" id="beneficio4" name="beneficio4" required placeholder="Benefício 4">
-
-            <button type="submit" id="cadastrarPlanoBtn">Cadastrar Plano</button>
-            <button type="button" id="editarPlanoBtn">Editar Plano</button>
-            <button type="button" id="confirmarAlteracaoPlanoBtn" style="display:none;">Confirmar Alteração</button>
-            <button type="button" id="excluirPlanoBtn" style="display:none; background:#d9534f; color:#fff; margin-top:10px;">Excluir Plano</button>
-        </form>
+        <!-- Modal de cadastro/edição de plano -->
+        <div id="modal-cadastro-plano" class="modal-editar" style="display:none;">
+            <div class="modal-editar-content">
+                <button type="button" id="fechar-modal-cadastro-plano" class="modal-editar-close" title="Fechar">&times;</button>
+                <h2 id="modalTituloPlano">Cadastrar Novo Plano</h2>
+                <form id="formCadastroPlano" class="modal-editar-form">
+                    <div class="modal-editar-group">
+                        <label for="nomePlano">Nome do Plano</label>
+                        <input type="text" id="nomePlano" name="nomePlano" required>
+                    </div>
+                    <div class="modal-editar-group">
+                        <label for="duracao">Duração (dias)</label>
+                        <input type="number" id="duracao" name="duracao" min="1" required>
+                    </div>
+                    <div class="modal-editar-group">
+                        <label>Benefícios</label>
+                        <input type="text" id="beneficio1" name="beneficio1" required placeholder="Benefício 1">
+                        <input type="text" id="beneficio2" name="beneficio2" required placeholder="Benefício 2">
+                        <input type="text" id="beneficio3" name="beneficio3" required placeholder="Benefício 3">
+                        <input type="text" id="beneficio4" name="beneficio4" required placeholder="Benefício 4">
+                    </div>
+                    <div class="modal-editar-actions">
+                        <button type="submit" id="cadastrarPlanoBtn" class="modal-editar-btn salvar">Cadastrar Plano</button>
+                        <button type="button" id="editarPlanoBtn" class="modal-editar-btn editar" style="display:none;">Salvar Alterações</button>
+                        <button type="button" id="excluirPlanoBtn" class="modal-editar-btn excluir" style="display:none;">Excluir Plano</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </main>
     <script src="../javascript/cadastrar-plano.js"></script>
     <script src="../javascript/logout.js"></script>

@@ -7,23 +7,38 @@
     width: 100vw;
     height: 100vh;
     background: rgba(0,0,0,0.35);
-    align-items: center;
-    justify-content: center;
     z-index: 1000;
     transition: background 0.2s;
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.35);
+    z-index: 1000;
+    transition: background 0.2s;
+    align-items: center;
+    justify-content: center;
 }
 .modal-editar[style*="display: flex"] {
-    display: flex !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .modal-editar-content {
     background: #fff;
     padding: 32px 28px 24px 28px;
     border-radius: 16px;
     min-width: 320px;
-    max-width: 95vw;
+    max-width: 30vw;
+    max-height: 800px;
     box-shadow: 0 4px 32px #0002;
     position: relative;
     animation: modalShow 0.25s cubic-bezier(.4,1.4,.6,1) 1;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
 }
 @keyframes modalShow {
     from { opacity: 0; transform: translateY(40px) scale(0.98); }
